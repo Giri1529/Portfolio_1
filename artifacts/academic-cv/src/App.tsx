@@ -6,6 +6,7 @@ import { Education } from "@/components/Education";
 import { Experience } from "@/components/Experience";
 import { Publications } from "@/components/Publications";
 import { Awards } from "@/components/Awards";
+import { InvitedTalks } from "@/components/InvitedTalks";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { TechnicalExpertise } from "@/components/TechnicalExpertise";
@@ -23,6 +24,9 @@ function Home() {
         <TechnicalExpertise />
         <Publications />
         <Awards />
+      </main>
+      <InvitedTalks />
+      <main className="max-w-[1200px] mx-auto px-6 md:px-12">
         <Contact />
       </main>
       <Footer />
