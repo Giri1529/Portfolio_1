@@ -23,43 +23,39 @@ function TalkCard({ talk, image, index, total }: TalkCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: cardRef,
-    offset: ["start end", "end start"],
+    offset: ["start end", "start 0.2"],
+    layoutEffect: false,
   });
 
-  const scale = useTransform(scrollYProgress, [0.5, 1], [1, 0.92]);
-  const imageY = useTransform(scrollYProgress, [0, 0.5], [60, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
+  const y = useTransform(scrollYProgress, [0, 0.6], [80, 0]);
   const isEven = index % 2 === 0;
 
   return (
-    <div
-      ref={cardRef}
-      className="h-[85vh] sticky flex items-center"
-      style={{ top: `${72 + index * 20}px`, zIndex: index + 1 }}
-    >
+    <div ref={cardRef} className="py-6">
       <motion.div
-        className="w-full bg-background border border-primary/10 overflow-hidden shadow-[0_4px_40px_-12px_rgba(0,0,0,0.08)]"
-        style={{ scale }}
+        className="bg-background border border-primary/10 overflow-hidden shadow-[0_2px_30px_-10px_rgba(0,0,0,0.06)]"
+        style={{ opacity, y }}
       >
-        <div className="grid md:grid-cols-2">
-          <motion.div
-            className={`relative aspect-[4/3] md:aspect-auto overflow-hidden ${isEven ? "md:order-1" : "md:order-2"}`}
-            style={{ y: imageY }}
+        <div className="grid md:grid-cols-2 min-h-[380px]">
+          <div
+            className={`relative overflow-hidden ${isEven ? "md:order-1" : "md:order-2"}`}
           >
             <img
               src={image}
               alt={talk.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover min-h-[280px] md:min-h-full"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent" />
-            <div className="absolute top-6 left-6">
-              <span className="inline-block px-3 py-1 bg-background/90 backdrop-blur-sm text-xs font-medium text-primary tracking-wider uppercase">
-                Talk {String(index + 1).padStart(2, "0")}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
+            <div className="absolute top-5 left-5">
+              <span className="inline-block px-3 py-1.5 bg-background/90 backdrop-blur-sm text-xs font-medium text-primary tracking-wider uppercase">
+                Talk {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
               </span>
             </div>
-          </motion.div>
+          </div>
 
-          <div className={`flex flex-col justify-center p-8 md:p-12 lg:p-16 ${isEven ? "md:order-2" : "md:order-1"}`}>
-            <div className="space-y-6">
+          <div className={`flex flex-col justify-center p-8 md:p-12 ${isEven ? "md:order-2" : "md:order-1"}`}>
+            <div className="space-y-5">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-px bg-primary/30" />
                 <span className="text-xs font-medium text-primary/40 uppercase tracking-[0.2em]">
@@ -67,11 +63,11 @@ function TalkCard({ talk, image, index, total }: TalkCardProps) {
                 </span>
               </div>
 
-              <h3 className="text-2xl md:text-3xl font-serif italic text-primary leading-snug">
+              <h3 className="text-xl md:text-2xl font-serif italic text-primary leading-snug">
                 {talk.title.replace(/"/g, "")}
               </h3>
 
-              <p className="text-base text-primary/60 leading-relaxed font-serif">
+              <p className="text-sm md:text-base text-primary/60 leading-relaxed font-serif">
                 {talk.audience}
               </p>
 
@@ -88,19 +84,6 @@ function TalkCard({ talk, image, index, total }: TalkCardProps) {
                 </a>
               )}
             </div>
-
-            <div className="mt-auto pt-10">
-              <div className="flex items-center gap-2 text-xs text-primary/30">
-                {Array.from({ length: total }, (_, j) => (
-                  <div
-                    key={j}
-                    className={`h-1 rounded-full transition-all ${
-                      j === index ? "w-6 bg-primary/50" : "w-1 bg-primary/15"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </motion.div>
@@ -114,7 +97,7 @@ export function InvitedTalks() {
   return (
     <section id="invited-talks" className="scroll-mt-20">
       <motion.div
-        className="pt-16 md:pt-24 mb-8"
+        className="pt-16 md:pt-24 mb-4"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
@@ -132,20 +115,18 @@ export function InvitedTalks() {
       </motion.div>
 
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">
-        <div className="relative" style={{ marginBottom: `${talks.length * 20}px`, position: "relative" }}>
-          {talks.map((talk, i) => (
-            <TalkCard
-              key={i}
-              talk={talk}
-              image={talkImages[i % talkImages.length]}
-              index={i}
-              total={talks.length}
-            />
-          ))}
-        </div>
+        {talks.map((talk, i) => (
+          <TalkCard
+            key={i}
+            talk={talk}
+            image={talkImages[i % talkImages.length]}
+            index={i}
+            total={talks.length}
+          />
+        ))}
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 pt-8 pb-16">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12 pt-4 pb-16">
         <motion.div
           className="flex items-center gap-4 p-6 border border-primary/10 bg-primary/[0.02]"
           initial={{ opacity: 0, y: 20 }}
@@ -156,12 +137,13 @@ export function InvitedTalks() {
           <img
             src={img6}
             alt="With students"
-            className="w-16 h-16 rounded-full object-cover shrink-0"
+            className="w-14 h-14 object-cover shrink-0"
+            style={{ borderRadius: "50%" }}
           />
           <p className="text-sm font-serif italic text-primary/60 leading-relaxed">
             "Knowledge grows when shared. Every talk is an opportunity to plant seeds of curiosity in young minds."
           </p>
-          <span className="text-xs text-primary/35 shrink-0">— N.L. Swathi</span>
+          <span className="text-xs text-primary/35 shrink-0 hidden sm:block">— N.L. Swathi</span>
         </motion.div>
       </div>
     </section>
