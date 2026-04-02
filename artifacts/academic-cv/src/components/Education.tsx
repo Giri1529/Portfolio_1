@@ -1,32 +1,47 @@
-import React from "react";
 import { Section } from "./Section";
 import { cvData } from "@/data";
-import { GraduationCap } from "lucide-react";
+
+const decorativeIcons = [
+  <svg key="0" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L12 22M2 12L22 12M5.64 5.64L18.36 18.36M18.36 5.64L5.64 18.36" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>,
+  <svg key="1" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 14 8 12 12C10 8 12 2 12 2Z" stroke="currentColor" strokeWidth="1.2"/><path d="M2 12C2 12 8 14 12 12C8 10 2 12 2 12Z" stroke="currentColor" strokeWidth="1.2"/><path d="M22 12C22 12 16 14 12 12C16 10 22 12 22 12Z" stroke="currentColor" strokeWidth="1.2"/><path d="M12 22C12 22 14 16 12 12C10 16 12 22 12 22Z" stroke="currentColor" strokeWidth="1.2"/></svg>,
+  <svg key="2" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.2"/><path d="M12 2v7M12 15v7M2 12h7M15 12h7" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>,
+];
 
 export function Education() {
   return (
     <Section id="education" title="Education">
-      <div className="relative border-l border-gray-200 ml-3 pl-8 space-y-12">
+      <div className="flex flex-col items-center space-y-0 max-w-xl mx-auto">
         {cvData.education.map((edu, i) => (
-          <div key={i} className="relative">
-            <span className="absolute -left-[41px] flex items-center justify-center w-8 h-8 rounded-full bg-white border border-gray-200 text-accent">
-              <GraduationCap className="w-4 h-4" />
-            </span>
-            <div className="flex flex-col md:flex-row md:items-baseline justify-between mb-1">
-              <h3 className="text-xl font-bold text-primary">{edu.degree}</h3>
-              <span className="text-sm font-medium text-accent md:ml-4 whitespace-nowrap bg-orange-50 px-2 py-1 rounded-sm">
-                {edu.status}
+          <div key={i} className="w-full">
+            <div className="flex items-center gap-4 py-5">
+              <span className="text-primary/60 shrink-0">
+                {decorativeIcons[i % decorativeIcons.length]}
               </span>
+              <div>
+                <h3 className="text-lg font-medium text-primary">{edu.degree}</h3>
+                <p className="text-sm text-primary/60 mt-0.5">{edu.institution}</p>
+                <p className="text-xs text-primary/45 mt-0.5">{edu.status}</p>
+              </div>
             </div>
-            <p className="text-lg text-gray-700 mb-2 font-serif">{edu.institution}</p>
+            {i < cvData.education.length - 1 && <div className="w-full h-px bg-primary/15" />}
             {edu.coursework && (
-              <div className="mt-4 bg-gray-50 p-4 rounded-md border border-gray-100">
-                <strong className="text-sm font-semibold text-primary block mb-1">Relevant Coursework & Internships:</strong>
-                <p className="text-sm text-gray-600 leading-relaxed">{edu.coursework}</p>
+              <div className="ml-10 mb-4 text-sm text-primary/55 leading-relaxed">
+                <span className="font-medium text-primary/70">Relevant Coursework: </span>{edu.coursework}
               </div>
             )}
           </div>
         ))}
+        <div className="w-full pt-4">
+          <div className="flex items-center gap-4 py-5 border-t border-primary/15">
+            <span className="text-primary/60 shrink-0">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 8h16M4 12h16M4 16h16M8 4v16" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
+            </span>
+            <div>
+              <h3 className="text-lg font-medium text-primary">Additional Certifications</h3>
+              <p className="text-sm text-primary/60 mt-0.5">Coursera, ICMR, Manipal University, Bioinformatics Training</p>
+            </div>
+          </div>
+        </div>
       </div>
     </Section>
   );

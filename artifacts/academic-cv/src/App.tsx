@@ -8,17 +8,19 @@ import { Publications } from "@/components/Publications";
 import { Awards } from "@/components/Awards";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { TechnicalExpertise } from "@/components/TechnicalExpertise";
 import NotFound from "@/pages/not-found";
 
 function Home() {
   return (
-    <div className="min-h-screen bg-white text-gray-800 font-sans selection:bg-accent/20 selection:text-primary">
+    <div className="min-h-screen bg-background text-foreground font-sans">
       <Navbar />
-      <main className="container mx-auto px-4 md:px-8 max-w-5xl">
+      <main className="max-w-[1200px] mx-auto px-6 md:px-12">
         <Hero />
         <About />
-        <Education />
         <Experience />
+        <Education />
+        <TechnicalExpertise />
         <Publications />
         <Awards />
         <Contact />

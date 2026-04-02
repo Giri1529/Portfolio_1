@@ -1,12 +1,38 @@
-import React from "react";
 import { cvData } from "@/data";
 
 export function Footer() {
   return (
-    <footer className="bg-primary text-white py-8 mt-12">
-      <div className="container mx-auto px-4 text-center">
-        <p className="font-serif text-lg mb-2">{cvData.personal.name}</p>
-        <p className="text-gray-400 text-sm">© {new Date().getFullYear()} N.L. Swathi. All rights reserved.</p>
+    <footer className="border-t border-primary/15 mt-8">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12 py-12">
+        <div className="grid md:grid-cols-[1fr_1fr_1fr] gap-8">
+          <div>
+            <div className="flex items-center gap-2 text-primary mb-4">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
+                <path d="M12 2L12 22M2 12L22 12M5.64 5.64L18.36 18.36M18.36 5.64L5.64 18.36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              <span className="font-serif text-lg font-semibold">{cvData.personal.name}</span>
+            </div>
+            <div className="text-sm text-primary/50 space-y-3">
+              <p className="font-medium text-primary/60">Stay Connected</p>
+              <div className="flex gap-4">
+                <a href={cvData.personal.linkedin} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors" data-testid="footer-linkedin">LinkedIn</a>
+                <a href={cvData.personal.orcid} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors" data-testid="footer-orcid">ORCID</a>
+                <a href={cvData.personal.scopus} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors" data-testid="footer-scopus">Scopus</a>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-sm text-primary/50">
+            <p>{cvData.personal.phone}</p>
+            <p>{cvData.personal.email}</p>
+            <p className="mt-4">{cvData.personal.location}</p>
+          </div>
+
+          <div className="text-sm text-primary/50 md:text-right">
+            <p>&copy; 2025 {cvData.personal.name}.</p>
+            <p className="mt-1">PhD Scholar | Pharm D | Researcher</p>
+          </div>
+        </div>
       </div>
     </footer>
   );

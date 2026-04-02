@@ -1,52 +1,78 @@
-import React from "react";
-import { useScrollSpy } from "@/hooks/use-scroll-spy";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
+  { id: "home", label: "Home" },
   { id: "about", label: "About" },
+  { id: "experience", label: "Work Experience" },
   { id: "education", label: "Education" },
-  { id: "experience", label: "Experience" },
   { id: "publications", label: "Publications" },
-  { id: "awards", label: "Awards" },
+  { id: "achievements", label: "Achievements" },
   { id: "contact", label: "Contact" },
 ];
 
 export function Navbar() {
-  const activeId = useScrollSpy(navLinks.map((l) => l.id));
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
+    setMobileOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      const top = element.getBoundingClientRect().top + window.scrollY - 80;
+      const top = element.getBoundingClientRect().top + window.scrollY - 72;
       window.scrollTo({ top, behavior: "smooth" });
     }
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all duration-300">
-      <div className="container mx-auto px-4 md:px-8">
-        <div className="flex h-16 items-center justify-between">
-          <div className="font-serif font-bold text-xl text-primary tracking-tight">
-            N.L. Swathi
-          </div>
-          <nav className="hidden md:flex items-center space-x-1">
+    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+        <div className="flex h-[72px] items-center justify-between">
+          <a href="#home" onClick={(e) => handleScroll(e, "home")} className="flex items-center gap-2 text-primary" data-testid="nav-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
+              <path d="M12 2L12 22M2 12L22 12M5.64 5.64L18.36 18.36M18.36 5.64L5.64 18.36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+            <span className="font-serif text-lg font-semibold tracking-tight">N.L. Swathi</span>
+          </a>
+          <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => handleScroll(e, link.id)}
-                className={`px-4 py-2 text-sm font-medium transition-colors rounded-md hover:bg-gray-100 hover:text-primary
-                  ${activeId === link.id ? "text-primary bg-gray-50" : "text-gray-600"}
-                `}
+                className="px-3 py-2 text-[13px] font-medium text-primary/70 hover:text-primary transition-colors"
                 data-testid={`nav-${link.id}`}
               >
                 {link.label}
               </a>
             ))}
           </nav>
-          {/* Mobile menu could be added here, keeping it simple for now */}
+          <button
+            className="md:hidden text-primary p-2"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            data-testid="nav-mobile-toggle"
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
       </div>
+      {mobileOpen && (
+        <div className="md:hidden bg-background border-t border-border">
+          <nav className="flex flex-col px-6 py-4 gap-1">
+            {navLinks.map((link) => (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                onClick={(e) => handleScroll(e, link.id)}
+                className="px-3 py-3 text-sm font-medium text-primary/70 hover:text-primary transition-colors border-b border-border/50 last:border-0"
+                data-testid={`nav-mobile-${link.id}`}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
