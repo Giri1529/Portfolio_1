@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Section } from "./Section";
 import { cvData } from "@/data";
 import { ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function Publications() {
   const [showAllArticles, setShowAllArticles] = useState(false);
@@ -18,19 +19,32 @@ export function Publications() {
   return (
     <Section id="publications" title="Publications">
       <div className="space-y-16">
-        <div className="flex items-center gap-6 text-sm text-primary/60">
+        <motion.div
+          className="flex items-center gap-6 text-sm text-primary/60"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           <span><strong className="text-primary text-lg font-serif">{cvData.stats.articles}</strong> Articles</span>
           <span className="w-px h-4 bg-primary/20" />
           <span><strong className="text-primary text-lg font-serif">{cvData.stats.bookChapters}</strong> Book Chapters</span>
           <span className="w-px h-4 bg-primary/20" />
           <span><strong className="text-primary text-lg font-serif">{cvData.stats.ongoingProjects}</strong> Ongoing Projects</span>
-        </div>
+        </motion.div>
 
         <div>
           <h3 className="text-xl font-serif font-semibold text-primary mb-6">Articles</h3>
           <div className="space-y-6">
             {displayedArticles.map((article, i) => (
-              <div key={i} className="border-t border-primary/10 pt-5">
+              <motion.div
+                key={i}
+                className="border-t border-primary/10 pt-5"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ duration: 0.4, delay: i * 0.04, ease: "easeOut" }}
+              >
                 <div className="grid md:grid-cols-[40px_1fr] gap-3">
                   <span className="text-sm text-primary/40 font-mono pt-0.5">{String(i + 1).padStart(2, "0")}</span>
                   <div>
@@ -54,7 +68,7 @@ export function Publications() {
                     )}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
           {cvData.publications.articles.length > 8 && (
@@ -72,7 +86,14 @@ export function Publications() {
           <h3 className="text-xl font-serif font-semibold text-primary mb-6">Book Chapters</h3>
           <div className="space-y-6">
             {displayedChapters.map((chapter, i) => (
-              <div key={i} className="border-t border-primary/10 pt-5">
+              <motion.div
+                key={i}
+                className="border-t border-primary/10 pt-5"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ duration: 0.4, delay: i * 0.04, ease: "easeOut" }}
+              >
                 <div className="grid md:grid-cols-[40px_1fr] gap-3">
                   <span className="text-sm text-primary/40 font-mono pt-0.5">{String(i + 1).padStart(2, "0")}</span>
                   <div>
@@ -85,7 +106,7 @@ export function Publications() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
           {cvData.publications.chapters.length > 5 && (
@@ -103,12 +124,19 @@ export function Publications() {
           <h3 className="text-xl font-serif font-semibold text-primary mb-6">Ongoing Projects</h3>
           <div className="space-y-4">
             {cvData.projects.map((project, i) => (
-              <div key={i} className="border-t border-primary/10 pt-4">
+              <motion.div
+                key={i}
+                className="border-t border-primary/10 pt-4"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ duration: 0.4, delay: i * 0.05, ease: "easeOut" }}
+              >
                 <div className="grid md:grid-cols-[40px_1fr] gap-3">
                   <span className="text-sm text-primary/40 font-mono pt-0.5">{String(i + 1).padStart(2, "0")}</span>
                   <p className="text-primary/80 leading-relaxed">{project}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

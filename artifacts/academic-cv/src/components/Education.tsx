@@ -1,5 +1,6 @@
 import { Section } from "./Section";
 import { cvData } from "@/data";
+import { motion } from "framer-motion";
 
 const decorativeIcons = [
   <svg key="0" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L12 22M2 12L22 12M5.64 5.64L18.36 18.36M18.36 5.64L5.64 18.36" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>,
@@ -12,7 +13,14 @@ export function Education() {
     <Section id="education" title="Education">
       <div className="flex flex-col items-center space-y-0 max-w-xl mx-auto">
         {cvData.education.map((edu, i) => (
-          <div key={i} className="w-full">
+          <motion.div
+            key={i}
+            className="w-full"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
+          >
             <div className="flex items-center gap-4 py-5">
               <span className="text-primary/60 shrink-0">
                 {decorativeIcons[i % decorativeIcons.length]}
@@ -29,9 +37,15 @@ export function Education() {
                 <span className="font-medium text-primary/70">Relevant Coursework: </span>{edu.coursework}
               </div>
             )}
-          </div>
+          </motion.div>
         ))}
-        <div className="w-full pt-4">
+        <motion.div
+          className="w-full pt-4"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+        >
           <div className="flex items-center gap-4 py-5 border-t border-primary/15">
             <span className="text-primary/60 shrink-0">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 8h16M4 12h16M4 16h16M8 4v16" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
@@ -41,7 +55,7 @@ export function Education() {
               <p className="text-sm text-primary/60 mt-0.5">Coursera, ICMR, Manipal University, Bioinformatics Training</p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </Section>
   );

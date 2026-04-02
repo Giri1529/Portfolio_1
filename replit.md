@@ -48,6 +48,18 @@ Every package extends `tsconfig.base.json` which sets `composite: true`. The roo
 - `pnpm run build` — runs `typecheck` first, then recursively runs `build` in all packages that define it
 - `pnpm run typecheck` — runs `tsc --build --emitDeclarationOnly` using project references
 
+### `artifacts/academic-cv` (`@workspace/academic-cv`)
+
+Single-page academic CV website for N.L. Swathi (PhD Scholar | Pharm D | Researcher). Built with React + Vite + Tailwind CSS + Framer Motion.
+
+- Design: Warm cream/beige background (#f5f0e8), dark navy text, Playfair Display serif headings, Inter body font
+- Animations: Framer Motion scroll-triggered fade-in animations on all sections
+- Sections: Hero, About, Experience, Education, Technical Expertise, Publications, Awards, Invited Talks, Contact, Footer
+- All CV data stored in `src/data.ts`
+- Generated images: `src/assets/hero-portrait.png` (researcher portrait), `src/assets/library-about.png` (library scene)
+- No backend — fully static site
+- Entry: `src/App.tsx`, CSS: `src/index.css`
+
 ## Packages
 
 ### `artifacts/api-server` (`@workspace/api-server`)

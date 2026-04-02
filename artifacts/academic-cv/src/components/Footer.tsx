@@ -1,8 +1,15 @@
 import { cvData } from "@/data";
+import { motion } from "framer-motion";
 
 export function Footer() {
   return (
-    <footer className="border-t border-primary/15 mt-8">
+    <motion.footer
+      className="border-t border-primary/15 mt-8"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+    >
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 py-12">
         <div className="grid md:grid-cols-[1fr_1fr_1fr] gap-8">
           <div>
@@ -34,6 +41,6 @@ export function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { id: "home", label: "Home" },
@@ -25,7 +26,12 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm">
+    <motion.header
+      className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         <div className="flex h-[72px] items-center justify-between">
           <a href="#home" onClick={(e) => handleScroll(e, "home")} className="flex items-center gap-2 text-primary" data-testid="nav-logo">
@@ -35,16 +41,19 @@ export function Navbar() {
             <span className="font-serif text-lg font-semibold tracking-tight">N.L. Swathi</span>
           </a>
           <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
+            {navLinks.map((link, i) => (
+              <motion.a
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => handleScroll(e, link.id)}
                 className="px-3 py-2 text-[13px] font-medium text-primary/70 hover:text-primary transition-colors"
                 data-testid={`nav-${link.id}`}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
               >
                 {link.label}
-              </a>
+              </motion.a>
             ))}
           </nav>
           <button
@@ -56,23 +65,31 @@ export function Navbar() {
           </button>
         </div>
       </div>
-      {mobileOpen && (
-        <div className="md:hidden bg-background border-t border-border">
-          <nav className="flex flex-col px-6 py-4 gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.id}
-                href={`#${link.id}`}
-                onClick={(e) => handleScroll(e, link.id)}
-                className="px-3 py-3 text-sm font-medium text-primary/70 hover:text-primary transition-colors border-b border-border/50 last:border-0"
-                data-testid={`nav-mobile-${link.id}`}
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      )}
-    </header>
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            className="md:hidden bg-background border-t border-border overflow-hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <nav className="flex flex-col px-6 py-4 gap-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  onClick={(e) => handleScroll(e, link.id)}
+                  className="px-3 py-3 text-sm font-medium text-primary/70 hover:text-primary transition-colors border-b border-border/50 last:border-0"
+                  data-testid={`nav-mobile-${link.id}`}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }

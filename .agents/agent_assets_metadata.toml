@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "hrprIDpFD6U0sT1oWrulI"
+uri = "file://artifacts/academic-cv/src/assets/hero-portrait.png"
+type = "image"
+title = "researcher portrait photo"
+
+[[generated]]
+id = "RuqtVZJe2HpIokurKEwwB"
+uri = "file://artifacts/academic-cv/src/assets/library-about.png"
+type = "image"
+title = "academic library interior"

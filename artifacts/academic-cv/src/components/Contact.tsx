@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Section } from "./Section";
 import { cvData } from "@/data";
+import { motion } from "framer-motion";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -20,7 +21,14 @@ export function Contact() {
   return (
     <Section id="contact" title="Contact">
       <div className="grid md:grid-cols-2 gap-12">
-        <form onSubmit={handleSubmit} className="space-y-5 max-w-md">
+        <motion.form
+          onSubmit={handleSubmit}
+          className="space-y-5 max-w-md"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <div>
             <label className="block text-sm text-primary/60 mb-1.5">First name *</label>
             <input
@@ -81,9 +89,15 @@ export function Contact() {
           >
             Submit
           </button>
-        </form>
+        </motion.form>
 
-        <div className="space-y-6 text-sm text-primary/70">
+        <motion.div
+          className="space-y-6 text-sm text-primary/70"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+        >
           <div>
             <h4 className="font-medium text-primary mb-2">Contact Information</h4>
             <p>{cvData.personal.email}</p>
@@ -99,7 +113,7 @@ export function Contact() {
               <a href={cvData.personal.researchId} target="_blank" rel="noreferrer" className="block hover:text-primary transition-colors" data-testid="contact-researchid">Research ID</a>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </Section>
   );
