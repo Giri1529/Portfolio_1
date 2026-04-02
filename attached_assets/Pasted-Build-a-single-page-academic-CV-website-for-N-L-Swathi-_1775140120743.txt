@@ -1,0 +1,126 @@
+Build a single-page academic CV website for N.L. Swathi, a PhD researcher and Pharm D graduate. 
+The design should match the Wix "Academic CV (Scholarly)" template style — clean, minimal, 
+professional with a white/off-white background, dark navy/charcoal text, subtle serif fonts 
+for headings, and a sidebar or top-header layout. Use HTML, CSS, and vanilla JavaScript only.
+
+=== DESIGN REQUIREMENTS ===
+- Sticky top navigation bar with links: About, Education, Experience, Publications, Awards, Contact
+- Hero/header section with name, title, and contact links
+- Clean two-column layout where applicable (sidebar for profile info, main area for content)
+- Thin horizontal dividers between sections
+- Subtle hover effects on links
+- Fully responsive (mobile + desktop)
+- Color palette: white background, #1a2340 (dark navy) for headings, #444 for body text, 
+  a soft gold or teal accent (#c8a96e or #2a9d8f) for highlights
+- Font: Georgia or "Playfair Display" (Google Font) for headings, "Inter" or "Lato" for body
+
+=== PERSONAL DETAILS ===
+Name: N.L. Swathi
+Title: PhD Scholar | Pharm D | Researcher
+Location: Manipal, Karnataka, India
+Email: Swathiwathi1999@gmail.com
+Phone: +91 6309501665
+LinkedIn: https://www.linkedin.com/in/swathi-naraganti-06ba64203/
+ORCID: https://orcid.org/my-orcid?orcid=0000-0002-3695-0732
+Scopus: https://www.scopus.com/authid/detail.uri?authorId=58336556300
+Research ID: https://researchid.co/nl.swathi
+
+=== EDUCATION ===
+1. PhD – Manipal College of Nursing, Manipal Academy of Higher Education, Manipal, Karnataka (Ongoing)
+2. Pharm D (Doctor of Pharmacy) – Jawaharlal Nehru Technological University, Anantapuramu, Chittoor, India | Graduation: March 2025
+   Relevant Coursework:
+   - Pharmacology of anti-bacterial agents (Coursera)
+   - Clinical research internship – Deepam Hospitals
+   - Introduction to Systematic Review and Meta-Analysis – ICMR
+   - Introduction to Medical Writing – Manipal University
+   - Hands-on Training in Bioinformatics
+3. Intermediate BiPC – Sri Surya Junior College, Nagari, Chittoor | 98.3% | June 2016
+
+=== EXPERIENCE ===
+1. Research Mentor and Article Editor | The Good Research Project | Part-time, Remote | May 2024 – April 2025
+   - Led and coordinated multiple research projects ensuring timely manuscript submission
+   - Mentored junior researchers on methodologies and publication strategies
+   - Managed article review processes with cross-functional teams
+
+2. Public Health and Epidemiology Research Intern | ICMR – National Institute of Epidemiology, Chennai | October 2024
+   - Conducted systematic review and meta-analysis in diabetes (currently under journal review)
+
+3. Content Writer & Content Leader | ThinkRoman, Orz | Remote | December 2022 – April 2025
+   - Produced educational content on healthcare and research advancements
+   - Led interviews (https://town.thinkroman.com/team/ni-swathi)
+
+=== KEY COMPETENCIES ===
+- Project Management, Coordination, Communication
+- Technical: MS Word, MS PowerPoint
+- Languages: English (Fluent), Tamil and Telugu (Native)
+- Interests: Molecular Docking, Virtual Screening, Patient Counseling, News Writing, 
+  Bioinformatics & Systems Biology, Communication, Management
+
+=== TECHNICAL EXPERTISE ===
+- Computational Biology: Molecular docking, virtual screening, library preparation for drug discovery
+- Patient Care: Patient counseling, medication adherence, personalized treatment strategies
+- Scientific Writing & Editing: Research articles, review papers, news features
+- Data Analysis: SPSS
+- Drug Development: ADME studies, pharmacokinetics
+- Communication & Teamwork, Public Speaking, Management & Leadership
+- Project Coordination, Stakeholder Communication
+
+=== HONORS & AWARDS ===
+- INSPIRE Award – Andhra Pradesh Government (July 2017): Awarded to top 1% after Intermediate Exam
+- Second Prize in Pharmaceutical Chemistry Oral Presentation – Bharath University (Sept 2022): "In Silico Molecular Docking Study on Novel Drug Design for Mycobacterium tuberculosis"
+- Certificate of Distinction – Director General of Police (October 2013): Essay competition on Police Commemoration Day
+- Academic Excellence Award – Sri Surya Junior College (July 2017): Top scorer in BiPC, Chittoor Range
+- Certificate of Appreciation – Sri Venkateswara College of Pharmacy (July 2022)
+- Second Prize in Medicinal Chemistry – Bharath University (August 2023)
+- Presentation of Review Paper – DECON International Conference (August 2023): "Epigenetics in Diabetes"
+- Rx Doctor Award – Rx Doctor (December 2023): Outstanding contributions to patient care
+- First Prize in Patient Information Leaflet – International Conference (December 2023)
+- Reviewer – IGI Global: Journal of Emerging Trends and Novel Research; International Journal of Health Systems and Translational Medicine (January 2024)
+
+=== INVITED TALKS ===
+1. "Sharing Experiences in Clinical Research" – Believers Church Medical College (Pharm D interns)
+2. "Insights into Pharm D Career Opportunities" – Invited by Dr. Jeffry Winner
+3. "Career Path and Achievements" – Featured Speaker at CLIMED (200+ attendees) | YouTube: https://www.youtube.com/watch?v=ISgzvyaojfc
+4. "Reading Habits in Young Minds" – Karpagam College of Pharmacy, Coimbatore (300+ attendees including professors)
+5. "Scientific Training and Writing" – Sri Venkateswara College of Pharmacy
+
+=== SELECTED PUBLICATIONS (show top 8, add "View All" toggle for the rest) ===
+
+ARTICLES (16 total, show first 8):
+1. Swathi NL et al. Review Of Pancreatic Cells Trans Differentiation In Diabetes Treatment. 2022.
+2. Swathi NL et al. Personalized Interventions For Managing Diabetes Distress And Improving Glycemic Control. World J Pharm Res. 2024.
+3. Swathi NL et al. A Multifaceted Analysis Of Important Clinical Trials On Tirzepatide. World J Pharm Res. 2024. https://www.researchgate.net/publication/378655656
+4. Ali A, ..., N.L.Swathi. Currently Trending And Futuristic Biological Modalities In Diabetes Management. J Popul Ther Clin Pharmacol. 2023. https://www.researchgate.net/publication/376098584
+5. Gandhi A, ..., N.L.Swathi. Mindfulness Training For Cardiovascular Health In Type 2 Diabetes. Current Problems In Cardiology. 2024. https://pubmed.ncbi.nlm.nih.gov/39313043/
+6. Lakhani HA, ..., N.L.Swathi. Intermittent fasting versus continuous caloric restriction in type 2 diabetes. Prim Care Diabetes. 2025. PMID 40000314
+7. Swathi NL et al. Epigenetic Mechanisms in the Transfer of Metabolic Disorders. Cureus. 2025.
+8. Swathi NL et al. Evaluating the Impact of Individualized Interventions on Diabetes Distress. Cureus. 2025. https://doi.org/10.7759/cureus.80890
+
+BOOK CHAPTERS (19 total, show first 5 then toggle):
+1. Swathi NL & Kumar A. Advanced Technologies in Clinical Research and Drug Development. IGI Global. 2024.
+2. Swathi NL et al. Precision Medicine: Unleashing The Future Of Healthcare. Iterative International Publishers. 2024.
+3. Swathi NL et al. Healthcare Information Systems Management. IGI Global. 2024.
+4. Swathi NL et al. Medicinal and Nutritional Importance of Punica granatum. Springer, Singapore. 2024. https://doi.org/10.1007/978-981-97-6895-0_11
+5. Swathi NL et al. The Role of Artificial Intelligence in Psoriasis. Springer Nature Switzerland. 2025. https://doi.org/10.1007/978-3-031-78139-1_3
+
+=== ONGOING PROJECTS ===
+- Chapter under production – Apple Academic Press (Exosomes)
+- Fetal and Neonatal Outcomes: Systematic Review and Meta-analysis (Preprint) https://doi.org/10.21203/rs.3.rs-5067026/v1
+- Holistic Approach to Depression and Migraine in Female – Accepted by AAP/Taylor & Francis/CRC Press
+- Role of Bioactive Ingredients in Osteoarthritis – Under Review
+- Gender Disparity Analysis Research Article – Under Review
+- Berries: Bioactive Components – Chapter accepted in Elsevier
+- The Neurobiology of Learning and Memory – Accepted
+- Temporal and Geographic Trends in Diabetes-Related Mortality – Ongoing
+
+=== THESIS ===
+1. The Impact of Individualized Interventions on Diabetes Distress and Glycemic Outcomes: A Quasi-experimental Analysis
+2. Targeting the Invasion Protein A from the Type Three Secretion System of Salmonella Typhi: A Comprehensive Computational Drug Design Approach
+
+=== IMPLEMENTATION NOTES ===
+- Add smooth scroll for navigation
+- Publications section: show 8 by default with a "Show All Publications" expand button
+- Add a small stats bar near the top: "16 Articles | 19 Book Chapters | 8 Ongoing Projects"
+- Footer with copyright: © 2025 N.L. Swathi
+- All external links open in new tab
+- Add a subtle fade-in animation when sections scroll into view
