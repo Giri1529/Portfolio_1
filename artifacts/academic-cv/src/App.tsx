@@ -12,23 +12,57 @@ import { Footer } from "@/components/Footer";
 import { TechnicalExpertise } from "@/components/TechnicalExpertise";
 import NotFound from "@/pages/not-found";
 
+function SectionBand({ children, variant = "light" }: { children: React.ReactNode; variant?: "light" | "warm" }) {
+  return (
+    <div className={variant === "warm" ? "bg-section-warm" : "bg-background"}>
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+        {children}
+      </div>
+    </div>
+  );
+}
+
 function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans">
+    <div className="min-h-screen text-foreground font-sans">
       <Navbar />
-      <main className="max-w-[1200px] mx-auto px-6 md:px-12">
+
+      <SectionBand variant="light">
         <Hero />
+      </SectionBand>
+
+      <SectionBand variant="warm">
         <About />
+      </SectionBand>
+
+      <SectionBand variant="light">
         <Experience />
+      </SectionBand>
+
+      <SectionBand variant="warm">
         <Education />
+      </SectionBand>
+
+      <SectionBand variant="light">
         <TechnicalExpertise />
+      </SectionBand>
+
+      <SectionBand variant="warm">
         <Publications />
+      </SectionBand>
+
+      <SectionBand variant="light">
         <Awards />
-      </main>
-      <InvitedTalks />
-      <main className="max-w-[1200px] mx-auto px-6 md:px-12">
+      </SectionBand>
+
+      <div className="bg-section-warm">
+        <InvitedTalks />
+      </div>
+
+      <SectionBand variant="light">
         <Contact />
-      </main>
+      </SectionBand>
+
       <Footer />
     </div>
   );
