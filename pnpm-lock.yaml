@@ -165,6 +165,13 @@ importers:
         version: 5.9.3
 
   artifacts/academic-cv:
+    dependencies:
+      gsap:
+        specifier: ^3.14.2
+        version: 3.14.2
+      vanilla-tilt:
+        specifier: ^1.8.1
+        version: 1.8.1
     devDependencies:
       '@hookform/resolvers':
         specifier: ^3.10.0
@@ -2277,6 +2284,9 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
+  gsap@3.14.2:
+    resolution: {integrity: sha512-P8/mMxVLU7o4+55+1TCnQrPmgjPKnwkzkXOK1asnR9Jg2lna4tEY5qBJjMmAaOBDDZWtlRjBXjLa0w53G/uBLA==}
+
   has-symbols@1.1.0:
     resolution: {integrity: sha512-1cDNdwJ2Jaohmb3sg4OmKaMBwuC48sYni5HUw2DvsC8LjGTLK9h+eb1X6RyuOHe4hT0ULCW68iomhjUoKUqlPQ==}
     engines: {node: '>= 0.4'}
@@ -3074,6 +3084,9 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  vanilla-tilt@1.8.1:
+    resolution: {integrity: sha512-hPB1XUsnh+SIeVSW2beb5RnuFxz4ZNgxjGD78o52F49gS4xaoLeEMh9qrQnJrnEn/vjjBI7IlxrrXmz4tGV0Kw==}
 
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
@@ -4884,6 +4897,8 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
+  gsap@3.14.2: {}
+
   has-symbols@1.1.0: {}
 
   hasown@2.0.2:
@@ -5627,6 +5642,8 @@ snapshots:
       react: 19.1.0
 
   util-deprecate@1.0.2: {}
+
+  vanilla-tilt@1.8.1: {}
 
   vary@1.1.2: {}
 
