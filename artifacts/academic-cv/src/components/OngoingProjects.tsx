@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { Section } from "./Section";
 import { cvData } from "@/data";
 import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+
+const MOBILE_INITIAL_COUNT = 4;
 
 const statusColors: Record<string, string> = {
   "Under Production": "bg-[rgba(184,150,62,0.12)] text-[#b8963e] border-[rgba(184,150,62,0.3)]",
@@ -11,13 +15,19 @@ const statusColors: Record<string, string> = {
 };
 
 export function OngoingProjects() {
+  const [showAll, setShowAll] = useState(false);
+  const projects = cvData.projects;
+  const hasMore = projects.length > MOBILE_INITIAL_COUNT;
+
   return (
     <Section id="projects" subtitle="Current Work" title="Ongoing" titleAccent="Projects">
       <div className="space-y-0">
-        {cvData.projects.map((project, i) => (
+        {projects.map((project, i) => (
           <motion.div
             key={i}
-            className="flex items-start gap-4 py-4 px-5 bg-white border border-[rgba(184,150,62,0.25)] rounded-sm mb-3"
+            className={`flex items-start gap-4 py-4 px-5 bg-white border border-[rgba(184,150,62,0.25)] rounded-sm mb-3 ${
+              !showAll && i >= MOBILE_INITIAL_COUNT ? "hidden md:flex" : ""
+            }`}
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-20px" }}
@@ -51,6 +61,20 @@ export function OngoingProjects() {
           </motion.div>
         ))}
       </div>
+
+      {hasMore && (
+        <div className="md:hidden flex justify-center mt-6">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="flex items-center gap-2 px-6 py-3 border border-[rgba(184,150,62,0.35)] text-sm font-medium text-[#b8963e] hover:bg-[rgba(184,150,62,0.08)] transition-all duration-300 rounded-sm"
+          >
+            {showAll ? "Show Less" : `View All ${projects.length} Projects`}
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-300 ${showAll ? "rotate-180" : ""}`}
+            />
+          </button>
+        </div>
+      )}
     </Section>
   );
 }
