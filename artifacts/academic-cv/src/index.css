@@ -345,6 +345,14 @@ html {
   width: 100%;
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 .status-badge {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
