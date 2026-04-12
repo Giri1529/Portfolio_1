@@ -24,7 +24,7 @@ export function About() {
         viewport={{ once: true, margin: "-60px" }}
       >
         <motion.p variants={fadeUp} className="text-lg md:text-xl text-primary/80 leading-relaxed font-serif max-w-3xl">
-          {cvData.personal.name} is a dedicated PhD Scholar and Pharm D graduate with a wealth of experience in both research and academic mentoring. Her expertise encompasses Diabetes Research, Computational Biology, Drug Discovery, and Clinical Pharmacy. Throughout her career, she has mentored numerous researchers, guiding them towards successful academic paths.
+          I am a dedicated PhD Scholar and Pharm D graduate with a wealth of experience in both research and academic mentoring. My expertise spans Diabetes Research, Computational Biology, Drug Discovery, and Clinical Pharmacy. Throughout my career, I have mentored numerous researchers, guiding them towards successful academic paths.
         </motion.p>
 
         <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
@@ -37,7 +37,7 @@ export function About() {
           </div>
           <div className="flex items-center">
             <p className="text-base md:text-lg text-primary/70 leading-relaxed font-serif">
-              A highly respected scholar, she has made seminal contributions to the field, particularly in areas such as Diabetes Management, Molecular Docking, Epigenetics, and Drug Development. Her work has not only advanced theoretical foundations but has also led to practical applications in clinical and pharmaceutical sectors.
+              My research has led to meaningful contributions in Diabetes Management, Molecular Docking, Epigenetics, and Drug Development. I strive to bridge theoretical foundations with practical applications in clinical and pharmaceutical sectors — turning ideas into impact.
             </p>
           </div>
         </motion.div>

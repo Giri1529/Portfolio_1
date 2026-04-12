@@ -21,7 +21,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
           >
-            {cvData.personal.name} has a rich history of academic contributions, with a focus on Diabetes Research, Computational Biology, and Clinical Pharmacy. Her work is globally recognized, setting new standards and inspiring the next generation of scholars.
+            I am a PhD Scholar and Pharm D graduate with a passion for Diabetes Research, Computational Biology, and Clinical Pharmacy. My work bridges theory and practice — advancing knowledge while mentoring the next generation of researchers.
           </motion.p>
           <motion.a
             href="#about"
