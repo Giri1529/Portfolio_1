@@ -1,7 +1,7 @@
 import { Section } from "./Section";
 import { cvData } from "@/data";
 import { motion, type Variants } from "framer-motion";
-import aboutImg from "@assets/image_1776013311142.png";
+import aboutImg from "@assets/Confident_doctor_in_modern_clinic_1776013522116.png";
 
 const stagger: Variants = {
   hidden: {},
