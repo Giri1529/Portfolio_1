@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef, useEffect, useState } from "react";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { ExternalLink } from "lucide-react";
 import { cvData } from "@/data";
 
 import img1 from "@assets/WhatsApp_Image_2026-04-01_at_20.02.47_(1)_1775143779260.jpeg";
@@ -90,138 +90,137 @@ function DesktopTalkCard({ talk, image, index, total }: TalkCardProps) {
   );
 }
 
-function MobileRailCard({ talk, image, index, total }: TalkCardProps) {
+function MobileCardContent({ talk, image, index, total }: TalkCardProps) {
   return (
-    <div className="flex-shrink-0 w-[85vw] max-w-[340px] snap-center">
-      <div className="bg-[#f5f0e8] border border-[rgba(184,150,62,0.25)] overflow-hidden rounded-sm border-l-[3px] border-l-[#b8963e] h-full flex flex-col">
-        <div className="relative">
-          <img
-            src={image}
-            alt={talk.title}
-            className="w-full h-[220px] object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-          <div className="absolute top-3 left-3">
-            <span className="inline-block px-2.5 py-1 bg-[#f5f0e8]/90 backdrop-blur-sm text-[0.65rem] font-medium text-[#0d1b2a] tracking-wider uppercase">
-              {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
-            </span>
-          </div>
+    <div className="bg-[#f5f0e8] border border-[rgba(184,150,62,0.25)] overflow-hidden rounded-sm border-l-[3px] border-l-[#b8963e] h-full flex flex-col mx-4">
+      <div className="relative">
+        <img
+          src={image}
+          alt={talk.title}
+          className="w-full h-[200px] object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        <div className="absolute top-3 left-3">
+          <span className="inline-block px-2.5 py-1 bg-[#f5f0e8]/90 backdrop-blur-sm text-[0.65rem] font-medium text-[#0d1b2a] tracking-wider uppercase">
+            {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          </span>
+        </div>
+      </div>
+
+      <div className="p-5 flex flex-col flex-1">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="w-6 h-px bg-[#b8963e]" />
+          <span className="text-[0.6rem] font-medium text-[#7a7a9a] uppercase tracking-[0.2em]">
+            Invited Talk
+          </span>
         </div>
 
-        <div className="p-5 flex flex-col flex-1">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-6 h-px bg-[#b8963e]" />
-            <span className="text-[0.6rem] font-medium text-[#7a7a9a] uppercase tracking-[0.2em]">
-              Invited Talk
-            </span>
-          </div>
+        <h3 className="text-base font-serif italic text-[#0d1b2a] leading-snug mb-3 line-clamp-3">
+          {talk.title.replace(/"/g, "")}
+        </h3>
 
-          <h3 className="text-base font-serif italic text-[#0d1b2a] leading-snug mb-3 line-clamp-3">
-            {talk.title.replace(/"/g, "")}
-          </h3>
+        <p className="text-xs text-[#7a7a9a] leading-relaxed font-serif mb-4 line-clamp-2 flex-1">
+          {talk.audience}
+        </p>
 
-          <p className="text-xs text-[#7a7a9a] leading-relaxed font-serif mb-4 line-clamp-2 flex-1">
-            {talk.audience}
-          </p>
-
-          {talk.link && (
-            <a
-              href={talk.link}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 border border-[rgba(184,150,62,0.4)] text-xs font-medium text-[#0d1b2a] transition-all duration-300 rounded-sm self-start"
-            >
-              Watch
-              <ExternalLink className="w-3 h-3" />
-            </a>
-          )}
-        </div>
+        {talk.link && (
+          <a
+            href={talk.link}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 border border-[rgba(184,150,62,0.4)] text-xs font-medium text-[#0d1b2a] transition-all duration-300 rounded-sm self-start"
+          >
+            Watch
+            <ExternalLink className="w-3 h-3" />
+          </a>
+        )}
       </div>
     </div>
   );
 }
 
-function MobileRail() {
+function MobileStickyRail() {
   const talks = cvData.talks;
-  const railRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const scrollToIndex = (idx: number) => {
-    if (!railRef.current) return;
-    const clamped = Math.max(0, Math.min(idx, talks.length - 1));
-    const cards = railRef.current.children;
-    if (cards[clamped]) {
-      (cards[clamped] as HTMLElement).scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center",
-      });
-    }
-    setActiveIndex(clamped);
-  };
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
-  const handleScroll = () => {
-    if (!railRef.current) return;
-    const container = railRef.current;
-    const scrollLeft = container.scrollLeft;
-    const cardWidth = container.children[0]?.clientWidth || 280;
-    const gap = 16;
-    const idx = Math.round(scrollLeft / (cardWidth + gap));
-    setActiveIndex(Math.max(0, Math.min(idx, talks.length - 1)));
-  };
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const cardCount = talks.length;
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (!isMobile) return;
+    const idx = Math.min(Math.floor(v * cardCount), cardCount - 1);
+    setActiveIndex(Math.max(0, idx));
+  });
+
+  if (!isMobile) return null;
+
+  const scrollHeight = `${cardCount * 100}vh`;
 
   return (
-    <div className="md:hidden">
-      <div className="flex items-center justify-between px-6 mb-3">
-        <div className="flex gap-1.5">
+    <div ref={containerRef} className="md:hidden relative" style={{ height: scrollHeight }}>
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+        <div className="flex items-center justify-center gap-2 mb-4 px-6">
           {talks.map((_, i) => (
-            <button
+            <div
               key={i}
-              onClick={() => scrollToIndex(i)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-full transition-all duration-400 ${
                 i === activeIndex
-                  ? "w-6 bg-[#b8963e]"
-                  : "w-1.5 bg-[#b8963e]/25"
+                  ? "w-7 bg-[#b8963e]"
+                  : i < activeIndex
+                    ? "w-2 bg-[#b8963e]/50"
+                    : "w-2 bg-[#b8963e]/20"
               }`}
-              aria-label={`Go to talk ${i + 1}`}
             />
           ))}
+          <span className="ml-3 text-[0.6rem] text-[#7a7a9a] uppercase tracking-widest">
+            {activeIndex + 1} / {cardCount}
+          </span>
         </div>
-        <div className="flex gap-2">
-          <button
-            onClick={() => scrollToIndex(activeIndex - 1)}
-            className="w-8 h-8 flex items-center justify-center border border-[rgba(184,150,62,0.3)] rounded-full text-[#0d1b2a] disabled:opacity-30 transition-opacity"
-            disabled={activeIndex === 0}
-            aria-label="Previous talk"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => scrollToIndex(activeIndex + 1)}
-            className="w-8 h-8 flex items-center justify-center border border-[rgba(184,150,62,0.3)] rounded-full text-[#0d1b2a] disabled:opacity-30 transition-opacity"
-            disabled={activeIndex === talks.length - 1}
-            aria-label="Next talk"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
 
-      <div
-        ref={railRef}
-        onScroll={handleScroll}
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-6 pb-4 scrollbar-hide"
-        style={{ WebkitOverflowScrolling: "touch" }}
-      >
-        {talks.map((talk, i) => (
-          <MobileRailCard
-            key={i}
-            talk={talk}
-            image={talkImages[i % talkImages.length]}
-            index={i}
-            total={talks.length}
-          />
-        ))}
+        <div className="relative flex-1 flex items-center max-h-[75vh]">
+          {talks.map((talk, i) => (
+            <motion.div
+              key={i}
+              className="absolute inset-0 flex items-center"
+              initial={false}
+              animate={{
+                opacity: i === activeIndex ? 1 : 0,
+                x: i === activeIndex ? 0 : i > activeIndex ? 60 : -60,
+                scale: i === activeIndex ? 1 : 0.92,
+              }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              style={{ pointerEvents: i === activeIndex ? "auto" : "none" }}
+            >
+              <div className="w-full max-h-full">
+                <MobileCardContent
+                  talk={talk}
+                  image={talkImages[i % talkImages.length]}
+                  index={i}
+                  total={cardCount}
+                />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="flex justify-center mt-3 pb-2">
+          <span className="text-[0.55rem] text-[#7a7a9a]/60 uppercase tracking-[0.2em]">
+            ↕ Scroll to browse talks
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -255,7 +254,7 @@ export function InvitedTalks() {
         </div>
       </motion.div>
 
-      <MobileRail />
+      <MobileStickyRail />
 
       <div className="hidden md:block max-w-[1100px] mx-auto px-8">
         {talks.map((talk, i) => (
