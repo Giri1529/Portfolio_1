@@ -1,7 +1,7 @@
 import { Section } from "./Section";
 import { cvData } from "@/data";
 import { motion, type Variants } from "framer-motion";
-import libraryImg from "@/assets/library-about.png";
+import aboutImg from "@assets/image_1776013311142.png";
 
 const stagger: Variants = {
   hidden: {},
@@ -28,11 +28,11 @@ export function About() {
         </motion.p>
 
         <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
-          <div className="img-zoom aspect-[4/3] rounded-sm">
+          <div className="img-zoom aspect-[4/3] rounded-sm overflow-hidden">
             <img
-              src={libraryImg}
-              alt="Academic library setting"
-              className="w-full h-full object-cover"
+              src={aboutImg}
+              alt="N.L. Swathi"
+              className="w-full h-full object-cover object-top"
             />
           </div>
           <div className="flex items-center">
