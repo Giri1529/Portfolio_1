@@ -184,3 +184,164 @@
 html {
   scroll-behavior: smooth;
 }
+
+.hover-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.08), 0 4px 12px -4px rgba(0, 0, 0, 0.04);
+}
+
+.hover-glow {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
+}
+.hover-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.06);
+}
+
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.img-zoom:hover img {
+  transform: scale(1.05);
+}
+
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+.nav-link-hover {
+  position: relative;
+}
+.nav-link-hover::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: hsl(40, 45%, 55%);
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1), left 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link-hover:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  transition: left 0.5s ease;
+}
+.btn-shine:hover::before {
+  left: 100%;
+}
+
+.skill-tag {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.skill-tag:hover {
+  background: hsl(225, 40%, 18%);
+  color: hsl(40, 33%, 95%);
+  border-color: hsl(225, 40%, 18%);
+  transform: translateY(-2px);
+}
+
+.row-highlight {
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+.row-highlight:hover {
+  background-color: rgba(0, 0, 0, 0.015);
+  padding-left: 8px;
+}
+
+.award-card {
+  transition: background-color 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.award-card:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
+}
+
+.contact-card {
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.contact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.06);
+  border-color: hsl(40, 45%, 55%) !important;
+}
+.contact-card:hover .contact-icon {
+  background: hsl(40, 45%, 55%);
+}
+.contact-card:hover .contact-icon svg {
+  color: white;
+}
+
+.input-glow {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.input-glow:focus {
+  border-color: hsl(40, 45%, 55%) !important;
+  box-shadow: 0 0 0 3px hsla(40, 45%, 55%, 0.1);
+}
+
+.profile-link {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.profile-link:hover {
+  transform: translateX(4px);
+  border-color: hsl(40, 45%, 55%) !important;
+}
+
+.footer-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+.footer-link::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: hsl(40, 45%, 55%);
+  transition: width 0.3s ease;
+}
+.footer-link:hover::after {
+  width: 100%;
+}
+
+.status-badge {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.status-badge:hover {
+  transform: scale(1.05);
+}

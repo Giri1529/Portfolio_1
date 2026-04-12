@@ -9,13 +9,13 @@ export function Education() {
         {cvData.education.map((edu, i) => (
           <motion.div
             key={i}
-            className={`p-8 ${i < cvData.education.length - 1 ? "border-b md:border-b-0 md:border-r border-primary/10" : ""}`}
+            className={`hover-glow p-8 ${i < cvData.education.length - 1 ? "border-b md:border-b-0 md:border-r border-primary/10" : ""} cursor-default`}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
           >
-            <h3 className="text-xl font-serif font-semibold text-primary mb-3">{edu.degree}</h3>
+            <h3 className="text-xl font-serif font-semibold text-primary mb-3 transition-colors duration-300 hover:text-[hsl(40,45%,55%)]">{edu.degree}</h3>
             <p className="text-sm text-primary/70 leading-relaxed mb-2">
               {edu.institution}
             </p>
@@ -30,8 +30,8 @@ export function Education() {
             {edu.coursework && (
               <ul className="space-y-1.5 text-sm text-primary/60">
                 {edu.coursework.map((item: string, j: number) => (
-                  <li key={j} className="flex items-start gap-2">
-                    <span className="text-primary/30 mt-1.5 shrink-0">•</span>
+                  <li key={j} className="flex items-start gap-2 group transition-colors duration-300 hover:text-primary/80">
+                    <span className="text-primary/30 mt-1.5 shrink-0 transition-colors duration-300 group-hover:text-[hsl(40,45%,55%)]">•</span>
                     <span className="leading-relaxed">{item}</span>
                   </li>
                 ))}

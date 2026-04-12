@@ -26,7 +26,7 @@ export function Publications() {
         <div className="flex items-center gap-0 border-b border-primary/10" role="tablist">
           <button
             onClick={() => { setActiveTab("articles"); setShowAll(false); }}
-            className={`px-6 py-3 text-sm font-medium uppercase tracking-wider transition-colors relative ${
+            className={`px-6 py-3 text-sm font-medium uppercase tracking-wider transition-all duration-300 relative ${
               activeTab === "articles"
                 ? "text-primary"
                 : "text-primary/40 hover:text-primary/60"
@@ -45,7 +45,7 @@ export function Publications() {
           </button>
           <button
             onClick={() => { setActiveTab("chapters"); setShowAll(false); }}
-            className={`px-6 py-3 text-sm font-medium uppercase tracking-wider transition-colors relative ${
+            className={`px-6 py-3 text-sm font-medium uppercase tracking-wider transition-all duration-300 relative ${
               activeTab === "chapters"
                 ? "text-primary"
                 : "text-primary/40 hover:text-primary/60"
@@ -78,7 +78,7 @@ export function Publications() {
                 {displayedArticles.map((article, i) => (
                   <motion.div
                     key={i}
-                    className="border-t border-primary/8 py-6"
+                    className="row-highlight border-t border-primary/8 py-6 rounded-sm"
                     initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-20px" }}
@@ -106,7 +106,7 @@ export function Publications() {
                                 href={article.link}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center gap-1 text-sm text-[hsl(40,45%,55%)] hover:text-primary transition-colors"
+                                className="link-underline inline-flex items-center gap-1 text-sm text-[hsl(40,45%,55%)] hover:text-primary transition-colors"
                                 data-testid={`article-link-${i}`}
                               >
                                 <ExternalLink className="w-3 h-3" /> View
@@ -124,7 +124,7 @@ export function Publications() {
                 {displayedChapters.map((chapter, i) => (
                   <motion.div
                     key={i}
-                    className="border-t border-primary/8 py-6"
+                    className="row-highlight border-t border-primary/8 py-6 rounded-sm"
                     initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-20px" }}
@@ -161,7 +161,7 @@ export function Publications() {
         {canToggle && (
           <button
             onClick={() => setShowAll(!showAll)}
-            className="px-6 py-3 text-sm font-medium border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+            className="btn-shine px-6 py-3 text-sm font-medium border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
             data-testid={`toggle-${activeTab}`}
           >
             {showAll ? "Show Less" : `Show All ${activeTab === "articles" ? "Articles" : "Chapters"}`}

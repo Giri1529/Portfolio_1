@@ -25,7 +25,7 @@ export function Hero() {
           </motion.p>
           <motion.a
             href="#about"
-            className="inline-block px-6 py-3 text-sm font-medium border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+            className="btn-shine inline-block px-6 py-3 text-sm font-medium border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:tracking-wider"
             data-testid="hero-explore-btn"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -40,7 +40,7 @@ export function Hero() {
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="w-full max-w-[420px] aspect-[3/4] overflow-hidden">
+          <div className="img-zoom w-full max-w-[420px] aspect-[3/4] rounded-sm">
             <img
               src={heroImg}
               alt="N.L. Swathi - Researcher portrait"

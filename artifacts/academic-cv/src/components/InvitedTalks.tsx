@@ -33,12 +33,12 @@ function TalkCard({ talk, image, index, total }: TalkCardProps) {
   return (
     <div ref={cardRef} className="py-6">
       <motion.div
-        className="bg-background border border-primary/10 overflow-hidden shadow-[0_2px_30px_-10px_rgba(0,0,0,0.06)]"
+        className="hover-lift bg-background border border-primary/10 overflow-hidden shadow-[0_2px_30px_-10px_rgba(0,0,0,0.06)]"
         style={{ opacity, y }}
       >
         <div className="grid md:grid-cols-2 min-h-[380px]">
           <div
-            className={`relative overflow-hidden ${isEven ? "md:order-1" : "md:order-2"}`}
+            className={`img-zoom relative ${isEven ? "md:order-1" : "md:order-2"}`}
           >
             <img
               src={image}
@@ -75,7 +75,7 @@ function TalkCard({ talk, image, index, total }: TalkCardProps) {
                   href={talk.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-primary/20 text-sm font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all group"
+                  className="btn-shine inline-flex items-center gap-2 px-5 py-2.5 border border-primary/20 text-sm font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 group"
                   data-testid={`talk-link-${index}`}
                 >
                   Watch on YouTube
@@ -127,7 +127,7 @@ export function InvitedTalks() {
 
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 pt-4 pb-16">
         <motion.div
-          className="flex items-center gap-4 p-6 border border-primary/10 bg-primary/[0.02]"
+          className="hover-glow flex items-center gap-4 p-6 border border-primary/10 bg-primary/[0.02] cursor-default"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

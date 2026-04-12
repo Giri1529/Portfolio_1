@@ -18,7 +18,7 @@ export function OngoingProjects() {
         {cvData.projects.map((project, i) => (
           <motion.div
             key={i}
-            className="border-t border-primary/10 py-5"
+            className="row-highlight border-t border-primary/10 py-5 rounded-sm"
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-20px" }}
@@ -26,7 +26,7 @@ export function OngoingProjects() {
           >
             <div className="flex items-start gap-4">
               <span
-                className={`inline-block px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider border rounded-sm shrink-0 mt-0.5 ${
+                className={`status-badge inline-block px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider border rounded-sm shrink-0 mt-0.5 cursor-default ${
                   statusColors[project.status] || "bg-gray-100 text-gray-700 border-gray-200"
                 }`}
               >
@@ -43,7 +43,7 @@ export function OngoingProjects() {
                       href={project.link}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-sm text-[hsl(40,45%,55%)] hover:text-primary transition-colors"
+                      className="link-underline inline-flex items-center gap-1 text-sm text-[hsl(40,45%,55%)] hover:text-primary transition-colors"
                     >
                       <ExternalLink className="w-3 h-3" /> Link
                     </a>

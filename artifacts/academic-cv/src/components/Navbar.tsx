@@ -34,11 +34,11 @@ export function Navbar() {
     >
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         <div className="flex h-[72px] items-center justify-between">
-          <a href="#home" onClick={(e) => handleScroll(e, "home")} className="flex items-center gap-2 text-primary" data-testid="nav-logo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
+          <a href="#home" onClick={(e) => handleScroll(e, "home")} className="group flex items-center gap-2 text-primary" data-testid="nav-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary transition-transform duration-300 group-hover:rotate-45">
               <path d="M12 2L12 22M2 12L22 12M5.64 5.64L18.36 18.36M18.36 5.64L5.64 18.36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
-            <span className="font-serif text-lg font-semibold tracking-tight">N.L. Swathi</span>
+            <span className="font-serif text-lg font-semibold tracking-tight transition-colors duration-300 group-hover:text-[hsl(40,45%,55%)]">N.L. Swathi</span>
           </a>
           <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link, i) => (
@@ -46,7 +46,7 @@ export function Navbar() {
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => handleScroll(e, link.id)}
-                className="px-3 py-2 text-[13px] font-medium text-primary/70 hover:text-primary transition-colors"
+                className="nav-link-hover px-3 py-2 text-[13px] font-medium text-primary/70 hover:text-primary transition-colors"
                 data-testid={`nav-${link.id}`}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -57,7 +57,7 @@ export function Navbar() {
             ))}
           </nav>
           <button
-            className="md:hidden text-primary p-2"
+            className="md:hidden text-primary p-2 transition-transform duration-200 active:scale-90"
             onClick={() => setMobileOpen(!mobileOpen)}
             data-testid="nav-mobile-toggle"
           >
@@ -80,7 +80,7 @@ export function Navbar() {
                   key={link.id}
                   href={`#${link.id}`}
                   onClick={(e) => handleScroll(e, link.id)}
-                  className="px-3 py-3 text-sm font-medium text-primary/70 hover:text-primary transition-colors border-b border-border/50 last:border-0"
+                  className="px-3 py-3 text-sm font-medium text-primary/70 hover:text-primary hover:pl-5 transition-all duration-300 border-b border-border/50 last:border-0"
                   data-testid={`nav-mobile-${link.id}`}
                 >
                   {link.label}

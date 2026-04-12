@@ -9,11 +9,11 @@ export function Awards() {
         {cvData.awards.map((award, i) => (
           <motion.div
             key={i}
-            className={`p-6 md:p-8 border-b border-white/10 sm:border-r ${
+            className={`award-card p-6 md:p-8 border-b border-white/10 sm:border-r ${
               i % 2 !== 0 ? "sm:border-r-0" : ""
             } ${i >= cvData.awards.length - 2 ? "sm:border-b-0" : ""} ${
               i === cvData.awards.length - 1 ? "border-b-0" : ""
-            }`}
+            } cursor-default`}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
@@ -22,7 +22,7 @@ export function Awards() {
             <p className="text-xs font-medium uppercase tracking-[0.15em] text-[hsl(40,45%,55%)] mb-3">
               {award.date}
             </p>
-            <h4 className="text-base md:text-lg font-semibold text-white mb-2 leading-snug">
+            <h4 className="text-base md:text-lg font-semibold text-white mb-2 leading-snug transition-colors duration-300 hover:text-[hsl(40,45%,55%)]">
               {award.title}
             </h4>
             <p className="text-sm text-white/50 leading-relaxed">
