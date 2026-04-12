@@ -1,6 +1,91 @@
+import { useState, useEffect } from "react";
 import { cvData } from "@/data";
 import { motion } from "framer-motion";
 import heroImg from "@assets/Smiling_scientist_in_lab_with_equipment_1776005121219.png";
+
+function FlipCard() {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsFlipped(true), 3500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div
+      className="w-full max-w-[420px] cursor-pointer"
+      style={{ perspective: "1200px" }}
+      onClick={() => setIsFlipped(!isFlipped)}
+      onMouseEnter={() => setIsFlipped(true)}
+      onMouseLeave={() => setIsFlipped(false)}
+    >
+      <motion.div
+        className="relative w-full"
+        style={{ transformStyle: "preserve-3d" }}
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div
+          className="w-full rounded-md overflow-hidden border border-[rgba(184,150,62,0.25)]"
+          style={{ backfaceVisibility: "hidden" }}
+        >
+          <div className="relative aspect-[3/4]">
+            <img
+              src={heroImg}
+              alt="N.L. Swathi — Researcher"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0d1b2a]/70 via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <p className="font-serif text-white text-lg font-light italic">N.L. Swathi</p>
+              <p className="text-[0.72rem] text-white/50 uppercase tracking-[0.1em] mt-1">PhD Scholar · Researcher</p>
+            </div>
+            <div className="absolute top-4 right-4">
+              <span className="text-[0.65rem] text-white/40 uppercase tracking-[0.15em] flex items-center gap-1.5">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+                Tap to flip
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="w-full absolute top-0 left-0 rounded-md"
+          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+        >
+          <div className="bg-white/[0.04] border border-[rgba(184,150,62,0.15)] rounded-md p-10 aspect-[3/4] flex flex-col justify-center">
+            <div className="grid grid-cols-2 gap-8">
+              <div className="text-center">
+                <div className="font-serif text-[3rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.articles}</div>
+                <div className="text-[0.72rem] uppercase tracking-[0.1em] text-white/45">Research Articles</div>
+              </div>
+              <div className="text-center">
+                <div className="font-serif text-[3rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.bookChapters}</div>
+                <div className="text-[0.72rem] uppercase tracking-[0.1em] text-white/45">Book Chapters</div>
+              </div>
+              <div className="text-center">
+                <div className="font-serif text-[3rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.ongoingProjects}</div>
+                <div className="text-[0.72rem] uppercase tracking-[0.1em] text-white/45">Ongoing Projects</div>
+              </div>
+              <div className="text-center">
+                <div className="font-serif text-[3rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.awards}</div>
+                <div className="text-[0.72rem] uppercase tracking-[0.1em] text-white/45">Awards & Prizes</div>
+              </div>
+            </div>
+            <hr className="border-t border-[rgba(184,150,62,0.15)] my-6" />
+            <div className="text-center">
+              <p className="text-[0.72rem] text-white/35 uppercase tracking-[0.1em] mb-1">Location</p>
+              <p className="text-[0.9rem] text-white/70">{cvData.personal.location}</p>
+            </div>
+            <div className="mt-6 text-center">
+              <span className="text-[0.65rem] text-white/30 uppercase tracking-[0.15em]">← Tap to see photo</span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 export function Hero() {
   return (
@@ -80,31 +165,7 @@ export function Hero() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="bg-white/[0.04] border border-[rgba(184,150,62,0.15)] rounded-md p-10 w-full max-w-[420px]">
-              <div className="grid grid-cols-2 gap-8">
-                <div className="text-center">
-                  <div className="font-serif text-[3rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.articles}</div>
-                  <div className="text-[0.72rem] uppercase tracking-[0.1em] text-white/45">Research Articles</div>
-                </div>
-                <div className="text-center">
-                  <div className="font-serif text-[3rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.bookChapters}</div>
-                  <div className="text-[0.72rem] uppercase tracking-[0.1em] text-white/45">Book Chapters</div>
-                </div>
-                <div className="text-center">
-                  <div className="font-serif text-[3rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.ongoingProjects}</div>
-                  <div className="text-[0.72rem] uppercase tracking-[0.1em] text-white/45">Ongoing Projects</div>
-                </div>
-                <div className="text-center">
-                  <div className="font-serif text-[3rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.awards}</div>
-                  <div className="text-[0.72rem] uppercase tracking-[0.1em] text-white/45">Awards & Prizes</div>
-                </div>
-              </div>
-              <hr className="border-t border-[rgba(184,150,62,0.15)] my-6" />
-              <div className="text-center">
-                <p className="text-[0.72rem] text-white/35 uppercase tracking-[0.1em] mb-1">Location</p>
-                <p className="text-[0.9rem] text-white/70">{cvData.personal.location}</p>
-              </div>
-            </div>
+            <FlipCard />
           </motion.div>
         </div>
       </div>
