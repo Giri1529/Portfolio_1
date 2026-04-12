@@ -24,7 +24,6 @@ function TalkCard({ talk, image, index, total }: TalkCardProps) {
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "start 0.2"],
-    layoutEffect: false,
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.6], [0, 1]);

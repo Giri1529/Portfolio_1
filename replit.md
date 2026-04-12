@@ -53,9 +53,15 @@ Every package extends `tsconfig.base.json` which sets `composite: true`. The roo
 Single-page academic CV website for N.L. Swathi (PhD Scholar | Pharm D | Researcher). Built with React + Vite + Tailwind CSS + Framer Motion.
 
 - Design: Warm cream/beige background (#f5f0e8), dark navy text, Playfair Display serif headings, Inter body font
+- Section header pattern: gold uppercase subtitle label + two-tone heading (second word in italic gold serif)
 - Animations: Framer Motion scroll-triggered fade-in animations on all sections
-- Sections: Hero, About, Experience, Education, Technical Expertise, Publications, Awards, Invited Talks, Contact, Footer
-- All CV data stored in `src/data.ts`
+- Sections: Hero, About, Experience, Education, Publications, Ongoing Projects, Awards (dark bg), Skills, Invited Talks, Contact, Footer
+- Section backgrounds alternate: light cream, warm cream, and dark navy (Awards)
+- Publications: tabbed interface switching between Research Articles and Book Chapters
+- Awards: dark navy/charcoal background, 2-column grid, gold date labels
+- Skills: 3-column categorized pill/tag badges (Computational, Clinical, Management)
+- Ongoing Projects: colored status badges (Under Production, Preprint, Accepted, Under Review, Ongoing)
+- All CV data stored in `src/data.ts` with structured skills categories and project status metadata
 - Generated images: `src/assets/hero-portrait.png` (researcher portrait), `src/assets/library-about.png` (library scene)
 - No backend — fully static site
 - Entry: `src/App.tsx`, CSS: `src/index.css`

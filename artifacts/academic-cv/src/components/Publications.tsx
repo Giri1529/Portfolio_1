@@ -2,144 +2,171 @@ import { useState } from "react";
 import { Section } from "./Section";
 import { cvData } from "@/data";
 import { ExternalLink } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+
+type Tab = "articles" | "chapters";
 
 export function Publications() {
-  const [showAllArticles, setShowAllArticles] = useState(false);
-  const [showAllChapters, setShowAllChapters] = useState(false);
+  const [activeTab, setActiveTab] = useState<Tab>("articles");
+  const [showAll, setShowAll] = useState(false);
 
-  const displayedArticles = showAllArticles
-    ? cvData.publications.articles
-    : cvData.publications.articles.slice(0, 8);
+  const articles = cvData.publications.articles;
+  const chapters = cvData.publications.chapters;
 
-  const displayedChapters = showAllChapters
-    ? cvData.publications.chapters
-    : cvData.publications.chapters.slice(0, 5);
+  const displayedArticles = showAll ? articles : articles.slice(0, 8);
+  const displayedChapters = showAll ? chapters : chapters.slice(0, 5);
+
+  const defaultLimit = activeTab === "articles" ? 8 : 5;
+  const totalCount = activeTab === "articles" ? articles.length : chapters.length;
+  const canToggle = totalCount > defaultLimit;
 
   return (
-    <Section id="publications" title="Publications">
-      <div className="space-y-16">
-        <motion.div
-          className="flex items-center gap-6 text-sm text-primary/60"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <span><strong className="text-primary text-lg font-serif">{cvData.stats.articles}</strong> Articles</span>
-          <span className="w-px h-4 bg-primary/20" />
-          <span><strong className="text-primary text-lg font-serif">{cvData.stats.bookChapters}</strong> Book Chapters</span>
-          <span className="w-px h-4 bg-primary/20" />
-          <span><strong className="text-primary text-lg font-serif">{cvData.stats.ongoingProjects}</strong> Ongoing Projects</span>
-        </motion.div>
-
-        <div>
-          <h3 className="text-xl font-serif font-semibold text-primary mb-6">Articles</h3>
-          <div className="space-y-6">
-            {displayedArticles.map((article, i) => (
+    <Section id="publications" subtitle="Research Output" title="Publications &" titleAccent="Chapters">
+      <div className="space-y-10">
+        <div className="flex items-center gap-0 border-b border-primary/10" role="tablist">
+          <button
+            onClick={() => { setActiveTab("articles"); setShowAll(false); }}
+            className={`px-6 py-3 text-sm font-medium uppercase tracking-wider transition-colors relative ${
+              activeTab === "articles"
+                ? "text-primary"
+                : "text-primary/40 hover:text-primary/60"
+            }`}
+            role="tab"
+            aria-selected={activeTab === "articles"}
+            data-testid="tab-articles"
+          >
+            Research Articles ({cvData.stats.articles})
+            {activeTab === "articles" && (
               <motion.div
-                key={i}
-                className="border-t border-primary/10 pt-5"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.4, delay: i * 0.04, ease: "easeOut" }}
-              >
-                <div className="grid md:grid-cols-[40px_1fr] gap-3">
-                  <span className="text-sm text-primary/40 font-mono pt-0.5">{String(i + 1).padStart(2, "0")}</span>
-                  <div>
-                    <p className="text-primary/90 leading-relaxed">
-                      <span className="font-medium">{article.authors}</span>{" "}
-                      <span className="text-primary">{article.title}.</span>{" "}
-                      {article.journal && <em className="text-primary/60">{article.journal}.</em>}{" "}
-                      <span className="text-primary/50">{article.year}.</span>
-                      {article.details && <span className="text-primary/50 ml-1">{article.details}</span>}
-                    </p>
-                    {article.link && (
-                      <a
-                        href={article.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center mt-2 text-sm text-primary/60 hover:text-primary transition-colors"
-                        data-testid={`article-link-${i}`}
-                      >
-                        View Publication <ExternalLink className="w-3 h-3 ml-1" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          {cvData.publications.articles.length > 8 && (
-            <button
-              onClick={() => setShowAllArticles(!showAllArticles)}
-              className="mt-8 px-6 py-3 text-sm font-medium border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-              data-testid="toggle-articles"
-            >
-              {showAllArticles ? "Show Less" : "Show All Articles"}
-            </button>
-          )}
+                className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
+                layoutId="tab-underline"
+              />
+            )}
+          </button>
+          <button
+            onClick={() => { setActiveTab("chapters"); setShowAll(false); }}
+            className={`px-6 py-3 text-sm font-medium uppercase tracking-wider transition-colors relative ${
+              activeTab === "chapters"
+                ? "text-primary"
+                : "text-primary/40 hover:text-primary/60"
+            }`}
+            role="tab"
+            aria-selected={activeTab === "chapters"}
+            data-testid="tab-chapters"
+          >
+            Book Chapters ({cvData.stats.bookChapters})
+            {activeTab === "chapters" && (
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
+                layoutId="tab-underline"
+              />
+            )}
+          </button>
         </div>
 
-        <div>
-          <h3 className="text-xl font-serif font-semibold text-primary mb-6">Book Chapters</h3>
-          <div className="space-y-6">
-            {displayedChapters.map((chapter, i) => (
-              <motion.div
-                key={i}
-                className="border-t border-primary/10 pt-5"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.4, delay: i * 0.04, ease: "easeOut" }}
-              >
-                <div className="grid md:grid-cols-[40px_1fr] gap-3">
-                  <span className="text-sm text-primary/40 font-mono pt-0.5">{String(i + 1).padStart(2, "0")}</span>
-                  <div>
-                    <p className="text-primary/90 leading-relaxed">
-                      {chapter.authors && <span className="font-medium">{chapter.authors} </span>}
-                      <span className="text-primary">{chapter.title}.</span>{" "}
-                      {chapter.publisher && <em className="text-primary/60">{chapter.publisher}.</em>}{" "}
-                      {chapter.year && <span className="text-primary/50">{chapter.year}.</span>}
-                      {chapter.details && <span className="text-primary/50 ml-1">{chapter.details}</span>}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          {cvData.publications.chapters.length > 5 && (
-            <button
-              onClick={() => setShowAllChapters(!showAllChapters)}
-              className="mt-8 px-6 py-3 text-sm font-medium border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-              data-testid="toggle-chapters"
-            >
-              {showAllChapters ? "Show Less" : "Show All Chapters"}
-            </button>
-          )}
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-0"
+          >
+            {activeTab === "articles" ? (
+              <>
+                {displayedArticles.map((article, i) => (
+                  <motion.div
+                    key={i}
+                    className="border-t border-primary/8 py-6"
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-20px" }}
+                    transition={{ duration: 0.4, delay: i * 0.03, ease: "easeOut" }}
+                  >
+                    <div className="grid grid-cols-[40px_1fr] gap-4">
+                      <span className="text-lg text-primary/25 font-serif tabular-nums pt-0.5">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div>
+                        <p className="text-[15px] font-medium text-primary leading-relaxed mb-1.5">
+                          {article.title}
+                        </p>
+                        <p className="text-sm text-primary/50 mb-1">{article.authors}</p>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          {article.journal && (
+                            <span className="text-sm italic text-[hsl(40,45%,55%)]">{article.journal}</span>
+                          )}
+                          {article.journal && <span className="text-primary/20">·</span>}
+                          <span className="text-sm text-primary/40">{article.year}</span>
+                          {article.link && (
+                            <>
+                              <span className="text-primary/20">·</span>
+                              <a
+                                href={article.link}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center gap-1 text-sm text-[hsl(40,45%,55%)] hover:text-primary transition-colors"
+                                data-testid={`article-link-${i}`}
+                              >
+                                <ExternalLink className="w-3 h-3" /> View
+                              </a>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </>
+            ) : (
+              <>
+                {displayedChapters.map((chapter, i) => (
+                  <motion.div
+                    key={i}
+                    className="border-t border-primary/8 py-6"
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-20px" }}
+                    transition={{ duration: 0.4, delay: i * 0.03, ease: "easeOut" }}
+                  >
+                    <div className="grid grid-cols-[40px_1fr] gap-4">
+                      <span className="text-lg text-primary/25 font-serif tabular-nums pt-0.5">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div>
+                        <p className="text-[15px] font-medium text-primary leading-relaxed mb-1.5">
+                          {chapter.title}
+                        </p>
+                        {chapter.authors && <p className="text-sm text-primary/50 mb-1">{chapter.authors}</p>}
+                        <div className="flex items-center gap-2 flex-wrap">
+                          {chapter.publisher && (
+                            <span className="text-sm italic text-[hsl(40,45%,55%)]">{chapter.publisher}</span>
+                          )}
+                          {chapter.publisher && chapter.year && <span className="text-primary/20">·</span>}
+                          {chapter.year && <span className="text-sm text-primary/40">{chapter.year}</span>}
+                          {chapter.details && (
+                            <span className="text-sm text-primary/35">{chapter.details}</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </>
+            )}
+          </motion.div>
+        </AnimatePresence>
 
-        <div>
-          <h3 className="text-xl font-serif font-semibold text-primary mb-6">Ongoing Projects</h3>
-          <div className="space-y-4">
-            {cvData.projects.map((project, i) => (
-              <motion.div
-                key={i}
-                className="border-t border-primary/10 pt-4"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.4, delay: i * 0.05, ease: "easeOut" }}
-              >
-                <div className="grid md:grid-cols-[40px_1fr] gap-3">
-                  <span className="text-sm text-primary/40 font-mono pt-0.5">{String(i + 1).padStart(2, "0")}</span>
-                  <p className="text-primary/80 leading-relaxed">{project}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+        {canToggle && (
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="px-6 py-3 text-sm font-medium border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+            data-testid={`toggle-${activeTab}`}
+          >
+            {showAll ? "Show Less" : `Show All ${activeTab === "articles" ? "Articles" : "Chapters"}`}
+          </button>
+        )}
       </div>
     </Section>
   );

@@ -9,12 +9,19 @@ import { Awards } from "@/components/Awards";
 import { InvitedTalks } from "@/components/InvitedTalks";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { TechnicalExpertise } from "@/components/TechnicalExpertise";
+import { Skills } from "@/components/Skills";
+import { OngoingProjects } from "@/components/OngoingProjects";
 import NotFound from "@/pages/not-found";
 
-function SectionBand({ children, variant = "light" }: { children: React.ReactNode; variant?: "light" | "warm" }) {
+function SectionBand({ children, variant = "light" }: { children: React.ReactNode; variant?: "light" | "warm" | "dark" }) {
+  const bgClass = variant === "dark"
+    ? "bg-[hsl(220,30%,15%)]"
+    : variant === "warm"
+    ? "bg-section-warm"
+    : "bg-background";
+
   return (
-    <div className={variant === "warm" ? "bg-section-warm" : "bg-background"}>
+    <div className={bgClass}>
       <div className="max-w-[1200px] mx-auto px-6 md:px-12">
         {children}
       </div>
@@ -44,15 +51,19 @@ function Home() {
       </SectionBand>
 
       <SectionBand variant="light">
-        <TechnicalExpertise />
-      </SectionBand>
-
-      <SectionBand variant="warm">
         <Publications />
       </SectionBand>
 
-      <SectionBand variant="light">
+      <SectionBand variant="warm">
+        <OngoingProjects />
+      </SectionBand>
+
+      <SectionBand variant="dark">
         <Awards />
+      </SectionBand>
+
+      <SectionBand variant="light">
+        <Skills />
       </SectionBand>
 
       <div className="bg-section-warm">
