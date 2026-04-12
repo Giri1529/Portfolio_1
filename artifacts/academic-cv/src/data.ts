@@ -11,8 +11,7 @@ export const cvData = {
     researchId: "https://researchid.co/nl.swathi",
   },
   stats: {
-    articles: 16,
-    bookChapters: 19,
+    publications: 55,
     ongoingProjects: 8,
     awards: 10,
   },

@@ -35,7 +35,7 @@ export function Publications() {
             aria-selected={activeTab === "articles"}
             data-testid="tab-articles"
           >
-            Research Articles ({cvData.stats.articles})
+            Research Articles ({cvData.publications.articles.length})
           </button>
           <button
             onClick={() => { setActiveTab("chapters"); setShowAll(false); }}
@@ -48,7 +48,7 @@ export function Publications() {
             aria-selected={activeTab === "chapters"}
             data-testid="tab-chapters"
           >
-            Book Chapters ({cvData.stats.bookChapters})
+            Book Chapters ({cvData.publications.chapters.length})
           </button>
         </div>
 

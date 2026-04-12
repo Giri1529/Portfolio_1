@@ -54,21 +54,18 @@ function FlipCard() {
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
           <div className="bg-white/[0.04] border border-[rgba(184,150,62,0.15)] rounded-md p-10 aspect-[3/4] flex flex-col justify-center">
-            <div className="grid grid-cols-2 gap-8">
+            <div className="text-center mb-6">
+              <div className="font-serif text-[4.5rem] font-light text-[#d4af6a] leading-none mb-2">{cvData.stats.publications}</div>
+              <div className="text-[0.78rem] uppercase tracking-[0.12em] text-white/50">Publications</div>
+              <p className="text-[0.7rem] text-white/30 mt-1 italic">Articles · Book Chapters · Reviews · Systematic Reviews · Meta-Analysis</p>
+            </div>
+            <div className="grid grid-cols-2 gap-6">
               <div className="text-center">
-                <div className="font-serif text-[3rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.articles}</div>
-                <div className="text-[0.72rem] uppercase tracking-[0.1em] text-white/45">Research Articles</div>
-              </div>
-              <div className="text-center">
-                <div className="font-serif text-[3rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.bookChapters}</div>
-                <div className="text-[0.72rem] uppercase tracking-[0.1em] text-white/45">Book Chapters</div>
-              </div>
-              <div className="text-center">
-                <div className="font-serif text-[3rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.ongoingProjects}</div>
+                <div className="font-serif text-[2.5rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.ongoingProjects}</div>
                 <div className="text-[0.72rem] uppercase tracking-[0.1em] text-white/45">Ongoing Projects</div>
               </div>
               <div className="text-center">
-                <div className="font-serif text-[3rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.awards}</div>
+                <div className="font-serif text-[2.5rem] font-light text-[#d4af6a] leading-none mb-1">{cvData.stats.awards}</div>
                 <div className="text-[0.72rem] uppercase tracking-[0.1em] text-white/45">Awards & Prizes</div>
               </div>
             </div>
