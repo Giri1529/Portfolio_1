@@ -193,7 +193,7 @@ export function Contact() {
 
             <div className="hover-glow p-6 bg-[#f5f0e8] border border-[rgba(184,150,62,0.25)] cursor-default rounded-sm">
               <p className="text-sm font-serif italic text-[#3d3d5c] leading-relaxed">
-                "Open to research collaborations, peer reviews, and academic mentoring opportunities. Let's advance knowledge together."
+                "Open to research collaborations, academic discussions, writing opportunities, and mentoring inquiries. Let's advance knowledge together."
               </p>
               <p className="text-xs text-[#7a7a9a] mt-3 font-medium">— {cvData.personal.name}</p>
             </div>
