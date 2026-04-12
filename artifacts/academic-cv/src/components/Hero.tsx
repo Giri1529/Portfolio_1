@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { cvData } from "@/data";
 import { motion } from "framer-motion";
-import heroImg from "@assets/Smiling_scientist_in_lab_with_equipment_1776005121219.png";
+import heroImg from "@assets/WhatsApp_Image_2026-04-12_at_13.41.41_1776010255509.jpeg";
 
 function FlipCard() {
   const [isFlipped, setIsFlipped] = useState(false);
