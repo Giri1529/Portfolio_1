@@ -1,6 +1,6 @@
 import { cvData } from "@/data";
 import { motion } from "framer-motion";
-import heroImg from "@/assets/hero-portrait.png";
+import heroImg from "@assets/Smiling_scientist_in_lab_with_equipment_1776005121219.png";
 
 export function Hero() {
   return (
