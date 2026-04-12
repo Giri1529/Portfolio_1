@@ -20,33 +20,31 @@ export function Navbar() {
     setMobileOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      const top = element.getBoundingClientRect().top + window.scrollY - 72;
+      const top = element.getBoundingClientRect().top + window.scrollY - 60;
       window.scrollTo({ top, behavior: "smooth" });
     }
   };
 
   return (
     <motion.header
-      className="sticky top-0 z-50 w-full bg-background/90 backdrop-blur-md border-b border-primary/5"
+      className="sticky top-0 z-50 w-full backdrop-blur-md border-b border-[rgba(184,150,62,0.3)]"
+      style={{ background: "rgba(13,27,42,0.97)" }}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12">
-        <div className="flex h-[72px] items-center justify-between">
-          <a href="#home" onClick={(e) => handleScroll(e, "home")} className="group flex items-center gap-2 text-primary" data-testid="nav-logo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary transition-transform duration-300 group-hover:rotate-45">
-              <path d="M12 2L12 22M2 12L22 12M5.64 5.64L18.36 18.36M18.36 5.64L5.64 18.36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-            <span className="font-serif text-lg font-semibold tracking-tight transition-colors duration-300 group-hover:text-[hsl(40,45%,55%)]">N.L. Swathi</span>
+      <div className="max-w-[1100px] mx-auto px-8">
+        <div className="flex h-[60px] items-center justify-between">
+          <a href="#home" onClick={(e) => handleScroll(e, "home")} className="group flex items-center gap-2" data-testid="nav-logo">
+            <span className="font-serif text-[1.2rem] font-medium tracking-[0.04em] text-[#d4af6a] transition-colors duration-300 group-hover:text-white">N.L. Swathi</span>
           </a>
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link, i) => (
               <motion.a
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => handleScroll(e, link.id)}
-                className="nav-link-hover px-3 py-2 text-[13px] font-medium text-primary/70 hover:text-primary transition-colors"
+                className="nav-link-hover text-[0.78rem] font-normal uppercase tracking-[0.12em] text-white/70 hover:text-[#d4af6a] transition-colors"
                 data-testid={`nav-${link.id}`}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -57,7 +55,7 @@ export function Navbar() {
             ))}
           </nav>
           <button
-            className="md:hidden text-primary p-2 transition-transform duration-200 active:scale-90"
+            className="md:hidden text-[#d4af6a] p-2 transition-transform duration-200 active:scale-90"
             onClick={() => setMobileOpen(!mobileOpen)}
             data-testid="nav-mobile-toggle"
           >
@@ -68,19 +66,20 @@ export function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="md:hidden bg-background border-t border-border overflow-hidden"
+            className="md:hidden border-t border-[rgba(184,150,62,0.2)] overflow-hidden"
+            style={{ background: "#0d1b2a" }}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <nav className="flex flex-col px-6 py-4 gap-1">
+            <nav className="flex flex-col px-8 py-4 gap-1">
               {navLinks.map((link) => (
                 <a
                   key={link.id}
                   href={`#${link.id}`}
                   onClick={(e) => handleScroll(e, link.id)}
-                  className="px-3 py-3 text-sm font-medium text-primary/70 hover:text-primary hover:pl-5 transition-all duration-300 border-b border-border/50 last:border-0"
+                  className="px-3 py-3 text-sm font-normal text-white/70 hover:text-[#d4af6a] hover:pl-5 transition-all duration-300 border-b border-white/10 last:border-0"
                   data-testid={`nav-mobile-${link.id}`}
                 >
                   {link.label}

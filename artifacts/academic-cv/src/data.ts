@@ -14,6 +14,7 @@ export const cvData = {
     articles: 16,
     bookChapters: 19,
     ongoingProjects: 8,
+    awards: 10,
   },
   education: [
     {

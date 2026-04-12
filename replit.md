@@ -52,17 +52,23 @@ Every package extends `tsconfig.base.json` which sets `composite: true`. The roo
 
 Single-page academic CV website for N.L. Swathi (PhD Scholar | Pharm D | Researcher). Built with React + Vite + Tailwind CSS + Framer Motion.
 
-- Design: Warm cream/beige background (#f5f0e8), dark navy text, Playfair Display serif headings, Inter body font
-- Section header pattern: gold uppercase subtitle label + two-tone heading (second word in italic gold serif)
-- Animations: Framer Motion scroll-triggered fade-in animations on all sections
-- Sections: Hero, About, Experience, Education, Publications, Ongoing Projects, Awards (dark bg), Skills, Invited Talks, Contact, Footer
-- Section backgrounds alternate: light cream, warm cream, and dark navy (Awards)
-- Publications: tabbed interface switching between Research Articles and Book Chapters
-- Awards: dark navy/charcoal background, 2-column grid, gold date labels
-- Skills: 3-column categorized pill/tag badges (Computational, Clinical, Management)
-- Ongoing Projects: colored status badges (Under Production, Preprint, Accepted, Under Review, Ongoing)
+- Design system: Cormorant Garamond (serif headings, font-light/300) + DM Sans (sans-serif body)
+- Color palette: navy `#0d1b2a`, navy-mid `#1a2f45`, cream `#f5f0e8`, gold `#b8963e`, gold-light `#d4af6a`, text-dark `#1a1a2e`, text-mid `#3d3d5c`, text-muted `#7a7a9a`
+- Navbar: dark navy bg (`rgba(13,27,42,0.97)`) with gold brand text, white/70 links, gold hover
+- Hero: full-bleed dark navy background with decorative circle borders, gold eyebrow label, stats panel (articles/chapters/projects/awards), link buttons with gold borders
+- Section header pattern: gold uppercase subtitle label with line + large serif heading with italic gold accent word
+- Section backgrounds: cream `#f5f0e8` (default), white (warm), dark navy `#0d1b2a` (Awards, Contact)
+- Education: 3-column cards with gold top border accent, cream bg
+- Awards: 2-column navy cards with gold border, dark section
+- Contact: dark navy section with gold-bordered icon items and academic profile links
+- Footer: dark navy with centered gold name, minimal
+- Publications: tabbed interface (articles/chapters) with gold underline active tab
+- Skills: 3-column groups with gold category headers and bordered tags
+- Ongoing Projects: status badges (gold/green/blue) in white cards
+- Animations: Framer Motion scroll-triggered fade-in on all sections
+- CSS hover classes: hover-lift, hover-glow, img-zoom, btn-shine, nav-link-hover, skill-tag, row-highlight, contact-card, input-glow, profile-link, footer-link, status-badge
 - All CV data stored in `src/data.ts` with structured skills categories and project status metadata
-- Generated images: `src/assets/hero-portrait.png` (researcher portrait), `src/assets/library-about.png` (library scene)
+- Real photos: hero lab photo, library about image, 6 talk images
 - No backend — fully static site
 - Entry: `src/App.tsx`, CSS: `src/index.css`
 

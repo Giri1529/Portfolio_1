@@ -23,7 +23,7 @@ export function About() {
         whileInView="show"
         viewport={{ once: true, margin: "-60px" }}
       >
-        <motion.p variants={fadeUp} className="text-lg md:text-xl text-primary/80 leading-relaxed font-serif max-w-3xl">
+        <motion.p variants={fadeUp} className="text-lg md:text-xl text-[#3d3d5c] leading-relaxed font-serif max-w-3xl">
           I am a dedicated PhD Scholar and Pharm D graduate with a wealth of experience in both research and academic mentoring. My expertise spans Diabetes Research, Computational Biology, Drug Discovery, and Clinical Pharmacy. Throughout my career, I have mentored numerous researchers, guiding them towards successful academic paths.
         </motion.p>
 
@@ -36,7 +36,7 @@ export function About() {
             />
           </div>
           <div className="flex items-center">
-            <p className="text-base md:text-lg text-primary/70 leading-relaxed font-serif">
+            <p className="text-base md:text-lg text-[#3d3d5c] leading-relaxed font-serif">
               My research has led to meaningful contributions in Diabetes Management, Molecular Docking, Epigenetics, and Drug Development. I strive to bridge theoretical foundations with practical applications in clinical and pharmaceutical sectors — turning ideas into impact.
             </p>
           </div>
@@ -44,23 +44,23 @@ export function About() {
 
         <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-8 pt-4">
           <div>
-            <h3 className="text-xl font-serif font-semibold text-primary mb-4">Key Competencies</h3>
-            <ul className="space-y-2 text-primary/70">
+            <h3 className="text-xl font-serif font-medium text-[#0d1b2a] mb-4">Key Competencies</h3>
+            <ul className="space-y-2 text-[#3d3d5c]">
               {cvData.competencies.map((comp, i) => (
                 <li key={i} className="flex items-start gap-3 group cursor-default py-1 transition-all duration-300 hover:translate-x-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary/40 mt-2 shrink-0 transition-colors duration-300 group-hover:bg-[hsl(40,45%,55%)]" />
-                  <span className="transition-colors duration-300 group-hover:text-primary">{comp}</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#7a7a9a] mt-2 shrink-0 transition-colors duration-300 group-hover:bg-[#b8963e]" />
+                  <span className="transition-colors duration-300 group-hover:text-[#0d1b2a]">{comp}</span>
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <h3 className="text-xl font-serif font-semibold text-primary mb-4">Thesis Research</h3>
-            <ul className="space-y-3 text-primary/70">
+            <h3 className="text-xl font-serif font-medium text-[#0d1b2a] mb-4">Thesis Research</h3>
+            <ul className="space-y-3 text-[#3d3d5c]">
               {cvData.thesis.map((thesis, i) => (
                 <li key={i} className="flex items-start gap-3 group cursor-default py-1 transition-all duration-300 hover:translate-x-1">
-                  <span className="text-primary/40 font-serif font-bold mt-0.5 shrink-0 transition-colors duration-300 group-hover:text-[hsl(40,45%,55%)]">{i + 1}.</span>
-                  <span className="leading-relaxed transition-colors duration-300 group-hover:text-primary">{thesis}</span>
+                  <span className="text-[#7a7a9a] font-serif font-bold mt-0.5 shrink-0 transition-colors duration-300 group-hover:text-[#b8963e]">{i + 1}.</span>
+                  <span className="leading-relaxed transition-colors duration-300 group-hover:text-[#0d1b2a]">{thesis}</span>
                 </li>
               ))}
             </ul>

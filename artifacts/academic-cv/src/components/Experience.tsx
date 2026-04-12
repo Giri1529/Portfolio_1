@@ -9,24 +9,24 @@ export function Experience() {
         {cvData.experience.map((exp, i) => (
           <motion.div
             key={i}
-            className="row-highlight border-t border-primary/10 py-10 rounded-sm"
+            className="row-highlight border-t border-[rgba(184,150,62,0.25)] py-10 rounded-sm"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
           >
-            <div className="grid md:grid-cols-[220px_1fr] gap-4 md:gap-16">
-              <div>
-                <p className="text-sm font-medium text-[hsl(40,45%,55%)]">{exp.duration}</p>
-                <p className="text-sm text-primary/50 mt-1">{exp.organization}</p>
-                {exp.location && <p className="text-sm text-primary/40">{exp.location}</p>}
+            <div className="grid md:grid-cols-[200px_1fr] gap-4 md:gap-8">
+              <div className="pt-1">
+                <p className="text-[0.75rem] font-medium text-[#b8963e] tracking-[0.04em]">{exp.duration}</p>
+                <p className="text-[0.78rem] text-[#7a7a9a] mt-1">{exp.organization}</p>
+                {exp.location && <p className="text-[0.78rem] text-[#7a7a9a]">{exp.location}</p>}
               </div>
               <div>
-                <h3 className="text-xl md:text-2xl font-serif text-primary mb-4 transition-colors duration-300 hover:text-[hsl(40,45%,55%)]">{exp.role}</h3>
-                <ul className="space-y-2.5 text-primary/65">
+                <h3 className="font-serif text-[1.35rem] font-medium text-[#0d1b2a] mb-3 transition-colors duration-300 hover:text-[#b8963e]">{exp.role}</h3>
+                <ul className="space-y-2 text-[0.85rem] text-[#3d3d5c] leading-[1.75]">
                   {exp.highlights.map((h, j) => (
-                    <li key={j} className="flex items-start gap-2.5 leading-relaxed text-[15px] group transition-colors duration-300 hover:text-primary/80">
-                      <span className="text-primary/30 mt-1.5 shrink-0 transition-colors duration-300 group-hover:text-[hsl(40,45%,55%)]">•</span>
+                    <li key={j} className="flex items-start gap-2.5">
+                      <span className="text-[#7a7a9a] mt-1.5 shrink-0">•</span>
                       <span>{h}</span>
                     </li>
                   ))}
@@ -36,7 +36,7 @@ export function Experience() {
                     href={cvData.personal.linkedin}
                     target="_blank"
                     rel="noreferrer"
-                    className="link-underline inline-flex items-center mt-4 text-sm text-[hsl(40,45%,55%)] hover:text-primary transition-colors"
+                    className="link-underline inline-flex items-center mt-4 text-sm text-[#b8963e] hover:text-[#0d1b2a] transition-colors"
                   >
                     View Profile →
                   </a>
@@ -45,7 +45,7 @@ export function Experience() {
             </div>
           </motion.div>
         ))}
-        <div className="border-t border-primary/10" />
+        <div className="border-t border-[rgba(184,150,62,0.25)]" />
       </div>
     </Section>
   );

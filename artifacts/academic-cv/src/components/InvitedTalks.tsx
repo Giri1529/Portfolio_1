@@ -33,7 +33,7 @@ function TalkCard({ talk, image, index, total }: TalkCardProps) {
   return (
     <div ref={cardRef} className="py-6">
       <motion.div
-        className="hover-lift bg-background border border-primary/10 overflow-hidden shadow-[0_2px_30px_-10px_rgba(0,0,0,0.06)]"
+        className="hover-lift bg-[#f5f0e8] border border-[rgba(184,150,62,0.25)] overflow-hidden rounded-sm border-l-[3px] border-l-[#b8963e]"
         style={{ opacity, y }}
       >
         <div className="grid md:grid-cols-2 min-h-[380px]">
@@ -47,7 +47,7 @@ function TalkCard({ talk, image, index, total }: TalkCardProps) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
             <div className="absolute top-5 left-5">
-              <span className="inline-block px-3 py-1.5 bg-background/90 backdrop-blur-sm text-xs font-medium text-primary tracking-wider uppercase">
+              <span className="inline-block px-3 py-1.5 bg-[#f5f0e8]/90 backdrop-blur-sm text-xs font-medium text-[#0d1b2a] tracking-wider uppercase">
                 Talk {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
               </span>
             </div>
@@ -56,17 +56,17 @@ function TalkCard({ talk, image, index, total }: TalkCardProps) {
           <div className={`flex flex-col justify-center p-8 md:p-12 ${isEven ? "md:order-2" : "md:order-1"}`}>
             <div className="space-y-5">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-px bg-primary/30" />
-                <span className="text-xs font-medium text-primary/40 uppercase tracking-[0.2em]">
+                <div className="w-8 h-px bg-[#b8963e]" />
+                <span className="text-xs font-medium text-[#7a7a9a] uppercase tracking-[0.2em]">
                   Invited Talk
                 </span>
               </div>
 
-              <h3 className="text-xl md:text-2xl font-serif italic text-primary leading-snug">
+              <h3 className="text-xl md:text-2xl font-serif italic text-[#0d1b2a] leading-snug">
                 {talk.title.replace(/"/g, "")}
               </h3>
 
-              <p className="text-sm md:text-base text-primary/60 leading-relaxed font-serif">
+              <p className="text-sm md:text-base text-[#7a7a9a] leading-relaxed font-serif">
                 {talk.audience}
               </p>
 
@@ -75,7 +75,7 @@ function TalkCard({ talk, image, index, total }: TalkCardProps) {
                   href={talk.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn-shine inline-flex items-center gap-2 px-5 py-2.5 border border-primary/20 text-sm font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 group"
+                  className="btn-shine inline-flex items-center gap-2 px-5 py-2.5 border border-[rgba(184,150,62,0.4)] text-sm font-medium text-[#0d1b2a] hover:bg-[#0d1b2a] hover:text-white transition-all duration-300 group rounded-sm"
                   data-testid={`talk-link-${index}`}
                 >
                   Watch on YouTube
@@ -102,18 +102,23 @@ export function InvitedTalks() {
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="max-w-[1200px] mx-auto px-6 md:px-12">
-          <h2 className="text-3xl md:text-4xl font-serif italic text-primary mb-4">
-            Invited Talks
+        <div className="max-w-[1100px] mx-auto px-8">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#b8963e]">
+              Speaking
+            </span>
+            <div className="h-px w-10 bg-[#b8963e]" />
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-[3rem] font-serif font-light text-[#0d1b2a] leading-[1.15]">
+            Invited <em className="italic text-[#b8963e]">Talks</em>
           </h2>
-          <div className="w-full h-px bg-primary/20" />
-          <p className="mt-6 text-base text-primary/50 font-serif max-w-2xl">
+          <p className="mt-6 text-base text-[#7a7a9a] font-serif max-w-2xl">
             Sharing knowledge and inspiring the next generation of researchers through invited lectures at leading institutions across India.
           </p>
         </div>
       </motion.div>
 
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+      <div className="max-w-[1100px] mx-auto px-8">
         {talks.map((talk, i) => (
           <TalkCard
             key={i}
@@ -125,9 +130,9 @@ export function InvitedTalks() {
         ))}
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12 pt-4 pb-16">
+      <div className="max-w-[1100px] mx-auto px-8 pt-4 pb-16">
         <motion.div
-          className="hover-glow flex items-center gap-4 p-6 border border-primary/10 bg-primary/[0.02] cursor-default"
+          className="hover-glow flex items-center gap-4 p-6 border border-[rgba(184,150,62,0.25)] bg-white/50 cursor-default rounded-sm"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -139,10 +144,10 @@ export function InvitedTalks() {
             className="w-14 h-14 object-cover shrink-0"
             style={{ borderRadius: "50%" }}
           />
-          <p className="text-sm font-serif italic text-primary/60 leading-relaxed">
+          <p className="text-sm font-serif italic text-[#3d3d5c] leading-relaxed">
             "Knowledge grows when shared. Every talk is an opportunity to plant seeds of curiosity in young minds."
           </p>
-          <span className="text-xs text-primary/35 shrink-0 hidden sm:block">— N.L. Swathi</span>
+          <span className="text-xs text-[#7a7a9a] shrink-0 hidden sm:block">— N.L. Swathi</span>
         </motion.div>
       </div>
     </section>

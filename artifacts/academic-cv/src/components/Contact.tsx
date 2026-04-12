@@ -27,175 +27,85 @@ export function Contact() {
   };
 
   return (
-    <Section id="contact" title="Contact">
+    <Section id="contact" title="Contact" dark>
       <div className="space-y-16">
-        <motion.div
-          className="grid sm:grid-cols-3 gap-8"
+        <motion.p
+          className="text-[1.05rem] text-white/65 leading-[1.85] max-w-2xl"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <div className="contact-card flex items-start gap-4 p-6 border border-primary/10 cursor-default">
-            <div className="contact-icon w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center shrink-0 transition-all duration-300">
-              <Mail className="w-4 h-4 text-primary/60" />
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-primary mb-1">Email</h4>
-              <a href={`mailto:${cvData.personal.email}`} className="link-underline text-sm text-primary/60 hover:text-primary transition-colors break-all">
-                {cvData.personal.email}
-              </a>
-            </div>
-          </div>
+          Feel free to reach out for collaborations, research inquiries, or academic discussions.
+        </motion.p>
 
-          <div className="contact-card flex items-start gap-4 p-6 border border-primary/10 cursor-default">
-            <div className="contact-icon w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center shrink-0 transition-all duration-300">
-              <Phone className="w-4 h-4 text-primary/60" />
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-primary mb-1">Phone</h4>
-              <a href={`tel:${cvData.personal.phone}`} className="link-underline text-sm text-primary/60 hover:text-primary transition-colors">
-                {cvData.personal.phone}
-              </a>
-            </div>
-          </div>
-
-          <div className="contact-card flex items-start gap-4 p-6 border border-primary/10 cursor-default">
-            <div className="contact-icon w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center shrink-0 transition-all duration-300">
-              <MapPin className="w-4 h-4 text-primary/60" />
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-primary mb-1">Location</h4>
-              <p className="text-sm text-primary/60">{cvData.personal.location}</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="grid md:grid-cols-[1fr_1px_1fr] gap-0 md:gap-12">
-          <motion.form
-            onSubmit={handleSubmit}
-            className="space-y-6"
-            initial={{ opacity: 0, y: 24 }}
+        <div className="grid md:grid-cols-2 gap-16">
+          <motion.div
+            className="space-y-4"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <h3 className="text-xl font-serif font-semibold text-primary mb-2">Send a Message</h3>
-            <p className="text-sm text-primary/50 mb-6">Feel free to reach out for collaborations, research inquiries, or academic discussions.</p>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-primary/50 mb-1.5 uppercase tracking-wider">First name *</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.firstName}
-                  onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                  className="input-glow w-full px-4 py-3 bg-transparent border border-primary/15 text-primary text-sm focus:outline-none transition-all placeholder:text-primary/25"
-                  placeholder="Your first name"
-                  data-testid="input-first-name"
-                />
+            <div className="flex items-start gap-4">
+              <div className="w-9 h-9 shrink-0 border border-[rgba(184,150,62,0.3)] rounded-sm flex items-center justify-center text-[#b8963e]">
+                <Mail className="w-4 h-4" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-primary/50 mb-1.5 uppercase tracking-wider">Last name *</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.lastName}
-                  onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                  className="input-glow w-full px-4 py-3 bg-transparent border border-primary/15 text-primary text-sm focus:outline-none transition-all placeholder:text-primary/25"
-                  placeholder="Your last name"
-                  data-testid="input-last-name"
-                />
+                <p className="text-[0.7rem] text-white/35 uppercase tracking-[0.1em] mb-0.5">Email</p>
+                <a href={`mailto:${cvData.personal.email}`} className="text-[0.88rem] text-[#d4af6a] hover:underline break-all">
+                  {cvData.personal.email}
+                </a>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-primary/50 mb-1.5 uppercase tracking-wider">Email *</label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="input-glow w-full px-4 py-3 bg-transparent border border-primary/15 text-primary text-sm focus:outline-none transition-all placeholder:text-primary/25"
-                  placeholder="your@email.com"
-                  data-testid="input-email"
-                />
+            <div className="flex items-start gap-4">
+              <div className="w-9 h-9 shrink-0 border border-[rgba(184,150,62,0.3)] rounded-sm flex items-center justify-center text-[#b8963e]">
+                <Phone className="w-4 h-4" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-primary/50 mb-1.5 uppercase tracking-wider">Phone</label>
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="input-glow w-full px-4 py-3 bg-transparent border border-primary/15 text-primary text-sm focus:outline-none transition-all placeholder:text-primary/25"
-                  placeholder="+91 XXXXXXXXXX"
-                  data-testid="input-phone"
-                />
+                <p className="text-[0.7rem] text-white/35 uppercase tracking-[0.1em] mb-0.5">Phone</p>
+                <a href={`tel:${cvData.personal.phone}`} className="text-[0.88rem] text-white hover:underline">
+                  {cvData.personal.phone}
+                </a>
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-medium text-primary/50 mb-1.5 uppercase tracking-wider">Message</label>
-              <textarea
-                rows={5}
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="input-glow w-full px-4 py-3 bg-transparent border border-primary/15 text-primary text-sm focus:outline-none transition-all resize-none placeholder:text-primary/25"
-                placeholder="Write your message here..."
-                data-testid="input-message"
-              />
+            <div className="flex items-start gap-4">
+              <div className="w-9 h-9 shrink-0 border border-[rgba(184,150,62,0.3)] rounded-sm flex items-center justify-center text-[#b8963e]">
+                <MapPin className="w-4 h-4" />
+              </div>
+              <div>
+                <p className="text-[0.7rem] text-white/35 uppercase tracking-[0.1em] mb-0.5">Location</p>
+                <p className="text-[0.88rem] text-white">{cvData.personal.location}</p>
+              </div>
             </div>
-
-            <button
-              type="submit"
-              className="btn-shine px-8 py-3 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-all duration-300 tracking-wide hover:tracking-wider"
-              data-testid="button-submit"
-            >
-              Send Message
-            </button>
-          </motion.form>
-
-          <div className="hidden md:block w-px bg-primary/10" />
+          </motion.div>
 
           <motion.div
-            className="space-y-10 md:pl-4 pt-10 md:pt-0"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
           >
-            <div>
-              <h3 className="text-xl font-serif font-semibold text-primary mb-6">Academic Profiles</h3>
-              <div className="space-y-4">
-                {profileLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="profile-link group flex items-center gap-4 p-4 border border-primary/10"
-                    data-testid={`contact-${link.label.toLowerCase().replace(/\s/g, "-")}`}
-                  >
-                    <div className="w-10 h-10 rounded-full bg-primary/5 group-hover:bg-[hsl(40,45%,55%)] flex items-center justify-center shrink-0 transition-all duration-300">
-                      <span className="text-xs font-bold text-primary/50 group-hover:text-white transition-colors duration-300">{link.icon}</span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-primary">{link.label}</p>
-                      <p className="text-xs text-primary/40 truncate">{link.url}</p>
-                    </div>
-                    <ExternalLink className="w-4 h-4 text-primary/30 group-hover:text-[hsl(40,45%,55%)] transition-colors duration-300 shrink-0" />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="hover-glow p-6 bg-primary/[0.03] border border-primary/10 cursor-default">
-              <p className="text-sm font-serif italic text-primary/70 leading-relaxed">
-                "Open to research collaborations, peer reviews, and academic mentoring opportunities. Let's advance knowledge together."
-              </p>
-              <p className="text-xs text-primary/40 mt-3 font-medium">— {cvData.personal.name}</p>
+            <h3 className="font-serif text-[1.5rem] font-light text-white mb-6">Academic Profiles</h3>
+            <div className="space-y-3">
+              {profileLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="profile-link group flex items-center justify-between p-4 bg-white/[0.04] border border-[rgba(184,150,62,0.15)] rounded-sm text-white hover:bg-[rgba(184,150,62,0.08)] hover:border-[rgba(184,150,62,0.4)] transition-all duration-200"
+                  data-testid={`contact-${link.label.toLowerCase().replace(/\s/g, "-")}`}
+                >
+                  <div>
+                    <p className="text-[0.85rem] font-medium">{link.label}</p>
+                    <p className="text-[0.75rem] text-[#b8963e]">{link.icon}</p>
+                  </div>
+                  <span className="text-white/30 text-[0.8rem]">→</span>
+                </a>
+              ))}
             </div>
           </motion.div>
         </div>

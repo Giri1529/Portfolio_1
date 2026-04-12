@@ -13,10 +13,8 @@ interface SectionProps {
 }
 
 export function Section({ id, title, subtitle, titleAccent, children, className = "", noDivider = false, dark = false }: SectionProps) {
-  const textColor = dark ? "text-white" : "text-primary";
-  const accentColor = "text-[hsl(40,45%,55%)]";
-  const subtitleColor = dark ? "text-[hsl(40,45%,55%)]" : "text-[hsl(40,45%,55%)]";
-  const dividerColor = dark ? "bg-white/15" : "bg-primary/20";
+  const textColor = dark ? "text-white" : "text-[#0d1b2a]";
+  const accentColor = "text-[#b8963e]";
 
   return (
     <motion.section
@@ -30,22 +28,22 @@ export function Section({ id, title, subtitle, titleAccent, children, className 
       {(title || subtitle) && (
         <div className="mb-10 md:mb-14">
           {subtitle && (
-            <div className="flex items-center gap-4 mb-4">
-              <span className={`text-xs font-medium uppercase tracking-[0.2em] ${subtitleColor}`}>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#b8963e]">
                 {subtitle}
               </span>
-              <div className={`h-px w-12 ${dark ? "bg-[hsl(40,45%,55%)]/50" : "bg-[hsl(40,45%,55%)]/50"}`} />
+              <div className="h-px w-10 bg-[#b8963e]" />
             </div>
           )}
           {title && (
-            <h2 className={`text-3xl md:text-4xl lg:text-[42px] font-serif ${textColor} mb-4 leading-tight`}>
+            <h2 className={`text-3xl md:text-4xl lg:text-[3rem] font-serif font-light ${textColor} leading-[1.15]`}>
               {title}
               {titleAccent && (
                 <span className={`italic ${accentColor}`}> {titleAccent}</span>
               )}
             </h2>
           )}
-          {!noDivider && !subtitle && <div className={`w-full h-px ${dividerColor}`} />}
+          {!noDivider && !subtitle && <div className={`w-full h-px ${dark ? "bg-white/15" : "bg-[rgba(184,150,62,0.25)]"}`} />}
         </div>
       )}
       {children}

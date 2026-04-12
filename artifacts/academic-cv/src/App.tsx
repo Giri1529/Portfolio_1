@@ -15,14 +15,14 @@ import NotFound from "@/pages/not-found";
 
 function SectionBand({ children, variant = "light" }: { children: React.ReactNode; variant?: "light" | "warm" | "dark" }) {
   const bgClass = variant === "dark"
-    ? "bg-[hsl(220,30%,15%)]"
+    ? "bg-[#0d1b2a]"
     : variant === "warm"
-    ? "bg-section-warm"
-    : "bg-background";
+    ? "bg-white"
+    : "bg-[#f5f0e8]";
 
   return (
     <div className={bgClass}>
-      <div className="max-w-[1200px] mx-auto px-6 md:px-12">
+      <div className="max-w-[1100px] mx-auto px-8">
         {children}
       </div>
     </div>
@@ -31,30 +31,28 @@ function SectionBand({ children, variant = "light" }: { children: React.ReactNod
 
 function Home() {
   return (
-    <div className="min-h-screen text-foreground font-sans">
+    <div className="min-h-screen font-sans" style={{ background: "#f5f0e8", color: "#1a1a2e" }}>
       <Navbar />
 
-      <SectionBand variant="light">
-        <Hero />
-      </SectionBand>
+      <Hero />
 
-      <SectionBand variant="warm">
+      <SectionBand variant="light">
         <About />
       </SectionBand>
 
-      <SectionBand variant="light">
+      <SectionBand variant="warm">
         <Experience />
       </SectionBand>
 
-      <SectionBand variant="warm">
+      <SectionBand variant="light">
         <Education />
       </SectionBand>
 
-      <SectionBand variant="light">
+      <SectionBand variant="warm">
         <Publications />
       </SectionBand>
 
-      <SectionBand variant="warm">
+      <SectionBand variant="light">
         <OngoingProjects />
       </SectionBand>
 
@@ -66,11 +64,11 @@ function Home() {
         <Skills />
       </SectionBand>
 
-      <div className="bg-section-warm">
+      <div className="bg-[#f5f0e8]">
         <InvitedTalks />
       </div>
 
-      <SectionBand variant="light">
+      <SectionBand variant="dark">
         <Contact />
       </SectionBand>
 

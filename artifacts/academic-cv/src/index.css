@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -46,7 +46,13 @@
   --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
   --color-sidebar-accent-border: var(--sidebar-accent-border);
   --color-sidebar-ring: hsl(var(--sidebar-ring));
-  --color-section-warm: hsl(35 35% 91%);
+  --color-section-warm: #ffffff;
+  --color-navy: #0d1b2a;
+  --color-navy-mid: #1a2f45;
+  --color-gold: #b8963e;
+  --color-gold-light: #d4af6a;
+  --color-text-mid: #3d3d5c;
+  --color-text-muted: #7a7a9a;
   --font-sans: var(--app-font-sans);
   --font-serif: var(--app-font-serif);
   --font-mono: var(--app-font-mono);
@@ -63,12 +69,12 @@
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
 
-  --background: 40 33% 95%;
-  --foreground: 225 40% 18%;
-  --border: 40 20% 82%;
-  --card: 40 33% 92%;
-  --card-foreground: 225 40% 18%;
-  --card-border: 40 20% 82%;
+  --background: 39 30% 95%;
+  --foreground: 240 33% 14%;
+  --border: 43 38% 78%;
+  --card: 39 30% 92%;
+  --card-foreground: 240 33% 14%;
+  --card-border: 43 38% 78%;
   --sidebar: 40 33% 93%;
   --sidebar-foreground: 225 40% 18%;
   --sidebar-border: 40 20% 82%;
@@ -80,14 +86,14 @@
   --popover: 40 33% 97%;
   --popover-foreground: 225 40% 18%;
   --popover-border: 40 20% 82%;
-  --primary: 225 40% 18%;
-  --primary-foreground: 40 33% 95%;
-  --secondary: 40 33% 88%;
-  --secondary-foreground: 225 40% 18%;
-  --muted: 40 20% 88%;
-  --muted-foreground: 225 15% 45%;
-  --accent: 225 40% 18%;
-  --accent-foreground: 40 33% 95%;
+  --primary: 212 52% 11%;
+  --primary-foreground: 39 30% 95%;
+  --secondary: 39 30% 88%;
+  --secondary-foreground: 212 52% 11%;
+  --muted: 39 20% 88%;
+  --muted-foreground: 240 12% 54%;
+  --accent: 212 52% 11%;
+  --accent-foreground: 39 30% 95%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
   --input: 40 20% 78%;
@@ -98,8 +104,8 @@
   --chart-4: 30 60% 50%;
   --chart-5: 280 30% 50%;
 
-  --app-font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --app-font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --app-font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --app-font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --app-font-mono: Menlo, monospace;
   --radius: .5rem;
   --shadow-2xs: none;
@@ -153,14 +159,14 @@
   --popover: 40 33% 97%;
   --popover-foreground: 225 40% 18%;
   --popover-border: 40 20% 82%;
-  --primary: 225 40% 18%;
-  --primary-foreground: 40 33% 95%;
-  --secondary: 40 33% 88%;
-  --secondary-foreground: 225 40% 18%;
-  --muted: 40 20% 88%;
-  --muted-foreground: 225 15% 45%;
-  --accent: 225 40% 18%;
-  --accent-foreground: 40 33% 95%;
+  --primary: 212 52% 11%;
+  --primary-foreground: 39 30% 95%;
+  --secondary: 39 30% 88%;
+  --secondary-foreground: 212 52% 11%;
+  --muted: 39 20% 88%;
+  --muted-foreground: 240 12% 54%;
+  --accent: 212 52% 11%;
+  --accent-foreground: 39 30% 95%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
   --input: 40 20% 78%;
@@ -238,7 +244,7 @@ html {
   left: 50%;
   width: 0;
   height: 2px;
-  background: hsl(40, 45%, 55%);
+  background: #b8963e;
   transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1), left 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .nav-link-hover:hover::after {
@@ -268,9 +274,9 @@ html {
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .skill-tag:hover {
-  background: hsl(225, 40%, 18%);
-  color: hsl(40, 33%, 95%);
-  border-color: hsl(225, 40%, 18%);
+  background: #0d1b2a;
+  color: #f5f0e8;
+  border-color: #0d1b2a;
   transform: translateY(-2px);
 }
 
@@ -296,10 +302,10 @@ html {
 .contact-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.06);
-  border-color: hsl(40, 45%, 55%) !important;
+  border-color: #b8963e !important;
 }
 .contact-card:hover .contact-icon {
-  background: hsl(40, 45%, 55%);
+  background: #b8963e;
 }
 .contact-card:hover .contact-icon svg {
   color: white;
@@ -309,7 +315,7 @@ html {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .input-glow:focus {
-  border-color: hsl(40, 45%, 55%) !important;
+  border-color: #b8963e !important;
   box-shadow: 0 0 0 3px hsla(40, 45%, 55%, 0.1);
 }
 
@@ -318,7 +324,7 @@ html {
 }
 .profile-link:hover {
   transform: translateX(4px);
-  border-color: hsl(40, 45%, 55%) !important;
+  border-color: #b8963e !important;
 }
 
 .footer-link {
@@ -332,7 +338,7 @@ html {
   left: 0;
   width: 0;
   height: 1px;
-  background: hsl(40, 45%, 55%);
+  background: #b8963e;
   transition: width 0.3s ease;
 }
 .footer-link:hover::after {

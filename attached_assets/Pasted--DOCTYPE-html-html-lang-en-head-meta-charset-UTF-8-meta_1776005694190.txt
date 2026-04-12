@@ -1,0 +1,850 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N.L. Swathi | PhD Scholar | Pharm D</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1a2f45;
+    --cream: #f5f0e8;
+    --cream-dark: #ede6d6;
+    --gold: #b8963e;
+    --gold-light: #d4af6a;
+    --text-dark: #1a1a2e;
+    --text-mid: #3d3d5c;
+    --text-muted: #7a7a9a;
+    --white: #ffffff;
+    --border: rgba(184,150,62,0.25);
+    --section-gap: 5rem;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    font-size: 15px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,27,42,0.97);
+    backdrop-filter: blur(8px);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+    border-bottom: 1px solid rgba(184,150,62,0.3);
+  }
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 500; color: var(--gold-light);
+    letter-spacing: 0.04em; text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 400; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+  .nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--gold-light); transition: 0.3s; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 80px 2rem 4rem;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    border: 1px solid rgba(184,150,62,0.08);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(184,150,62,0.06);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .hero-text { position: relative; }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.25rem; font-weight: 500;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 300; color: var(--white);
+    line-height: 1.1; margin-bottom: 0.5rem;
+  }
+  .hero-name em { font-style: italic; color: var(--gold-light); }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; color: rgba(255,255,255,0.5);
+    font-weight: 300; margin-bottom: 1.75rem; font-style: italic;
+  }
+  .hero-bio {
+    font-size: 0.9rem; color: rgba(255,255,255,0.6);
+    line-height: 1.85; margin-bottom: 2.5rem; max-width: 480px;
+  }
+  .hero-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .hero-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.5rem 1.1rem; border: 1px solid rgba(184,150,62,0.4);
+    color: var(--gold-light); text-decoration: none;
+    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+    transition: all 0.25s; border-radius: 2px;
+  }
+  .hero-link:hover { background: rgba(184,150,62,0.1); border-color: var(--gold); color: var(--white); }
+  .hero-stats {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(184,150,62,0.15);
+    border-radius: 6px; padding: 2.5rem;
+  }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 300; color: var(--gold-light);
+    line-height: 1; margin-bottom: 0.4rem;
+  }
+  .stat-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .stat-divider { border: none; border-top: 1px solid rgba(184,150,62,0.15); margin: 1.5rem 0; }
+
+  /* ── SECTIONS ── */
+  .section { padding: var(--section-gap) 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-alt { background: var(--white); }
+  .section-dark { background: var(--navy); color: var(--white); }
+
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500;
+    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;
+  }
+  .section-label::after { content: ''; flex: 0 0 40px; height: 1px; background: var(--gold); }
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300; line-height: 1.15; margin-bottom: 3rem;
+    color: var(--navy);
+  }
+  .section-dark .section-heading { color: var(--white); }
+  .section-heading em { font-style: italic; color: var(--gold); }
+
+  /* ── EDUCATION ── */
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+  .edu-card {
+    background: var(--cream); border: 1px solid var(--border);
+    padding: 2rem; border-radius: 4px;
+    border-top: 3px solid var(--gold);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .edu-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(184,150,62,0.12); }
+  .edu-degree {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 500; color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+  .edu-institution { font-size: 0.82rem; color: var(--text-mid); margin-bottom: 0.2rem; font-weight: 500; }
+  .edu-date { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.05em; font-weight: 500; margin-bottom: 1rem; }
+  .edu-details { font-size: 0.8rem; color: var(--text-muted); line-height: 1.65; }
+  .edu-details li { margin-bottom: 0.3rem; margin-left: 1rem; }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 2rem; padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-item:first-child { border-top: 1px solid var(--border); }
+  .exp-meta { padding-top: 0.2rem; }
+  .exp-period { font-size: 0.75rem; color: var(--gold); font-weight: 500; margin-bottom: 0.3rem; letter-spacing: 0.04em; }
+  .exp-org { font-size: 0.78rem; color: var(--text-muted); }
+  .exp-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem; font-weight: 500; color: var(--navy); margin-bottom: 0.75rem;
+  }
+  .exp-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; }
+  .exp-desc li { margin-bottom: 0.4rem; margin-left: 1.2rem; }
+
+  /* ── PUBLICATIONS ── */
+  .pub-tabs { display: flex; gap: 0; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); }
+  .pub-tab {
+    padding: 0.65rem 1.5rem; font-size: 0.78rem; letter-spacing: 0.08em;
+    text-transform: uppercase; cursor: pointer; border: none; background: none;
+    color: var(--text-muted); font-family: 'DM Sans', sans-serif;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+    transition: color 0.2s;
+  }
+  .pub-tab.active { color: var(--navy); border-bottom-color: var(--gold); font-weight: 500; }
+  .pub-panel { display: none; }
+  .pub-panel.active { display: block; }
+  .pub-item {
+    padding: 1.5rem 0; border-bottom: 1px solid rgba(184,150,62,0.12);
+    display: grid; grid-template-columns: 40px 1fr; gap: 1rem; align-items: start;
+  }
+  .pub-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 300; color: var(--gold); opacity: 0.6;
+    line-height: 1.2;
+  }
+  .pub-title { font-size: 0.88rem; font-weight: 500; color: var(--navy); margin-bottom: 0.25rem; line-height: 1.5; }
+  .pub-authors { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.25rem; }
+  .pub-journal { font-size: 0.78rem; color: var(--gold); font-style: italic; }
+  .pub-link { font-size: 0.72rem; color: var(--gold); text-decoration: none; letter-spacing: 0.05em; margin-left: 0.5rem; }
+  .pub-link:hover { text-decoration: underline; }
+  .pub-toggle-btn {
+    display: block; margin: 2rem auto 0;
+    padding: 0.65rem 2rem; border: 1px solid var(--border);
+    background: none; cursor: pointer; color: var(--navy);
+    font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
+    letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.2s;
+    border-radius: 2px;
+  }
+  .pub-toggle-btn:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+
+  /* ── AWARDS ── */
+  .awards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .award-card {
+    background: var(--navy); border: 1px solid rgba(184,150,62,0.2);
+    padding: 1.75rem; border-radius: 4px;
+    transition: border-color 0.2s;
+  }
+  .award-card:hover { border-color: rgba(184,150,62,0.5); }
+  .award-year { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .award-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--white); margin-bottom: 0.4rem; font-weight: 500; }
+  .award-body { font-size: 0.78rem; color: rgba(255,255,255,0.45); line-height: 1.65; }
+
+  /* ── TALKS ── */
+  .talks-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .talk-item {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    padding: 1.5rem; background: var(--cream);
+    border: 1px solid var(--border); border-radius: 4px;
+    border-left: 3px solid var(--gold);
+  }
+  .talk-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; color: var(--gold); opacity: 0.4;
+    font-weight: 300; line-height: 1; flex-shrink: 0; width: 30px;
+  }
+  .talk-title { font-size: 0.9rem; font-weight: 500; color: var(--navy); margin-bottom: 0.25rem; }
+  .talk-event { font-size: 0.78rem; color: var(--text-muted); }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .skill-group { }
+  .skill-group-title {
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1rem;
+    padding-bottom: 0.5rem; border-bottom: 1px solid rgba(184,150,62,0.2);
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    padding: 0.35rem 0.85rem; background: rgba(184,150,62,0.08);
+    border: 1px solid rgba(184,150,62,0.2); border-radius: 2px;
+    font-size: 0.75rem; color: var(--text-mid);
+  }
+
+  /* ── ONGOING ── */
+  .ongoing-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .ongoing-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.1rem 1.25rem;
+    background: var(--white); border: 1px solid var(--border); border-radius: 3px;
+  }
+  .ongoing-badge {
+    flex-shrink: 0; padding: 0.2rem 0.7rem; border-radius: 2px;
+    font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 500; white-space: nowrap;
+  }
+  .badge-ongoing { background: rgba(184,150,62,0.12); color: var(--gold); border: 1px solid rgba(184,150,62,0.3); }
+  .badge-accepted { background: rgba(34,139,34,0.1); color: #228b22; border: 1px solid rgba(34,139,34,0.3); }
+  .badge-review { background: rgba(70,130,180,0.1); color: #4682b4; border: 1px solid rgba(70,130,180,0.3); }
+  .ongoing-text { font-size: 0.85rem; color: var(--text-mid); }
+  .ongoing-text a { color: var(--gold); text-decoration: none; }
+  .ongoing-text a:hover { text-decoration: underline; }
+
+  /* ── CONTACT ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .contact-info { }
+  .contact-intro { font-size: 1.05rem; color: rgba(255,255,255,0.65); line-height: 1.85; margin-bottom: 2.5rem; }
+  .contact-items { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .contact-item-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    border: 1px solid rgba(184,150,62,0.3); border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-size: 0.9rem;
+  }
+  .contact-item-label { font-size: 0.7rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.15rem; }
+  .contact-item-value { font-size: 0.88rem; color: var(--white); }
+  .contact-item-value a { color: var(--gold-light); text-decoration: none; }
+  .contact-item-value a:hover { text-decoration: underline; }
+  .contact-profiles { }
+  .contact-profiles-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; color: var(--white); font-weight: 300; margin-bottom: 1.5rem;
+  }
+  .profile-links { display: flex; flex-direction: column; gap: 0.75rem; }
+  .profile-link-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(184,150,62,0.15);
+    border-radius: 3px; text-decoration: none;
+    transition: all 0.2s; color: var(--white);
+  }
+  .profile-link-item:hover { background: rgba(184,150,62,0.08); border-color: rgba(184,150,62,0.4); }
+  .profile-link-name { font-size: 0.85rem; font-weight: 500; }
+  .profile-link-handle { font-size: 0.75rem; color: var(--gold); }
+  .profile-link-arrow { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); border-top: 1px solid rgba(184,150,62,0.15);
+    padding: 1.5rem 2rem; text-align: center;
+    font-size: 0.75rem; color: rgba(255,255,255,0.25);
+  }
+  footer span { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .awards-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 1rem 2rem; gap: 1rem; border-bottom: 1px solid rgba(184,150,62,0.2); }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: flex; }
+  }
+  @media (max-width: 600px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .hero-links { flex-direction: column; }
+    .hero-link { text-align: center; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">N.L. Swathi</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#talks">Talks</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-eyebrow">PhD Scholar &amp; Researcher</p>
+      <h1 class="hero-name">N.L. <em>Swathi</em></h1>
+      <p class="hero-title">Pharm D · Computational Biology · Clinical Research</p>
+      <p class="hero-bio">
+        Researcher at Manipal College of Nursing, MAHE, specialising in computational drug design, diabetes management, and clinical pharmacology. Author of 16+ research articles and 19 book chapters across leading international publishers.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:Swathiwathi1999@gmail.com" class="hero-link">✉ Email</a>
+        <a href="https://www.linkedin.com/in/swathi-naraganti-06ba64203/" target="_blank" class="hero-link">LinkedIn</a>
+        <a href="https://www.scopus.com/authid/detail.uri?authorId=58336556300" target="_blank" class="hero-link">Scopus</a>
+        <a href="https://orcid.org/my-orcid?orcid=0000-0002-3695-0732" target="_blank" class="hero-link">ORCID</a>
+        <a href="https://researchid.co/nl.swathi" target="_blank" class="hero-link">Research ID</a>
+      </div>
+    </div>
+    <div class="hero-stats fade-in">
+      <div class="stat-grid">
+        <div class="stat-item">
+          <div class="stat-num">16</div>
+          <div class="stat-label">Research Articles</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">19</div>
+          <div class="stat-label">Book Chapters</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">8</div>
+          <div class="stat-label">Ongoing Projects</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">10</div>
+          <div class="stat-label">Awards &amp; Prizes</div>
+        </div>
+      </div>
+      <hr class="stat-divider">
+      <div style="text-align:center;">
+        <p style="font-size:0.72rem;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem;">Location</p>
+        <p style="font-size:0.9rem;color:rgba(255,255,255,0.7);">Manipal, Karnataka, India</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <div class="section-inner">
+    <p class="section-label fade-in">Academic Background</p>
+    <h2 class="section-heading fade-in">Education &amp; <em>Training</em></h2>
+    <div class="edu-grid">
+      <div class="edu-card fade-in">
+        <div class="edu-degree">PhD</div>
+        <div class="edu-institution">Manipal College of Nursing, Manipal Academy of Higher Education</div>
+        <div class="edu-date">Ongoing · Manipal, Karnataka</div>
+        <div class="edu-details">Research focus on individualized clinical interventions and computational drug design approaches.</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-degree">Pharm D</div>
+        <div class="edu-institution">Jawaharlal Nehru Technological University, Anantapuramu</div>
+        <div class="edu-date">Graduated March 2025 · Chittoor, India</div>
+        <div class="edu-details">
+          <ul>
+            <li>Pharmacology of anti-bacterial agents — Coursera</li>
+            <li>Clinical research internship — Deepam Hospitals</li>
+            <li>Systematic Review &amp; Meta-Analysis — ICMR</li>
+            <li>Medical Writing — Manipal University</li>
+            <li>Hands-on Training in Bioinformatics</li>
+          </ul>
+        </div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-degree">Intermediate BiPC</div>
+        <div class="edu-institution">Sri Surya Junior College, Nagari</div>
+        <div class="edu-date">June 2016 · Chittoor, India</div>
+        <div class="edu-details">Completed Intermediate BiPC with <strong>98.3%</strong>. Top scorer in Chittoor Range, recognised with Academic Excellence Award.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section section-alt" id="experience">
+  <div class="section-inner">
+    <p class="section-label fade-in">Professional History</p>
+    <h2 class="section-heading fade-in">Work <em>Experience</em></h2>
+    <div class="exp-list">
+      <div class="exp-item fade-in">
+        <div class="exp-meta">
+          <div class="exp-period">May 2024 – Apr 2025</div>
+          <div class="exp-org">The Good Research Project · Remote</div>
+        </div>
+        <div>
+          <div class="exp-role">Research Mentor &amp; Article Editor</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Led and coordinated multiple research projects, ensuring timely completion and submission of scientific manuscripts.</li>
+              <li>Mentored junior researchers, providing guidance on research methodologies and publication strategies.</li>
+              <li>Managed article review processes, working with cross-functional teams to enhance research output.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="exp-item fade-in">
+        <div class="exp-meta">
+          <div class="exp-period">October 2024</div>
+          <div class="exp-org">ICMR–National Institute of Epidemiology · Chennai</div>
+        </div>
+        <div>
+          <div class="exp-role">Public Health &amp; Epidemiology Research Intern</div>
+          <div class="exp-desc">Conducted systematic review and meta-analysis in diabetes — manuscript currently under journal review.</div>
+        </div>
+      </div>
+      <div class="exp-item fade-in">
+        <div class="exp-meta">
+          <div class="exp-period">Dec 2022 – Apr 2025</div>
+          <div class="exp-org">ThinkRoman, Orz · Remote</div>
+        </div>
+        <div>
+          <div class="exp-role">Content Writer &amp; Content Leader</div>
+          <div class="exp-desc">Produced educational content focused on healthcare and research advancements. Led team interviews and feature productions. <a href="https://town.thinkroman.com/team/ni-swathi" target="_blank" style="color:var(--gold);">View Profile →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="section" id="publications">
+  <div class="section-inner">
+    <p class="section-label fade-in">Research Output</p>
+    <h2 class="section-heading fade-in">Publications &amp; <em>Chapters</em></h2>
+    <div class="pub-tabs fade-in">
+      <button class="pub-tab active" onclick="switchTab('articles',this)">Research Articles (16)</button>
+      <button class="pub-tab" onclick="switchTab('chapters',this)">Book Chapters (19)</button>
+    </div>
+
+    <!-- Articles -->
+    <div class="pub-panel active" id="tab-articles">
+      <div id="articles-short">
+        <div class="pub-item fade-in">
+          <div class="pub-num">01</div>
+          <div><div class="pub-title">Personalized Interventions for Managing Diabetes Distress and Improving Glycemic Control: A Comprehensive Review</div><div class="pub-authors">Swathi NL, Priyanka PV, Devadarshini M, et al.</div><div class="pub-journal">World Journal of Pharmaceutical Research · 2024<a href="https://www.wjpr.net/abstract_show/24219" target="_blank" class="pub-link">↗ View</a></div></div>
+        </div>
+        <div class="pub-item fade-in">
+          <div class="pub-num">02</div>
+          <div><div class="pub-title">A Multifaceted Analysis of Important Clinical Trials on Tirzepatide for Developing Diabetes Mellitus Therapies</div><div class="pub-authors">Swathi NL, Shiva P, Sai D, Das N, et al.</div><div class="pub-journal">World Journal of Pharmaceutical Research · 2024<a href="https://www.researchgate.net/publication/378655656" target="_blank" class="pub-link">↗ View</a></div></div>
+        </div>
+        <div class="pub-item fade-in">
+          <div class="pub-num">03</div>
+          <div><div class="pub-title">Currently Trending and Futuristic Biological Modalities in the Management of Different Types of Diabetes</div><div class="pub-authors">Ali A, Manzoor U, ..., N.L. Swathi</div><div class="pub-journal">Journal of Population Therapeutics &amp; Clinical Pharmacology · Nov 2023<a href="https://www.researchgate.net/publication/376098584" target="_blank" class="pub-link">↗ View</a></div></div>
+        </div>
+        <div class="pub-item fade-in">
+          <div class="pub-num">04</div>
+          <div><div class="pub-title">Mindfulness Training for Cardiovascular Health in Type 2 Diabetes: A Critical Review</div><div class="pub-authors">Gandhi A, Rajkumar R, ..., N.L. Swathi</div><div class="pub-journal">Current Problems in Cardiology · 2024<a href="https://pubmed.ncbi.nlm.nih.gov/39313043/" target="_blank" class="pub-link">↗ PubMed</a></div></div>
+        </div>
+        <div class="pub-item fade-in">
+          <div class="pub-num">05</div>
+          <div><div class="pub-title">Intermittent Fasting versus Continuous Caloric Restriction for Glycemic Control in Type 2 Diabetes</div><div class="pub-authors">Lakhani HA, Biswas D, ..., N.L. Swathi</div><div class="pub-journal">Primary Care Diabetes · Feb 2025 · PMID 40000314</div></div>
+        </div>
+        <div class="pub-item fade-in">
+          <div class="pub-num">06</div>
+          <div><div class="pub-title">Epigenetic Mechanisms in the Transfer of Metabolic Disorders: A Comprehensive Review</div><div class="pub-authors">Swathi NL, Shakhatreh Z, Tahir A, et al.</div><div class="pub-journal">Cureus · Mar 2025</div></div>
+        </div>
+        <div class="pub-item fade-in">
+          <div class="pub-num">07</div>
+          <div><div class="pub-title">Evaluating the Impact of Individualized Interventions on Diabetes Distress and Glycemic Outcomes</div><div class="pub-authors">Swathi NL, P VP, M D, et al.</div><div class="pub-journal">Cureus · 2025<a href="https://doi.org/10.7759/cureus.80890" target="_blank" class="pub-link">↗ DOI</a></div></div>
+        </div>
+        <div class="pub-item fade-in">
+          <div class="pub-num">08</div>
+          <div><div class="pub-title">Incretin-Based Therapies: Advancements, Challenges, and Future Directions in Type 2 Diabetes Management</div><div class="pub-authors">Alluri AA, Guntupalli Y, ..., Babu Swathi NL</div><div class="pub-journal">Journal of Basic and Clinical Physiology and Pharmacology · 2025<a href="https://doi.org/10.1515/jbcpp-2025-0031" target="_blank" class="pub-link">↗ DOI</a></div></div>
+        </div>
+      </div>
+      <div id="articles-more" style="display:none;">
+        <div class="pub-item"><div class="pub-num">09</div><div><div class="pub-title">Review of Pancreatic Cells Trans Differentiation in Diabetes Treatment</div><div class="pub-authors">Swathi NL, Hari V, Kavitha S, et al.</div><div class="pub-journal">2022</div></div></div>
+        <div class="pub-item"><div class="pub-num">10</div><div><div class="pub-title">Bioreactors: A Potential Treatment for Chronic Illnesses That Necessitate Organ Transplantation</div><div class="pub-authors">Haneesh S, Sirisha P, ..., N.L. Swathi</div><div class="pub-journal">2023<a href="https://www.researchgate.net/publication/376206951" target="_blank" class="pub-link">↗ View</a></div></div></div>
+        <div class="pub-item"><div class="pub-num">11</div><div><div class="pub-title">A Current Broad Summary of Rheumatoid Arthritis</div><div class="pub-authors">Prasad D, Swathi NL, et al.</div><div class="pub-journal">International Journal of Pharmacy &amp; Therapeutics · Dec 2023<a href="https://www.researchgate.net/publication/376206708" target="_blank" class="pub-link">↗ View</a></div></div></div>
+        <div class="pub-item"><div class="pub-num">12</div><div><div class="pub-title">Diabetic Ketoacidosis: A Review of Current Treatment Options</div><div class="pub-authors">Prasad DD, Swathi NL, Sree MM</div><div class="pub-journal">2022<a href="https://www.researchgate.net/publication/376206946" target="_blank" class="pub-link">↗ View</a></div></div></div>
+        <div class="pub-item"><div class="pub-num">13</div><div><div class="pub-title">Assessment of Pain Experience and Management: A Cross-Sectional Study</div><div class="pub-authors">Swathi NL, Naik BNK, Faatimah M, et al.</div><div class="pub-journal">2024</div></div></div>
+        <div class="pub-item"><div class="pub-num">14</div><div><div class="pub-title">The Role of the Urinary Microbiome in Diabetes-Associated UTIs</div><div class="pub-authors">Yathindra MR, Badugu R, ..., Swathi NL</div><div class="pub-journal">Journal of Basic and Clinical Physiology and Pharmacology<a href="https://doi.org/10.1515/jbcpp-2025-0116" target="_blank" class="pub-link">↗ DOI</a></div></div></div>
+        <div class="pub-item"><div class="pub-num">15</div><div><div class="pub-title">Early Aggressive Treatment with DMARDs vs. Step-Up Therapy in Rheumatoid Arthritis</div><div class="pub-authors">Akhil Alluri A, ..., NL Swathi</div><div class="pub-journal">Journal of Basic and Clinical Physiology and Pharmacology · 2025<a href="https://doi.org/10.1515/jbcpp-2025-0060" target="_blank" class="pub-link">↗ DOI</a></div></div></div>
+        <div class="pub-item"><div class="pub-num">16</div><div><div class="pub-title">Peroxisome Proliferator-Activated Receptors in Metabolic and Renal Health: A Comprehensive Review</div><div class="pub-authors">Vahora N, Yathindra MR, ..., N.L. Swathi</div><div class="pub-journal">International Journal of Research in Medical Sciences · 2025<a href="https://doi.org/10.18203/2320-6012.ijrms20252817" target="_blank" class="pub-link">↗ DOI</a></div></div></div>
+      </div>
+      <button class="pub-toggle-btn" id="articles-toggle" onclick="togglePubs('articles')">Show All 16 Articles ↓</button>
+    </div>
+
+    <!-- Chapters -->
+    <div class="pub-panel" id="tab-chapters">
+      <div id="chapters-short">
+        <div class="pub-item fade-in"><div class="pub-num">01</div><div><div class="pub-title">Advanced Technologies in Clinical Research and Drug Development</div><div class="pub-authors">Swathi NL &amp; Kumar A</div><div class="pub-journal">The Ethical Frontier of AI and Data Analysis · IGI Global · 2024</div></div></div>
+        <div class="pub-item fade-in"><div class="pub-num">02</div><div><div class="pub-title">Precision Medicine: Unleashing the Future of Healthcare</div><div class="pub-authors">Swathi NL, et al.</div><div class="pub-journal">Futuristic Trends in Medical Sciences Vol. 3 · Iterative International Publishers · 2024<a href="https://doi.org/10.58532/V3BAMS15P2CH3" target="_blank" class="pub-link">↗ DOI</a></div></div></div>
+        <div class="pub-item fade-in"><div class="pub-num">03</div><div><div class="pub-title">Healthcare Information Systems Management</div><div class="pub-authors">Swathi NL, Kavitha S &amp; Karpakavalli M</div><div class="pub-journal">Advances in Healthcare Information Systems and Administration · IGI Global · 2024</div></div></div>
+        <div class="pub-item fade-in"><div class="pub-num">04</div><div><div class="pub-title">Medicinal and Nutritional Importance of Punica granatum in Human Health</div><div class="pub-authors">Swathi NL, Vishnoi V, et al.</div><div class="pub-journal">Medicinal Plants and Their Bioactive Compounds · Springer · 2024<a href="https://doi.org/10.1007/978-981-97-6895-0_11" target="_blank" class="pub-link">↗ DOI</a></div></div></div>
+        <div class="pub-item fade-in"><div class="pub-num">05</div><div><div class="pub-title">The Role of Artificial Intelligence in Psoriasis</div><div class="pub-authors">Swathi NL, Muhammad S, et al.</div><div class="pub-journal">Applications of AI in Common Dermatological Diseases · Springer Nature Switzerland · 2025<a href="https://doi.org/10.1007/978-3-031-78139-1_3" target="_blank" class="pub-link">↗ DOI</a></div></div></div>
+      </div>
+      <div id="chapters-more" style="display:none;">
+        <div class="pub-item"><div class="pub-num">06</div><div><div class="pub-title">Breast Cancer Stem Cells Targeted Strategies</div><div class="pub-authors">Swathi NL, Basavan I, Odoh EC, et al.</div><div class="pub-journal">2025<a href="https://doi.org/10.4018/979-8-3693-7728-4.CH006" target="_blank" class="pub-link">↗ DOI</a></div></div></div>
+        <div class="pub-item"><div class="pub-num">07</div><div><div class="pub-title">Immunological Insights into Nutritional Deficiency Disorders</div><div class="pub-authors">Hajar A, Swathi NL, Ali A</div><div class="pub-journal">Causes and Management of Nutritional Deficiency Disorders · IGI Global · 2024</div></div></div>
+        <div class="pub-item"><div class="pub-num">08</div><div><div class="pub-title">Artificial Intelligence and Its Integration with Regenerative Medicine</div><div class="pub-authors">Umar TP, ..., Swathi NL</div><div class="pub-journal">Integrating Digital Health Strategies for Effective Administration · IGI Global · 2023</div></div></div>
+        <div class="pub-item"><div class="pub-num">09</div><div><div class="pub-title">Precision Medicine and Epigenetics: Personalized Diabetes Care</div><div class="pub-authors">N.L. Swathi, Ishwar Basavan, et al.</div><div class="pub-journal">Biomedical Research Developments for Improved Healthcare</div></div></div>
+        <div class="pub-item"><div class="pub-num">10</div><div><div class="pub-title">Precision Medicine: Insights from Case Studies and Cutting-Edge Technologies</div><div class="pub-authors">Swathi NL, Chakrabarti M, et al.</div><div class="pub-journal">Medical Robotics and AI-Assisted Diagnostics · IGI Global · 2024</div></div></div>
+        <div class="pub-item"><div class="pub-num">11</div><div><div class="pub-title">Application of Artificial Intelligence in Connection with Gut Microbiota to Detect Neurological Disorders</div><div class="pub-authors">Swathi NL, Siddique KR, et al.</div><div class="pub-journal">Biotics and the Gut–Brain Axis in Neurological Disorders · CRC Press · 2025</div></div></div>
+        <div class="pub-item"><div class="pub-num">12</div><div><div class="pub-title">Parkinson's Disease and Gut Microbiota</div><div class="pub-authors">NL Swathi, Umar TP, et al.</div><div class="pub-journal">Microbiota Profiling for Precision Medicine · Springer · 2025<a href="https://doi.org/10.1007/978-981-95-2104-3_6" target="_blank" class="pub-link">↗ DOI</a></div></div></div>
+        <div class="pub-item"><div class="pub-num">13</div><div><div class="pub-title">Beyond Borders</div><div class="pub-authors">Swathi NL, Mallari P, et al.</div><div class="pub-journal">Stem Cell Therapeutics · John Wiley &amp; Sons · 2025<a href="https://doi.org/10.1002/9781394313785.ch17" target="_blank" class="pub-link">↗ DOI</a></div></div></div>
+        <div class="pub-item"><div class="pub-num">14</div><div><div class="pub-title">An Overview of Future Prospective in Prodrugs Development</div><div class="pub-authors">Swathi NL, Sirisha P, et al.</div><div class="pub-journal">Futuristic Trends in Pharmacy &amp; Nursing Vol. 3 · 2024<a href="https://doi.org/10.58532/V3BAPN5CH7" target="_blank" class="pub-link">↗ DOI</a></div></div></div>
+        <div class="pub-item"><div class="pub-num">15</div><div><div class="pub-title">The Role of Teledermatology in the COVID-19 Pandemic</div><div class="pub-authors">Swathi NL &amp; AlEdani EM</div><div class="pub-journal">COVID-19 Vaccination and Dermatological Diseases · Springer · 2025<a href="https://doi.org/10.1007/978-3-031-87791-9_11" target="_blank" class="pub-link">↗ DOI</a></div></div></div>
+        <div class="pub-item"><div class="pub-num">16</div><div><div class="pub-title">The Effect of COVID-19 and Its Vaccination on Lichen Planus Exacerbation</div><div class="pub-authors">Faatimah M, Swathi NL, et al.</div><div class="pub-journal">COVID-19 Vaccination and Dermatological Diseases · Springer · 2025</div></div></div>
+        <div class="pub-item"><div class="pub-num">17</div><div><div class="pub-title">Impact of Covid-19 on Skin Microbiome</div><div class="pub-authors">Firoz S, ..., Swathi NL, AlEdani EM</div><div class="pub-journal">COVID-19 Vaccination and Dermatological Diseases · Springer · 2025</div></div></div>
+        <div class="pub-item"><div class="pub-num">18</div><div><div class="pub-title">Leveraging AI and ITRS in Drug Discovery for Inflammatory and Cardiovascular Diseases</div><div class="pub-authors">Swathi NL, Vineesh A, et al.</div><div class="pub-journal">Advances in Computational Intelligence and Robotics · IGI Global · 2025<a href="https://doi.org/10.4018/979-8-3373-5258-9.ch006" target="_blank" class="pub-link">↗ DOI</a></div></div></div>
+        <div class="pub-item"><div class="pub-num">19</div><div><div class="pub-title">11β-hydroxysteroid Dehydrogenase Type 1 (11β-HSD1): A Novel Therapeutic Target in Diabetes Mellitus</div><div class="pub-authors">Swathi NL, Dave R, et al.</div><div class="pub-journal">Receptor-Targeted Therapies in Diabetes Mellitus · Nova Science Publishers · 2025</div></div></div>
+      </div>
+      <button class="pub-toggle-btn" id="chapters-toggle" onclick="togglePubs('chapters')">Show All 19 Chapters ↓</button>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="section section-dark" id="awards">
+  <div class="section-inner">
+    <p class="section-label fade-in" style="color:var(--gold);">Recognition</p>
+    <h2 class="section-heading fade-in">Honors &amp; <em>Awards</em></h2>
+    <div class="awards-grid">
+      <div class="award-card fade-in">
+        <div class="award-year">July 2017</div>
+        <div class="award-title">INSPIRE Award</div>
+        <div class="award-body">Andhra Pradesh Government — Awarded to the top 1% of students following the Intermediate Examination conducted by BIAPE.</div>
+      </div>
+      <div class="award-card fade-in">
+        <div class="award-year">September 2022</div>
+        <div class="award-title">Second Prize — Pharmaceutical Chemistry Oral Presentation</div>
+        <div class="award-body">Bharath University — For the study on In Silico Molecular Docking on Novel Drug Design for Mycobacterium tuberculosis.</div>
+      </div>
+      <div class="award-card fade-in">
+        <div class="award-year">October 2013</div>
+        <div class="award-title">Certificate of Distinction</div>
+        <div class="award-body">Director General of Police — Essay competition on Police Commemoration Day.</div>
+      </div>
+      <div class="award-card fade-in">
+        <div class="award-year">July 2017</div>
+        <div class="award-title">Academic Excellence Award</div>
+        <div class="award-body">Sri Surya Junior College — Top scorer in Intermediate BiPC in the Chittoor Range.</div>
+      </div>
+      <div class="award-card fade-in">
+        <div class="award-year">August 2023</div>
+        <div class="award-title">Second Prize — Medicinal Chemistry</div>
+        <div class="award-body">Bharath University — Recognised for excellence in medicinal chemistry research.</div>
+      </div>
+      <div class="award-card fade-in">
+        <div class="award-year">August 2023</div>
+        <div class="award-title">Review Paper Presentation</div>
+        <div class="award-body">DECON International Conference — Presented a critical review on "Epigenetics in Diabetes."</div>
+      </div>
+      <div class="award-card fade-in">
+        <div class="award-year">December 2023</div>
+        <div class="award-title">Rx Doctor Award</div>
+        <div class="award-body">Honoured for outstanding contributions to patient care and pharmaceutical practices.</div>
+      </div>
+      <div class="award-card fade-in">
+        <div class="award-year">December 2023</div>
+        <div class="award-title">First Prize — Patient Information Leaflet</div>
+        <div class="award-body">International Conference — Secured first place for creating an innovative and informative patient information leaflet.</div>
+      </div>
+      <div class="award-card fade-in">
+        <div class="award-year">July 2022</div>
+        <div class="award-title">Certificate of Appreciation</div>
+        <div class="award-body">Sri Venkateswara College of Pharmacy — Awarded for significant contributions and academic achievements.</div>
+      </div>
+      <div class="award-card fade-in">
+        <div class="award-year">January 2024</div>
+        <div class="award-title">Reviewer — IGI Global</div>
+        <div class="award-body">Journal of Emerging Trends and Novel Research; International Journal of Health Systems and Translational Medicine.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TALKS -->
+<section class="section section-alt" id="talks">
+  <div class="section-inner">
+    <p class="section-label fade-in">Speaking</p>
+    <h2 class="section-heading fade-in">Invited <em>Talks</em></h2>
+    <div class="talks-list">
+      <div class="talk-item fade-in">
+        <div class="talk-num">1</div>
+        <div>
+          <div class="talk-title">Sharing Experiences in Clinical Research</div>
+          <div class="talk-event">Internship at Believers Church Medical College · Audience: Pharm D interns</div>
+        </div>
+      </div>
+      <div class="talk-item fade-in">
+        <div class="talk-num">2</div>
+        <div>
+          <div class="talk-title">Insights into Pharm D Career Opportunities</div>
+          <div class="talk-event">Invited by Dr. Jeffry Winner · Audience: Aspiring Pharm D professionals</div>
+        </div>
+      </div>
+      <div class="talk-item fade-in">
+        <div class="talk-num">3</div>
+        <div>
+          <div class="talk-title">Career Path and Achievements</div>
+          <div class="talk-event">Featured Speaker at CLIMED · 200+ attendees · Selected as Best Intern <a href="https://www.youtube.com/watch?v=ISgzvyaojfc" target="_blank" style="color:var(--gold);">↗ Watch</a></div>
+        </div>
+      </div>
+      <div class="talk-item fade-in">
+        <div class="talk-num">4</div>
+        <div>
+          <div class="talk-title">Reading Habits in Young Minds</div>
+          <div class="talk-event">Karpagam College of Pharmacy, Coimbatore · 300+ attendees including professors</div>
+        </div>
+      </div>
+      <div class="talk-item fade-in">
+        <div class="talk-num">5</div>
+        <div>
+          <div class="talk-title">Scientific Training and Writing</div>
+          <div class="talk-event">Sri Venkateswara College of Pharmacy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="section-inner">
+    <p class="section-label fade-in">Competencies</p>
+    <h2 class="section-heading fade-in">Skills &amp; <em>Expertise</em></h2>
+    <div class="skills-grid">
+      <div class="fade-in">
+        <div class="skill-group-title">Computational &amp; Research</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Molecular Docking</span>
+          <span class="skill-tag">Virtual Screening</span>
+          <span class="skill-tag">Bioinformatics</span>
+          <span class="skill-tag">ADME Studies</span>
+          <span class="skill-tag">SPSS</span>
+          <span class="skill-tag">Drug Design</span>
+          <span class="skill-tag">Library Preparation</span>
+        </div>
+      </div>
+      <div class="fade-in">
+        <div class="skill-group-title">Clinical &amp; Communication</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Patient Counseling</span>
+          <span class="skill-tag">Scientific Writing</span>
+          <span class="skill-tag">Manuscript Editing</span>
+          <span class="skill-tag">Public Speaking</span>
+          <span class="skill-tag">Peer Review</span>
+          <span class="skill-tag">Medical Writing</span>
+        </div>
+      </div>
+      <div class="fade-in">
+        <div class="skill-group-title">Management &amp; Leadership</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Project Coordination</span>
+          <span class="skill-tag">Team Leadership</span>
+          <span class="skill-tag">Stakeholder Communication</span>
+          <span class="skill-tag">MS Word</span>
+          <span class="skill-tag">MS PowerPoint</span>
+          <span class="skill-tag">Mentoring</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ONGOING PROJECTS -->
+<section class="section section-alt" id="ongoing">
+  <div class="section-inner">
+    <p class="section-label fade-in">Current Work</p>
+    <h2 class="section-heading fade-in">Ongoing <em>Projects</em></h2>
+    <div class="ongoing-list">
+      <div class="ongoing-item fade-in"><span class="ongoing-badge badge-review">Under Production</span><span class="ongoing-text">Chapter on Clinical Potential of Exosomes: Diagnostic and Therapeutic Insights — Apple Academic Press</span></div>
+      <div class="ongoing-item fade-in"><span class="ongoing-badge badge-review">Preprint</span><span class="ongoing-text">Fetal and Neonatal Outcomes in Booked vs. Unbooked Deliveries: A Systematic Review and Meta-analysis — <a href="https://doi.org/10.21203/rs.3.rs-5067026/v1" target="_blank">↗ Link</a></span></div>
+      <div class="ongoing-item fade-in"><span class="ongoing-badge badge-accepted">Accepted</span><span class="ongoing-text">Holistic Approach to Depression and Migraine in Female — AAP Taylor &amp; Francis, CRC Press</span></div>
+      <div class="ongoing-item fade-in"><span class="ongoing-badge badge-review">Under Review</span><span class="ongoing-text">Role of Bioactive Ingredients in Osteoarthritis</span></div>
+      <div class="ongoing-item fade-in"><span class="ongoing-badge badge-review">Under Review</span><span class="ongoing-text">Gender Disparity Analysis — Research Article (Interim Analysis)</span></div>
+      <div class="ongoing-item fade-in"><span class="ongoing-badge badge-accepted">Accepted</span><span class="ongoing-text">Berries: Bioactive Components and Their Effect on Human Health — Elsevier</span></div>
+      <div class="ongoing-item fade-in"><span class="ongoing-badge badge-accepted">Accepted</span><span class="ongoing-text">The Neurobiology of Learning and Memory: Short-Term and Long-Term Memory</span></div>
+      <div class="ongoing-item fade-in"><span class="ongoing-badge badge-ongoing">Ongoing</span><span class="ongoing-text">Temporal and Geographic Trends in Diabetes-Related Mortality: Insights into Renal Complications Using CDC WONDER Data</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section section-dark" id="contact">
+  <div class="section-inner">
+    <p class="section-label fade-in" style="color:var(--gold);">Get in Touch</p>
+    <h2 class="section-heading fade-in">Contact &amp; <em>Profiles</em></h2>
+    <div class="contact-grid">
+      <div class="contact-info fade-in">
+        <p class="contact-intro">Open to research collaborations, academic discussions, writing opportunities, and mentoring inquiries.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">✉</div>
+            <div><div class="contact-item-label">Email</div><div class="contact-item-value"><a href="mailto:Swathiwathi1999@gmail.com">Swathiwathi1999@gmail.com</a></div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">☎</div>
+            <div><div class="contact-item-label">Phone</div><div class="contact-item-value">+91 6309501665</div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">⌖</div>
+            <div><div class="contact-item-label">Location</div><div class="contact-item-value">Manipal, Karnataka, India</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-profiles fade-in">
+        <p class="contact-profiles-title">Academic Profiles</p>
+        <div class="profile-links">
+          <a href="https://www.linkedin.com/in/swathi-naraganti-06ba64203/" target="_blank" class="profile-link-item">
+            <div><div class="profile-link-name">LinkedIn</div><div class="profile-link-handle">Swathi Naraganti</div></div>
+            <span class="profile-link-arrow">→</span>
+          </a>
+          <a href="https://www.scopus.com/authid/detail.uri?authorId=58336556300" target="_blank" class="profile-link-item">
+            <div><div class="profile-link-name">Scopus</div><div class="profile-link-handle">Author ID 58336556300</div></div>
+            <span class="profile-link-arrow">→</span>
+          </a>
+          <a href="https://orcid.org/my-orcid?orcid=0000-0002-3695-0732" target="_blank" class="profile-link-item">
+            <div><div class="profile-link-name">ORCID</div><div class="profile-link-handle">0000-0002-3695-0732</div></div>
+            <span class="profile-link-arrow">→</span>
+          </a>
+          <a href="https://researchid.co/nl.swathi" target="_blank" class="profile-link-item">
+            <div><div class="profile-link-name">Research ID</div><div class="profile-link-handle">nl.swathi</div></div>
+            <span class="profile-link-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>N.L. Swathi</span> · PhD Scholar, Pharm D · Manipal, Karnataka, India</p>
+</footer>
+
+<script>
+  // Nav toggle
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Publication tabs
+  function switchTab(name, btn) {
+    document.querySelectorAll('.pub-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.pub-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+
+  // Toggle show more publications
+  var pubState = { articles: false, chapters: false };
+  function togglePubs(type) {
+    var more = document.getElementById(type + '-more');
+    var btn = document.getElementById(type + '-toggle');
+    pubState[type] = !pubState[type];
+    if (pubState[type]) {
+      more.style.display = 'block';
+      btn.textContent = 'Show Less ↑';
+    } else {
+      more.style.display = 'none';
+      btn.textContent = type === 'articles' ? 'Show All 16 Articles ↓' : 'Show All 19 Chapters ↓';
+    }
+  }
+</script>
+</body>
+</html>
