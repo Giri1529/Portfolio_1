@@ -1,5 +1,5 @@
-import { useRef, useEffect, useState, useCallback } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { cvData } from "@/data";
 
@@ -79,124 +79,43 @@ function DesktopTalkCard({ talk, image, index, total }: TalkCardProps) {
 function MobileStickyRail() {
   const talks = cvData.talks;
   const cardCount = talks.length;
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isLocked, setIsLocked] = useState(false);
   const [direction, setDirection] = useState(1);
-  const isTransitioning = useRef(false);
-  const touchStartY = useRef(0);
-  const accumulatedDelta = useRef(0);
-
-  const SCROLL_THRESHOLD = 60;
-  const TRANSITION_COOLDOWN = 600;
-
-  const goToCard = useCallback((next: number, dir: number) => {
-    if (isTransitioning.current) return;
-    if (next < 0 || next >= cardCount) return;
-    isTransitioning.current = true;
-    setDirection(dir);
-    setActiveIndex(next);
-    accumulatedDelta.current = 0;
-    setTimeout(() => {
-      isTransitioning.current = false;
-    }, TRANSITION_COOLDOWN);
-  }, [cardCount]);
+  const prevIndex = useRef(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    if (window.innerWidth >= 768) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const ratio = entry.intersectionRatio;
-        const bounds = entry.boundingClientRect;
-        const isFullyVisible = ratio > 0.85;
-        const isAtTop = bounds.top <= 10;
-
-        if (isFullyVisible && isAtTop) {
-          setIsLocked(true);
-        }
-      },
-      { threshold: [0, 0.5, 0.85, 1] }
-    );
-    observer.observe(section);
-    return () => observer.disconnect();
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
-  useEffect(() => {
-    if (!isLocked || window.innerWidth >= 768) return;
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
 
-    const handleWheel = (e: WheelEvent) => {
-      const delta = e.deltaY;
-      
-      if (activeIndex === 0 && delta < 0) {
-        setIsLocked(false);
-        return;
-      }
-      if (activeIndex === cardCount - 1 && delta > 0) {
-        setIsLocked(false);
-        return;
-      }
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (!isMobile) return;
+    const raw = v * cardCount;
+    const idx = Math.min(Math.floor(raw), cardCount - 1);
+    const clamped = Math.max(0, idx);
+    if (clamped !== prevIndex.current) {
+      setDirection(clamped > prevIndex.current ? 1 : -1);
+      prevIndex.current = clamped;
+      setActiveIndex(clamped);
+    }
+  });
 
-      e.preventDefault();
-      accumulatedDelta.current += delta;
-
-      if (accumulatedDelta.current > SCROLL_THRESHOLD) {
-        goToCard(activeIndex + 1, 1);
-      } else if (accumulatedDelta.current < -SCROLL_THRESHOLD) {
-        goToCard(activeIndex - 1, -1);
-      }
-    };
-
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY.current = e.touches[0].clientY;
-      accumulatedDelta.current = 0;
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      const delta = touchStartY.current - e.touches[0].clientY;
-
-      if (activeIndex === 0 && delta < 0) {
-        setIsLocked(false);
-        return;
-      }
-      if (activeIndex === cardCount - 1 && delta > 0) {
-        setIsLocked(false);
-        return;
-      }
-
-      e.preventDefault();
-      accumulatedDelta.current = delta;
-    };
-
-    const handleTouchEnd = () => {
-      if (accumulatedDelta.current > SCROLL_THRESHOLD) {
-        goToCard(activeIndex + 1, 1);
-      } else if (accumulatedDelta.current < -SCROLL_THRESHOLD) {
-        goToCard(activeIndex - 1, -1);
-      }
-      accumulatedDelta.current = 0;
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
-    window.addEventListener("touchend", handleTouchEnd, { passive: true });
-
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [isLocked, activeIndex, cardCount, goToCard]);
+  if (!isMobile) return null;
 
   const variants = {
     enter: (dir: number) => ({
-      x: dir > 0 ? "40%" : "-40%",
+      x: dir > 0 ? 80 : -80,
       opacity: 0,
-      scale: 0.9,
+      scale: 0.93,
     }),
     center: {
       x: 0,
@@ -204,16 +123,20 @@ function MobileStickyRail() {
       scale: 1,
     },
     exit: (dir: number) => ({
-      x: dir > 0 ? "-40%" : "40%",
+      x: dir > 0 ? -80 : 80,
       opacity: 0,
-      scale: 0.9,
+      scale: 0.93,
     }),
   };
 
   return (
-    <div ref={sectionRef} className="md:hidden">
-      <div className="min-h-[85vh] flex flex-col justify-center px-4 py-6">
-        <div className="flex items-center justify-center gap-2 mb-5">
+    <div
+      ref={containerRef}
+      className="md:hidden relative"
+      style={{ height: `${cardCount * 100}vh` }}
+    >
+      <div className="sticky top-0 h-[100dvh] flex flex-col justify-center overflow-hidden">
+        <div className="flex items-center justify-center gap-2 mb-4 px-6 pt-2">
           {talks.map((_, i) => (
             <div
               key={i}
@@ -226,9 +149,12 @@ function MobileStickyRail() {
               }`}
             />
           ))}
+          <span className="ml-3 text-[0.6rem] text-[#7a7a9a] uppercase tracking-widest font-medium">
+            {activeIndex + 1} / {cardCount}
+          </span>
         </div>
 
-        <div className="relative overflow-hidden" style={{ minHeight: "60vh" }}>
+        <div className="relative flex-1 flex items-center px-4 min-h-0">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={activeIndex}
@@ -238,7 +164,7 @@ function MobileStickyRail() {
               animate="center"
               exit="exit"
               transition={{
-                duration: 0.45,
+                duration: 0.4,
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
               className="w-full"
@@ -248,7 +174,7 @@ function MobileStickyRail() {
                   <img
                     src={talkImages[activeIndex % talkImages.length]}
                     alt={talks[activeIndex].title}
-                    className="w-full h-[220px] object-cover"
+                    className="w-full h-[200px] object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                   <div className="absolute top-3 left-3">
@@ -291,15 +217,13 @@ function MobileStickyRail() {
           </AnimatePresence>
         </div>
 
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center py-3">
           <motion.span
             className="text-[0.6rem] text-[#7a7a9a]/50 uppercase tracking-[0.15em]"
             animate={{ opacity: [0.3, 0.7, 0.3] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            {activeIndex < cardCount - 1
-              ? "↓ Scroll for next talk"
-              : "↓ Scroll to continue"}
+            {activeIndex < cardCount - 1 ? "↓ Scroll for next talk" : "↓ Scroll to continue"}
           </motion.span>
         </div>
       </div>
