@@ -68,7 +68,7 @@ function Home() {
         <InvitedTalks />
       </div>
 
-      <SectionBand variant="dark">
+      <SectionBand variant="light">
         <Contact />
       </SectionBand>
 
