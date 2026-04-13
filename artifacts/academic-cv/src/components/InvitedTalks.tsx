@@ -15,7 +15,7 @@ import img6 from "@assets/WhatsApp_Image_2026-04-01_at_20.02.47_1775143779261.jp
 
 gsap.registerPlugin(ScrollTrigger);
 
-const talkImages = [img1, img2, img3, img4, img5];
+const talkImages = [img1, img2, img3, img4, img5, img6];
 
 type Talk = (typeof cvData.talks)[number];
 
