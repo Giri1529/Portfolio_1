@@ -327,7 +327,7 @@ export function InvitedTalks() {
           transition={{ duration: 0.5 }}
         >
           <img
-            src={img6}
+            src={img5}
             alt="With students"
             className="w-12 h-12 md:w-14 md:h-14 object-cover shrink-0"
             style={{ borderRadius: "50%" }}
