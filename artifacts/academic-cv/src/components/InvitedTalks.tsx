@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cvData } from "@/data";
 
 import img1 from "@assets/WhatsApp_Image_2026-04-01_at_20.02.47_(1)_1775143779260.jpeg";
-import img2 from "@assets/WhatsApp_Image_2026-04-01_at_20.02.47_(2)_1775143779261.jpeg";
+import img2 from "@assets/image_1776047137864.png";
 import img3 from "@assets/WhatsApp_Image_2026-04-01_at_20.02.46_(1)_1775143779258.jpeg";
 import img4 from "@assets/WhatsApp_Image_2026-04-01_at_20.02.45_1775143779258.jpeg";
 import img5 from "@assets/WhatsApp_Image_2026-04-01_at_20.02.44_1775143779256.jpeg";
@@ -15,7 +15,7 @@ import img6 from "@assets/WhatsApp_Image_2026-04-01_at_20.02.47_1775143779261.jp
 
 gsap.registerPlugin(ScrollTrigger);
 
-const talkImages = [img1, img2, img3, img4, img5];
+const talkImages = [img1, img2, img3, img4, img5, img6];
 
 type Talk = (typeof cvData.talks)[number];
 

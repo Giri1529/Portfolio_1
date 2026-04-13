@@ -3,7 +3,7 @@ export const cvData = {
     name: "N.L. Swathi",
     title: "PhD in Metabolomics | Pharm D | Researcher",
     location: "Manipal, Karnataka, India",
-    email: "Swathiwathi1999@gmail.com",
+    email: "swathi.collaboration@gmail.com",
     phone: "+91 6309501665",
     linkedin: "https://www.linkedin.com/in/swathi-naraganti-06ba64203/",
     orcid: "https://orcid.org/my-orcid?orcid=0000-0002-3695-0732",
