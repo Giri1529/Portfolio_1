@@ -1,7 +1,40 @@
 import { useState, useEffect } from "react";
 import { cvData } from "@/data";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import heroImg from "@assets/WhatsApp_Image_2026-04-12_at_13.41.41_1776010255509.jpeg";
+
+const rotatingWords = ["Researcher", "Mentor", "Author", "Speaker", "Innovator"];
+
+function RotatingText() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className="inline-block relative">
+      <span className="text-white">I am a </span>
+      <span className="inline-block w-[200px] md:w-[260px] text-left align-bottom relative">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={rotatingWords[index]}
+            className="inline-block text-[#d4af6a] italic"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -30, opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            {rotatingWords[index]}
+          </motion.span>
+        </AnimatePresence>
+      </span>
+    </span>
+  );
+}
 
 function FlipCard() {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -38,7 +71,7 @@ function FlipCard() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#0d1b2a]/70 via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6">
               <p className="font-serif text-white text-lg font-light italic">N.L. Swathi</p>
-              <p className="text-[0.72rem] text-white/50 uppercase tracking-[0.1em] mt-1">PhD Scholar · Researcher</p>
+              <p className="text-[0.72rem] text-white/50 uppercase tracking-[0.1em] mt-1">PhD in Metabolomics · Researcher</p>
             </div>
             <div className="absolute top-4 right-4">
               <span className="text-[0.65rem] text-white/40 uppercase tracking-[0.15em] flex items-center gap-1.5">
@@ -101,7 +134,7 @@ export function Hero() {
             >
               <div className="w-[30px] h-px bg-[#b8963e]" />
               <span className="text-[0.72rem] font-medium uppercase tracking-[0.2em] text-[#b8963e]">
-                PhD Scholar & Researcher
+                PhD in Metabolomics · Pharm D
               </span>
             </motion.div>
 
@@ -114,14 +147,14 @@ export function Hero() {
               N.L. <em className="italic text-[#d4af6a]">Swathi</em>
             </motion.h1>
 
-            <motion.p
-              className="font-serif text-[1.2rem] text-white/50 font-light italic"
+            <motion.div
+              className="font-serif text-[1.35rem] md:text-[1.5rem] font-light leading-snug"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
             >
-              Pharm D · Computational Biology · Clinical Research
-            </motion.p>
+              <RotatingText />
+            </motion.div>
 
             <motion.p
               className="text-[0.9rem] text-white/60 leading-[1.85] max-w-[480px]"
@@ -129,18 +162,45 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
             >
-              I am a PhD Scholar and Pharm D graduate with a passion for Diabetes Research, Computational Biology, and Clinical Pharmacy. My work bridges theory and practice — advancing knowledge while mentoring the next generation of researchers. Open to research collaborations, academic discussions, writing opportunities, and mentoring inquiries.
+              Bridging Diabetes Research, Computational Biology, and Clinical Pharmacy — advancing knowledge while mentoring the next generation of researchers.
             </motion.p>
 
             <motion.div
-              className="flex flex-wrap gap-3"
+              className="flex flex-wrap gap-2"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+            >
+              {["Collaborations", "Public Speaking", "Podcasts", "Mentoring"].map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1.5 text-[0.65rem] uppercase tracking-[0.1em] text-[#d4af6a]/70 border border-[rgba(184,150,62,0.2)] rounded-full"
+                >
+                  Open for {tag}
+                </span>
+              ))}
+            </motion.div>
+
+            <motion.div
+              className="flex items-center gap-3 pt-1"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.45, ease: "easeOut" }}
             >
-              <a href={`mailto:${cvData.personal.email}`} className="inline-flex items-center gap-2 px-4 py-2 border border-[rgba(184,150,62,0.4)] text-[#d4af6a] text-[0.75rem] uppercase tracking-[0.08em] hover:bg-[rgba(184,150,62,0.1)] hover:border-[#b8963e] hover:text-white transition-all rounded-sm">
-                ✉ Email
+              <a
+                href={`mailto:${cvData.personal.email}`}
+                className="text-[0.8rem] text-[#d4af6a] hover:text-white transition-colors font-medium"
+              >
+                {cvData.personal.email}
               </a>
+            </motion.div>
+
+            <motion.div
+              className="flex flex-wrap gap-3 pt-1"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+            >
               <a href={cvData.personal.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border border-[rgba(184,150,62,0.4)] text-[#d4af6a] text-[0.75rem] uppercase tracking-[0.08em] hover:bg-[rgba(184,150,62,0.1)] hover:border-[#b8963e] hover:text-white transition-all rounded-sm">
                 LinkedIn
               </a>

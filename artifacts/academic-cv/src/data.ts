@@ -1,7 +1,7 @@
 export const cvData = {
   personal: {
     name: "N.L. Swathi",
-    title: "PhD Scholar | Pharm D | Researcher",
+    title: "PhD in Metabolomics | Pharm D | Researcher",
     location: "Manipal, Karnataka, India",
     email: "Swathiwathi1999@gmail.com",
     phone: "+91 6309501665",
@@ -17,7 +17,7 @@ export const cvData = {
   },
   education: [
     {
-      degree: "PhD",
+      degree: "PhD in Metabolomics",
       institution: "Manipal Academy of Higher Education",
       location: "Manipal, Karnataka",
       status: "Ongoing",
