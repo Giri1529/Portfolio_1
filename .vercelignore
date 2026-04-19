@@ -1,0 +1,11 @@
+.replit
+.replitignore
+replit.md
+.config/
+.local/
+.cache/
+.agents/
+screenshots/
+node_modules
+dist
+*.tsbuildinfo
