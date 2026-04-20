@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Section } from "./Section";
 import { cvData } from "@/data";
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, Phone, MapPin, ExternalLink, CheckCircle2, AlertCircle } from "lucide-react";
 
 const profileLinks = [
   { label: "LinkedIn", url: cvData.personal.linkedin, icon: "in" },
@@ -11,20 +11,76 @@ const profileLinks = [
   { label: "Research ID", url: cvData.personal.researchId, icon: "Ri" },
 ];
 
-export function Contact() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+const emptyForm = { firstName: "", lastName: "", email: "", phone: "", message: "" };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const mailtoLink = `mailto:${cvData.personal.email}?subject=Message from ${formData.firstName} ${formData.lastName}&body=${encodeURIComponent(formData.message)}%0A%0AFrom: ${formData.firstName} ${formData.lastName}%0AEmail: ${formData.email}%0APhone: ${formData.phone}`;
-    window.open(mailtoLink, "_blank");
+type SubmitStatus = "idle" | "sending" | "success" | "error";
+
+export function Contact() {
+  const [formData, setFormData] = useState(emptyForm);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (resetTimer.current) clearTimeout(resetTimer.current);
+    };
+  }, []);
+
+  const scheduleReset = () => {
+    if (resetTimer.current) clearTimeout(resetTimer.current);
+    resetTimer.current = setTimeout(() => setStatus("idle"), 6000);
   };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      setErrorMessage("Form is not configured. Please email directly.");
+      setStatus("error");
+      scheduleReset();
+      return;
+    }
+
+    setStatus("sending");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Portfolio Contact: ${formData.firstName} ${formData.lastName}`.trim(),
+          from_name: `${formData.firstName} ${formData.lastName}`.trim(),
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setStatus("success");
+        setFormData(emptyForm);
+      } else {
+        setErrorMessage(data.message || "Something went wrong. Please try again.");
+        setStatus("error");
+      }
+    } catch {
+      setErrorMessage("Network error. Please check your connection and try again.");
+      setStatus("error");
+    } finally {
+      scheduleReset();
+    }
+  };
+
+  const isSending = status === "sending";
 
   return (
     <Section id="contact" title="Contact">
@@ -150,11 +206,56 @@ export function Contact() {
 
             <button
               type="submit"
-              className="btn-shine px-8 py-3 bg-[#0d1b2a] text-[#f5f0e8] text-sm font-medium hover:bg-[#1a2f45] transition-all duration-300 tracking-wide hover:tracking-wider rounded-sm"
+              disabled={isSending}
+              className="btn-shine px-8 py-3 bg-[#0d1b2a] text-[#f5f0e8] text-sm font-medium hover:bg-[#1a2f45] transition-all duration-300 tracking-wide hover:tracking-wider rounded-sm disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-[#0d1b2a] disabled:hover:tracking-wide"
               data-testid="button-submit"
             >
-              Send Message
+              {isSending ? "Sending..." : "Send Message"}
             </button>
+
+            <AnimatePresence mode="wait">
+              {status === "success" && (
+                <motion.div
+                  key="success-toast"
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.25 }}
+                  role="status"
+                  aria-live="polite"
+                  className="flex items-start gap-3 p-4 border border-[rgba(184,150,62,0.35)] bg-[#f5f0e8] rounded-sm"
+                  data-testid="contact-toast-success"
+                >
+                  <CheckCircle2 className="w-5 h-5 text-[#b8963e] shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-[#0d1b2a]">Message sent!</p>
+                    <p className="text-xs text-[#3d3d5c] mt-0.5">
+                      {cvData.personal.name.split(" ")[0]} will get back to you soon.
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+
+              {status === "error" && (
+                <motion.div
+                  key="error-toast"
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.25 }}
+                  role="alert"
+                  aria-live="assertive"
+                  className="flex items-start gap-3 p-4 border border-[rgba(185,28,28,0.35)] bg-[rgba(185,28,28,0.06)] rounded-sm"
+                  data-testid="contact-toast-error"
+                >
+                  <AlertCircle className="w-5 h-5 text-[#b91c1c] shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-[#0d1b2a]">Could not send message</p>
+                    <p className="text-xs text-[#3d3d5c] mt-0.5">{errorMessage}</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.form>
 
           <div className="hidden md:block w-px bg-[rgba(184,150,62,0.25)]" />

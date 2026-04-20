@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { cvData } from "@/data";
 import { motion, AnimatePresence } from "framer-motion";
+import { GraduationCap } from "lucide-react";
 import heroImg from "@assets/WhatsApp_Image_2026-04-12_at_13.41.41_1776010255509.jpeg";
 
 const rotatingWords = ["Researcher", "Mentor", "Author", "Speaker", "Innovator"];
@@ -164,6 +165,19 @@ export function Hero() {
             >
               Bridging Diabetes Research, Computational Biology, and Clinical Pharmacy — advancing knowledge while mentoring the next generation of researchers.
             </motion.p>
+
+            <motion.div
+              className="flex items-center gap-3 text-[0.85rem] text-white/65"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.35, ease: "easeOut" }}
+            >
+              <GraduationCap className="w-4 h-4 text-[#b8963e] shrink-0" />
+              <span>
+                Pursuing PhD at{" "}
+                <span className="text-[#d4af6a] font-medium">Manipal College of Nursing, MAHE</span>
+              </span>
+            </motion.div>
 
             <motion.div
               className="flex flex-wrap gap-2"
