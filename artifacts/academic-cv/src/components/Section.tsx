@@ -19,32 +19,46 @@ export function Section({ id, title, subtitle, titleAccent, children, className 
   return (
     <motion.section
       id={id}
-      className={`py-16 md:py-24 scroll-mt-20 ${className}`}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      className={`section-pad scroll-mt-20 ${className}`}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
     >
       {(title || subtitle) && (
-        <div className="mb-10 md:mb-14">
+        <motion.div
+          className="mb-14 md:mb-20"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        >
           {subtitle && (
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#b8963e]">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="rule-gold-short" />
+              <span className={`smallcaps text-[0.68rem] ${accentColor}`}>
                 {subtitle}
               </span>
-              <div className="h-px w-10 bg-[#b8963e]" />
             </div>
           )}
           {title && (
-            <h2 className={`text-3xl md:text-4xl lg:text-[3rem] font-serif font-light ${textColor} leading-[1.15]`}>
+            <h2 className={`display-section ${textColor}`}>
               {title}
               {titleAccent && (
                 <span className={`italic ${accentColor}`}> {titleAccent}</span>
               )}
             </h2>
           )}
-          {!noDivider && !subtitle && <div className={`w-full h-px ${dark ? "bg-white/15" : "bg-[rgba(184,150,62,0.25)]"}`} />}
-        </div>
+          {!noDivider && !subtitle && (
+            <motion.div
+              className={`mt-8 w-full h-px origin-left ${dark ? "bg-white/15" : "bg-[rgba(184,150,62,0.25)]"}`}
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            />
+          )}
+        </motion.div>
       )}
       {children}
     </motion.section>

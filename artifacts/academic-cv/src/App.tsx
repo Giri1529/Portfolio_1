@@ -12,6 +12,11 @@ import { Footer } from "@/components/Footer";
 import { Skills } from "@/components/Skills";
 import { OngoingProjects } from "@/components/OngoingProjects";
 import NotFound from "@/pages/not-found";
+import { CustomCursor } from "@/components/global/CustomCursor";
+import { ScrollProgress } from "@/components/global/ScrollProgress";
+import { GrainOverlay } from "@/components/global/GrainOverlay";
+import { PageCurtain } from "@/components/global/PageCurtain";
+import { useLenis } from "@/hooks/useLenis";
 
 function SectionBand({ children, variant = "light" }: { children: React.ReactNode; variant?: "light" | "warm" | "dark" }) {
   const bgClass = variant === "dark"
@@ -22,7 +27,7 @@ function SectionBand({ children, variant = "light" }: { children: React.ReactNod
 
   return (
     <div className={bgClass}>
-      <div className="max-w-[1100px] mx-auto px-8">
+      <div className="max-w-[1280px] mx-auto px-8 md:px-12">
         {children}
       </div>
     </div>
@@ -30,8 +35,14 @@ function SectionBand({ children, variant = "light" }: { children: React.ReactNod
 }
 
 function Home() {
+  useLenis();
   return (
-    <div className="min-h-screen font-sans" style={{ background: "#f5f0e8", color: "#1a1a2e" }}>
+    <div className="min-h-screen font-sans cursor-luxe" style={{ background: "#f5f0e8", color: "#1a1a2e" }}>
+      <PageCurtain />
+      <ScrollProgress />
+      <GrainOverlay />
+      <CustomCursor />
+
       <Navbar />
 
       <Hero />

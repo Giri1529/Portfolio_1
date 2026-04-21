@@ -2,18 +2,75 @@ import { useEffect, useRef, useState } from "react";
 import { Section } from "./Section";
 import { cvData } from "@/data";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, MapPin, ExternalLink, CheckCircle2, AlertCircle } from "lucide-react";
+import { CheckCircle2, AlertCircle, ArrowRight } from "lucide-react";
 
 const profileLinks = [
-  { label: "LinkedIn", url: cvData.personal.linkedin, icon: "in" },
-  { label: "ORCID", url: cvData.personal.orcid, icon: "ID" },
-  { label: "Scopus", url: cvData.personal.scopus, icon: "Sc" },
-  { label: "Research ID", url: cvData.personal.researchId, icon: "Ri" },
+  { label: "LinkedIn", url: cvData.personal.linkedin },
+  { label: "ORCID", url: cvData.personal.orcid },
+  { label: "Scopus", url: cvData.personal.scopus },
+  { label: "Research ID", url: cvData.personal.researchId },
 ];
 
 const emptyForm = { firstName: "", lastName: "", email: "", phone: "", message: "" };
 
 type SubmitStatus = "idle" | "sending" | "success" | "error";
+
+type FieldKey = keyof typeof emptyForm;
+
+function FloatingField({
+  label,
+  value,
+  onChange,
+  type = "text",
+  required = false,
+  "data-testid": dataTestId,
+  textarea = false,
+  rows,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  type?: string;
+  required?: boolean;
+  "data-testid"?: string;
+  textarea?: boolean;
+  rows?: number;
+}) {
+  const [focused, setFocused] = useState(false);
+  const active = focused || value.length > 0;
+
+  const sharedProps = {
+    value,
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => onChange(e.target.value),
+    onFocus: () => setFocused(true),
+    onBlur: () => setFocused(false),
+    className:
+      "w-full bg-transparent border-0 border-b border-[rgba(184,150,62,0.3)] focus:border-[#b8963e] outline-none py-4 text-[1.02rem] text-[#0d1b2a] font-serif font-light placeholder-transparent transition-colors duration-500",
+    required,
+    placeholder: label,
+    "data-testid": dataTestId,
+  };
+
+  return (
+    <div className="relative">
+      <label
+        className={`absolute left-0 pointer-events-none smallcaps transition-all duration-500 ease-out ${
+          active
+            ? "text-[0.58rem] text-[#b8963e] top-0"
+            : "text-[0.72rem] text-[#7a7a9a] top-4"
+        }`}
+      >
+        {label}
+        {required && <span className="text-[#b8963e] ml-1">*</span>}
+      </label>
+      {textarea ? (
+        <textarea {...sharedProps} rows={rows || 4} className={sharedProps.className + " resize-none"} />
+      ) : (
+        <input type={type} {...sharedProps} />
+      )}
+    </div>
+  );
+}
 
 export function Contact() {
   const [formData, setFormData] = useState(emptyForm);
@@ -31,6 +88,8 @@ export function Contact() {
     if (resetTimer.current) clearTimeout(resetTimer.current);
     resetTimer.current = setTimeout(() => setStatus("idle"), 6000);
   };
+
+  const setField = (key: FieldKey) => (v: string) => setFormData((p) => ({ ...p, [key]: v }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,221 +142,202 @@ export function Contact() {
   const isSending = status === "sending";
 
   return (
-    <Section id="contact" title="Contact">
-      <div className="space-y-16">
+    <Section id="contact" subtitle="Get in Touch" title="Let's" titleAccent="Collaborate">
+      <div className="space-y-20">
+        {/* Contact info strip — stripped to text, no card backgrounds */}
         <motion.div
-          className="grid sm:grid-cols-3 gap-8"
-          initial={{ opacity: 0, y: 20 }}
+          className="grid sm:grid-cols-3 gap-0 sm:divide-x sm:divide-[rgba(184,150,62,0.2)]"
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="contact-card flex items-start gap-4 p-6 border border-[rgba(184,150,62,0.25)] rounded-sm cursor-default bg-[#f5f0e8]">
-            <div className="contact-icon w-10 h-10 rounded-full bg-[#0d1b2a]/5 flex items-center justify-center shrink-0 transition-all duration-300">
-              <Mail className="w-4 h-4 text-[#0d1b2a]/60" />
-            </div>
-            <div>
-              <h4 className="text-sm font-medium text-[#0d1b2a] mb-1">Email</h4>
-              <a href={`mailto:${cvData.personal.email}`} className="link-underline text-sm text-[#3d3d5c] hover:text-[#0d1b2a] transition-colors break-all">
-                {cvData.personal.email}
-              </a>
-            </div>
+          <div className="sm:px-8 py-6 first:pl-0">
+            <p className="smallcaps text-[0.62rem] text-[#b8963e] mb-3">Email</p>
+            <a
+              href={`mailto:${cvData.personal.email}`}
+              className="link-draw font-serif text-[1rem] text-[#0d1b2a] break-all"
+              data-cursor="link"
+            >
+              {cvData.personal.email}
+            </a>
           </div>
-
-          <div className="contact-card flex items-start gap-4 p-6 border border-[rgba(184,150,62,0.25)] rounded-sm cursor-default bg-[#f5f0e8]">
-            <div className="contact-icon w-10 h-10 rounded-full bg-[#0d1b2a]/5 flex items-center justify-center shrink-0 transition-all duration-300">
-              <Phone className="w-4 h-4 text-[#0d1b2a]/60" />
-            </div>
-            <div>
-              <h4 className="text-sm font-medium text-[#0d1b2a] mb-1">Phone</h4>
-              <a href={`tel:${cvData.personal.phone}`} className="link-underline text-sm text-[#3d3d5c] hover:text-[#0d1b2a] transition-colors">
-                {cvData.personal.phone}
-              </a>
-            </div>
+          <div className="sm:px-8 py-6">
+            <p className="smallcaps text-[0.62rem] text-[#b8963e] mb-3">Phone</p>
+            <a
+              href={`tel:${cvData.personal.phone}`}
+              className="link-draw font-serif text-[1rem] text-[#0d1b2a] tabular"
+              data-cursor="link"
+            >
+              {cvData.personal.phone}
+            </a>
           </div>
-
-          <div className="contact-card flex items-start gap-4 p-6 border border-[rgba(184,150,62,0.25)] rounded-sm cursor-default bg-[#f5f0e8]">
-            <div className="contact-icon w-10 h-10 rounded-full bg-[#0d1b2a]/5 flex items-center justify-center shrink-0 transition-all duration-300">
-              <MapPin className="w-4 h-4 text-[#0d1b2a]/60" />
-            </div>
-            <div>
-              <h4 className="text-sm font-medium text-[#0d1b2a] mb-1">Location</h4>
-              <p className="text-sm text-[#3d3d5c]">{cvData.personal.location}</p>
-            </div>
+          <div className="sm:px-8 py-6 last:pr-0">
+            <p className="smallcaps text-[0.62rem] text-[#b8963e] mb-3">Location</p>
+            <p className="font-serif text-[1rem] text-[#0d1b2a]">{cvData.personal.location}</p>
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-[1fr_1px_1fr] gap-0 md:gap-12">
+        <div className="grid md:grid-cols-[1.3fr_1fr] gap-14 md:gap-24">
           <motion.form
             onSubmit={handleSubmit}
-            className="space-y-6"
-            initial={{ opacity: 0, y: 24 }}
+            className="space-y-10"
+            initial={{ opacity: 0, y: 26 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h3 className="text-xl font-serif font-medium text-[#0d1b2a] mb-2">Send a Message</h3>
-            <p className="text-sm text-[#7a7a9a] mb-6">Feel free to reach out for collaborations, research inquiries, or academic discussions.</p>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-[#7a7a9a] mb-1.5 uppercase tracking-wider">First name *</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.firstName}
-                  onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                  className="input-glow w-full px-4 py-3 bg-transparent border border-[rgba(184,150,62,0.25)] text-[#0d1b2a] text-sm focus:outline-none transition-all placeholder:text-[#7a7a9a]/50"
-                  placeholder="Your first name"
-                  data-testid="input-first-name"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-[#7a7a9a] mb-1.5 uppercase tracking-wider">Last name *</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.lastName}
-                  onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                  className="input-glow w-full px-4 py-3 bg-transparent border border-[rgba(184,150,62,0.25)] text-[#0d1b2a] text-sm focus:outline-none transition-all placeholder:text-[#7a7a9a]/50"
-                  placeholder="Your last name"
-                  data-testid="input-last-name"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-[#7a7a9a] mb-1.5 uppercase tracking-wider">Email *</label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="input-glow w-full px-4 py-3 bg-transparent border border-[rgba(184,150,62,0.25)] text-[#0d1b2a] text-sm focus:outline-none transition-all placeholder:text-[#7a7a9a]/50"
-                  placeholder="your@email.com"
-                  data-testid="input-email"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-[#7a7a9a] mb-1.5 uppercase tracking-wider">Phone</label>
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="input-glow w-full px-4 py-3 bg-transparent border border-[rgba(184,150,62,0.25)] text-[#0d1b2a] text-sm focus:outline-none transition-all placeholder:text-[#7a7a9a]/50"
-                  placeholder="+91 XXXXXXXXXX"
-                  data-testid="input-phone"
-                />
-              </div>
-            </div>
-
             <div>
-              <label className="block text-xs font-medium text-[#7a7a9a] mb-1.5 uppercase tracking-wider">Message</label>
-              <textarea
-                rows={5}
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="input-glow w-full px-4 py-3 bg-transparent border border-[rgba(184,150,62,0.25)] text-[#0d1b2a] text-sm focus:outline-none transition-all resize-none placeholder:text-[#7a7a9a]/50"
-                placeholder="Write your message here..."
-                data-testid="input-message"
-              />
+              <p className="smallcaps text-[0.68rem] text-[#b8963e] mb-3">Send a Message</p>
+              <h3 className="font-serif font-light italic text-[1.75rem] md:text-[2.2rem] text-[#0d1b2a] leading-[1.15]">
+                Reach out for collaborations, research inquiries, or academic discussions.
+              </h3>
             </div>
 
-            <button
-              type="submit"
-              disabled={isSending}
-              className="btn-shine px-8 py-3 bg-[#0d1b2a] text-[#f5f0e8] text-sm font-medium hover:bg-[#1a2f45] transition-all duration-300 tracking-wide hover:tracking-wider rounded-sm disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-[#0d1b2a] disabled:hover:tracking-wide"
-              data-testid="button-submit"
-            >
-              {isSending ? "Sending..." : "Send Message"}
-            </button>
+            <div className="grid md:grid-cols-2 gap-x-10 gap-y-8 pt-2">
+              <FloatingField
+                label="First name"
+                value={formData.firstName}
+                onChange={setField("firstName")}
+                required
+                data-testid="input-first-name"
+              />
+              <FloatingField
+                label="Last name"
+                value={formData.lastName}
+                onChange={setField("lastName")}
+                required
+                data-testid="input-last-name"
+              />
+              <FloatingField
+                label="Email"
+                value={formData.email}
+                onChange={setField("email")}
+                type="email"
+                required
+                data-testid="input-email"
+              />
+              <FloatingField
+                label="Phone"
+                value={formData.phone}
+                onChange={setField("phone")}
+                type="tel"
+                data-testid="input-phone"
+              />
+              <div className="md:col-span-2">
+                <FloatingField
+                  label="Message"
+                  value={formData.message}
+                  onChange={setField("message")}
+                  textarea
+                  rows={4}
+                  data-testid="input-message"
+                />
+              </div>
+            </div>
 
-            <AnimatePresence mode="wait">
-              {status === "success" && (
-                <motion.div
-                  key="success-toast"
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.25 }}
-                  role="status"
-                  aria-live="polite"
-                  className="flex items-start gap-3 p-4 border border-[rgba(184,150,62,0.35)] bg-[#f5f0e8] rounded-sm"
-                  data-testid="contact-toast-success"
-                >
-                  <CheckCircle2 className="w-5 h-5 text-[#b8963e] shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-sm font-medium text-[#0d1b2a]">Message sent!</p>
-                    <p className="text-xs text-[#3d3d5c] mt-0.5">
-                      {cvData.personal.name.split(" ")[0]} will get back to you soon.
-                    </p>
-                  </div>
-                </motion.div>
-              )}
+            <div className="flex flex-col gap-6 pt-4">
+              <button
+                type="submit"
+                disabled={isSending}
+                className="group inline-flex items-center gap-4 self-start smallcaps text-[0.78rem] text-[#0d1b2a] hover:text-[#b8963e] transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                data-cursor="link"
+                data-testid="button-submit"
+              >
+                <span className="relative">
+                  {isSending ? "Sending…" : "Send Message"}
+                  <span className="absolute left-0 -bottom-1 h-px w-full bg-[#b8963e] origin-left scale-x-100 transition-transform duration-500 group-hover:origin-right group-hover:scale-x-0" />
+                </span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-2" />
+              </button>
 
-              {status === "error" && (
-                <motion.div
-                  key="error-toast"
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.25 }}
-                  role="alert"
-                  aria-live="assertive"
-                  className="flex items-start gap-3 p-4 border border-[rgba(185,28,28,0.35)] bg-[rgba(185,28,28,0.06)] rounded-sm"
-                  data-testid="contact-toast-error"
-                >
-                  <AlertCircle className="w-5 h-5 text-[#b91c1c] shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-sm font-medium text-[#0d1b2a]">Could not send message</p>
-                    <p className="text-xs text-[#3d3d5c] mt-0.5">{errorMessage}</p>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+              <AnimatePresence mode="wait">
+                {status === "success" && (
+                  <motion.div
+                    key="success-toast"
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    role="status"
+                    aria-live="polite"
+                    className="flex items-start gap-4 py-5 border-t border-b border-[rgba(184,150,62,0.3)]"
+                    data-testid="contact-toast-success"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-[#b8963e] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="smallcaps text-[0.68rem] text-[#0d1b2a]">Message sent</p>
+                      <p className="font-serif font-light italic text-[1rem] text-[#3d3d5c] mt-1">
+                        {cvData.personal.name.split(" ")[0]} will get back to you soon.
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+
+                {status === "error" && (
+                  <motion.div
+                    key="error-toast"
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    role="alert"
+                    aria-live="assertive"
+                    className="flex items-start gap-4 py-5 border-t border-b border-[rgba(185,28,28,0.3)]"
+                    data-testid="contact-toast-error"
+                  >
+                    <AlertCircle className="w-5 h-5 text-[#b91c1c] shrink-0 mt-0.5" />
+                    <div>
+                      <p className="smallcaps text-[0.68rem] text-[#0d1b2a]">Could not send</p>
+                      <p className="font-serif font-light italic text-[1rem] text-[#3d3d5c] mt-1">
+                        {errorMessage}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.form>
 
-          <div className="hidden md:block w-px bg-[rgba(184,150,62,0.25)]" />
-
           <motion.div
-            className="space-y-10 md:pl-4 pt-10 md:pt-0"
-            initial={{ opacity: 0, y: 24 }}
+            className="space-y-12"
+            initial={{ opacity: 0, y: 26 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+            transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
             <div>
-              <h3 className="text-xl font-serif font-medium text-[#0d1b2a] mb-6">Academic Profiles</h3>
-              <div className="space-y-4">
+              <p className="smallcaps text-[0.68rem] text-[#b8963e] mb-6">Academic Profiles</p>
+              <ul className="space-y-5">
                 {profileLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="profile-link group flex items-center gap-4 p-4 border border-[rgba(184,150,62,0.25)] rounded-sm"
-                    data-testid={`contact-${link.label.toLowerCase().replace(/\s/g, "-")}`}
-                  >
-                    <div className="w-10 h-10 rounded-full bg-[#0d1b2a]/5 group-hover:bg-[#b8963e] flex items-center justify-center shrink-0 transition-all duration-300">
-                      <span className="text-xs font-bold text-[#0d1b2a]/50 group-hover:text-white transition-colors duration-300">{link.icon}</span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-[#0d1b2a]">{link.label}</p>
-                      <p className="text-xs text-[#7a7a9a] truncate">{link.url}</p>
-                    </div>
-                    <ExternalLink className="w-4 h-4 text-[#7a7a9a] group-hover:text-[#b8963e] transition-colors duration-300 shrink-0" />
-                  </a>
+                  <li key={link.label}>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group flex items-baseline justify-between gap-4 py-3 border-b border-[rgba(184,150,62,0.15)] transition-colors duration-500 hover:border-[#b8963e]"
+                      data-cursor="link"
+                      data-testid={`contact-${link.label.toLowerCase().replace(/\s/g, "-")}`}
+                    >
+                      <span className="font-serif font-light text-[1.1rem] text-[#0d1b2a] group-hover:text-[#b8963e] transition-colors duration-500">
+                        {link.label}
+                      </span>
+                      <span className="smallcaps text-[0.6rem] text-[#7a7a9a] group-hover:text-[#b8963e] transition-colors duration-500">
+                        →
+                      </span>
+                    </a>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
 
-            <div className="hover-glow p-6 bg-[#f5f0e8] border border-[rgba(184,150,62,0.25)] cursor-default rounded-sm">
-              <p className="text-sm font-serif italic text-[#3d3d5c] leading-relaxed">
-                "Open to research collaborations, academic discussions, writing opportunities, and mentoring inquiries. Let's advance knowledge together."
+            <blockquote className="border-l-2 border-[#b8963e] pl-6 py-2">
+              <p className="font-serif font-light italic text-[1.08rem] text-[#3d3d5c] body-luxe">
+                &ldquo;Open to research collaborations, academic discussions, writing opportunities, and
+                mentoring inquiries. Let&rsquo;s advance knowledge together.&rdquo;
               </p>
-              <p className="text-xs text-[#7a7a9a] mt-3 font-medium">— {cvData.personal.name}</p>
-            </div>
+              <p className="smallcaps text-[0.62rem] text-[#7a7a9a] mt-4">— {cvData.personal.name}</p>
+            </blockquote>
           </motion.div>
         </div>
       </div>

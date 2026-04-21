@@ -18,7 +18,7 @@ export const cvData = {
   education: [
     {
       degree: "PhD in Metabolomics",
-      institution: "Manipal College of Nursing, Manipal Academy of Higher Education",
+      institution: "Manipal Academy of Higher Education",
       location: "Manipal, Karnataka",
       status: "Ongoing",
       description: "Research focus on individualized clinical interventions and computational drug design approaches.",

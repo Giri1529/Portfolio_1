@@ -38,41 +38,51 @@ function DesktopTalkCard({ talk, image, index, total }: TalkCardProps) {
   const isEven = index % 2 === 0;
 
   return (
-    <div ref={cardRef} className="py-6">
+    <div ref={cardRef} className="py-10">
       <motion.div
-        className="hover-lift bg-[#f5f0e8] border border-[rgba(184,150,62,0.25)] overflow-hidden rounded-sm border-l-[3px] border-l-[#b8963e]"
+        className="group relative overflow-hidden bg-[#f5f0e8] border border-[rgba(184,150,62,0.2)] transition-all duration-700"
         style={{ opacity, y }}
+        data-cursor="link"
       >
-        <div className="grid md:grid-cols-2 min-h-[380px]">
-          <div className={`img-zoom relative ${isEven ? "md:order-1" : "md:order-2"}`}>
-            <img src={image} alt={talk.title} className="w-full h-full object-cover min-h-[280px] md:min-h-full" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
-            <div className="absolute top-5 left-5">
-              <span className="inline-block px-3 py-1.5 bg-[#f5f0e8]/90 backdrop-blur-sm text-xs font-medium text-[#0d1b2a] tracking-wider uppercase">
+        {/* Picture-mat frame that fades in on hover */}
+        <span
+          aria-hidden
+          className="absolute -inset-[6px] border border-[#b8963e] opacity-0 group-hover:opacity-60 transition-opacity duration-700 pointer-events-none"
+        />
+
+        <div className="grid md:grid-cols-2 min-h-[400px]">
+          <div className={`img-zoom relative overflow-hidden ${isEven ? "md:order-1" : "md:order-2"}`}>
+            <img src={image} alt={talk.title} className="w-full h-full object-cover min-h-[300px] md:min-h-full" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+            <div className="absolute top-6 left-6">
+              <span className="smallcaps text-[0.58rem] text-white/80 tabular">
                 Talk {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
               </span>
             </div>
           </div>
-          <div className={`flex flex-col justify-center p-8 md:p-12 ${isEven ? "md:order-2" : "md:order-1"}`}>
-            <div className="space-y-5">
+          <div className={`flex flex-col justify-center p-10 md:p-14 ${isEven ? "md:order-2" : "md:order-1"}`}>
+            <div className="space-y-6">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-px bg-[#b8963e]" />
-                <span className="text-xs font-medium text-[#7a7a9a] uppercase tracking-[0.2em]">Invited Talk</span>
+                <span className="rule-gold-short" />
+                <span className="smallcaps text-[0.65rem] text-[#b8963e]">Invited Talk</span>
               </div>
-              <h3 className="text-xl md:text-2xl font-serif italic text-[#0d1b2a] leading-snug">
+              <h3 className="font-serif font-light italic text-[1.5rem] md:text-[1.9rem] text-[#0d1b2a] leading-[1.2] tracking-[-0.005em]">
                 {talk.title.replace(/"/g, "")}
               </h3>
-              <p className="text-sm md:text-base text-[#7a7a9a] leading-relaxed font-serif">{talk.audience}</p>
+              <p className="body-luxe font-serif font-light text-[1rem] text-[#3d3d5c] max-w-lg">
+                {talk.audience}
+              </p>
               {talk.link && (
                 <a
                   href={talk.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn-shine inline-flex items-center gap-2 px-5 py-2.5 border border-[rgba(184,150,62,0.4)] text-sm font-medium text-[#0d1b2a] hover:bg-[#0d1b2a] hover:text-white transition-all duration-300 group rounded-sm"
+                  className="link-draw smallcaps text-[0.7rem] text-[#b8963e] inline-flex items-center gap-2"
+                  data-cursor="link"
                   data-testid={`talk-link-${index}`}
                 >
                   Watch on YouTube
-                  <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                  <ExternalLink className="w-3 h-3" />
                 </a>
               )}
             </div>
@@ -111,49 +121,56 @@ function TalkModal({ talk, image, index, total, onClose }: TalkModalProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.5 }}
       >
         <motion.div
-          className="absolute inset-0 bg-[#0d1b2a]/80 backdrop-blur-md"
+          className="absolute inset-0 bg-[#0d1b2a]/75"
+          style={{ backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
           onClick={onClose}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
         />
         <motion.div
-          className="relative bg-[#f5f0e8] rounded-sm overflow-hidden max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-[rgba(184,150,62,0.3)]"
-          initial={{ scale: 0.85, opacity: 0, y: 30 }}
+          className="relative bg-[#f5f0e8] overflow-hidden max-w-lg w-full max-h-[90vh] overflow-y-auto border border-[rgba(184,150,62,0.3)]"
+          initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.85, opacity: 0, y: 30 }}
-          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          exit={{ scale: 0.95, opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 z-10 w-9 h-9 flex items-center justify-center bg-[#0d1b2a]/70 hover:bg-[#0d1b2a] text-white rounded-full backdrop-blur-sm transition-colors"
+            className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center bg-[#0d1b2a]/80 hover:bg-[#0d1b2a] text-white rounded-full transition-colors"
+            aria-label="Close"
+            data-cursor="link"
           >
             <X className="w-4 h-4" />
           </button>
-          <img src={image} alt={talk.title} className="w-full h-[220px] object-cover" />
-          <div className="p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-px bg-[#b8963e]" />
-              <span className="text-xs font-medium text-[#b8963e] uppercase tracking-[0.2em]">
+          <img src={image} alt={talk.title} className="w-full h-[240px] object-cover" />
+          <div className="p-7 md:p-8">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="rule-gold-short" />
+              <span className="smallcaps text-[0.64rem] text-[#b8963e]">
                 Talk {String(index + 1).padStart(2, "0")} of {String(total).padStart(2, "0")}
               </span>
             </div>
-            <h3 className="text-xl font-serif italic text-[#0d1b2a] leading-snug mb-3">
+            <h3 className="font-serif font-light italic text-[1.45rem] text-[#0d1b2a] leading-[1.25] mb-4">
               {talk.title.replace(/"/g, "")}
             </h3>
-            <p className="text-sm text-[#3d3d5c] leading-relaxed font-serif mb-5">{talk.audience}</p>
+            <p className="body-luxe font-serif font-light text-[0.95rem] text-[#3d3d5c] mb-6">
+              {talk.audience}
+            </p>
             {talk.link && (
               <a
                 href={talk.link}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0d1b2a] text-white text-sm font-medium hover:bg-[#1a2f45] transition-colors rounded-sm group"
+                className="link-draw smallcaps text-[0.7rem] text-[#b8963e] inline-flex items-center gap-2"
+                data-cursor="link"
               >
                 Watch on YouTube
-                <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                <ExternalLink className="w-3 h-3" />
               </a>
             )}
           </div>
@@ -212,37 +229,36 @@ function MobileHorizontalScroll() {
               <div
                 key={i}
                 onClick={() => setSelectedTalk(i)}
-                className="flex-shrink-0 w-[80vw] max-w-[340px] cursor-pointer group"
+                className="flex-shrink-0 w-[82vw] max-w-[360px] cursor-pointer group"
+                data-cursor="link"
               >
-                <div className="bg-[#f5f0e8] border border-[rgba(184,150,62,0.25)] overflow-hidden rounded-sm border-l-[3px] border-l-[#b8963e] h-full flex flex-col transition-shadow duration-300 group-active:shadow-[0_10px_40px_rgba(184,150,62,0.15)]">
+                <div className="relative bg-[#f5f0e8] border border-[rgba(184,150,62,0.22)] overflow-hidden h-full flex flex-col transition-shadow duration-500 group-active:shadow-[0_12px_40px_rgba(184,150,62,0.2)]">
                   <div className="relative overflow-hidden">
                     <img
                       src={talkImages[i % talkImages.length]}
                       alt={talk.title}
-                      className="w-full h-[200px] object-cover"
+                      className="w-full h-[220px] object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-                    <div className="absolute top-3 left-3">
-                      <span className="inline-block px-2.5 py-1 bg-[#f5f0e8]/90 backdrop-blur-sm text-[0.6rem] font-medium text-[#0d1b2a] tracking-wider uppercase">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                    <div className="absolute top-4 left-4">
+                      <span className="smallcaps text-[0.58rem] text-white/90 tabular">
                         {String(i + 1).padStart(2, "0")} / {String(talks.length).padStart(2, "0")}
                       </span>
                     </div>
                   </div>
 
-                  <div className="p-5 flex flex-col flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-5 h-px bg-[#b8963e]" />
-                      <span className="text-[0.55rem] font-medium text-[#7a7a9a] uppercase tracking-[0.2em]">
-                        Invited Talk
-                      </span>
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="rule-gold-short" style={{ width: "24px" }} />
+                      <span className="smallcaps text-[0.56rem] text-[#b8963e]">Invited Talk</span>
                     </div>
-                    <h3 className="text-base font-serif italic text-[#0d1b2a] leading-snug mb-2">
+                    <h3 className="font-serif font-light italic text-[1.1rem] text-[#0d1b2a] leading-[1.25] mb-3 tracking-[-0.005em]">
                       {talk.title.replace(/"/g, "")}
                     </h3>
-                    <p className="text-[0.7rem] text-[#7a7a9a] leading-relaxed font-serif flex-1 line-clamp-2">
+                    <p className="body-luxe font-serif font-light text-[0.82rem] text-[#7a7a9a] flex-1 line-clamp-3">
                       {talk.audience}
                     </p>
-                    <div className="mt-3 flex items-center gap-1.5 text-[0.65rem] font-medium text-[#b8963e]">
+                    <div className="mt-4 flex items-center gap-1.5 smallcaps text-[0.58rem] text-[#b8963e]">
                       <span>Tap for details</span>
                       <ExternalLink className="w-2.5 h-2.5" />
                     </div>
@@ -252,13 +268,13 @@ function MobileHorizontalScroll() {
             ))}
           </div>
 
-          <div className="flex justify-center mt-5">
+          <div className="flex justify-center mt-6">
             <motion.span
-              className="text-[0.55rem] text-[#7a7a9a]/40 uppercase tracking-[0.15em]"
+              className="smallcaps text-[0.52rem] text-[#7a7a9a]/50 tabular"
               animate={{ opacity: [0.2, 0.6, 0.2] }}
               transition={{ duration: 2.5, repeat: Infinity }}
             >
-              ↓ Scroll to browse talks ↓
+              — scroll to browse —
             </motion.span>
           </div>
         </div>
@@ -285,29 +301,30 @@ export function InvitedTalks() {
   return (
     <section id="invited-talks" className="scroll-mt-20">
       <motion.div
-        className="pt-16 md:pt-24 mb-4"
+        className="section-pad pb-4"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="max-w-[1100px] mx-auto px-6 md:px-8">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#b8963e]">Speaking</span>
-            <div className="h-px w-10 bg-[#b8963e]" />
+        <div className="max-w-[1280px] mx-auto px-8 md:px-12">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="rule-gold-short" />
+            <span className="smallcaps text-[0.68rem] text-[#b8963e]">Speaking</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-[3rem] font-serif font-light text-[#0d1b2a] leading-[1.15]">
+          <h2 className="display-section text-[#0d1b2a]">
             Invited <em className="italic text-[#b8963e]">Talks</em>
           </h2>
-          <p className="mt-6 text-base text-[#7a7a9a] font-serif max-w-2xl">
-            Sharing knowledge and inspiring the next generation of researchers through invited lectures at leading institutions across India.
+          <p className="mt-8 body-luxe font-serif font-light text-[1.1rem] text-[#3d3d5c] max-w-2xl">
+            Sharing knowledge and inspiring the next generation of researchers through invited lectures
+            at leading institutions across India.
           </p>
         </div>
       </motion.div>
 
       <MobileHorizontalScroll />
 
-      <div className="hidden md:block max-w-[1100px] mx-auto px-8">
+      <div className="hidden md:block max-w-[1280px] mx-auto px-8 md:px-12">
         {talks.map((talk, i) => (
           <DesktopTalkCard
             key={i}
@@ -319,24 +336,24 @@ export function InvitedTalks() {
         ))}
       </div>
 
-      <div className="max-w-[1100px] mx-auto px-6 md:px-8 pt-4 pb-16">
+      <div className="max-w-[1280px] mx-auto px-8 md:px-12 pt-4 pb-24">
         <motion.div
-          className="hover-glow flex items-center gap-4 p-5 md:p-6 border border-[rgba(184,150,62,0.25)] bg-white/50 cursor-default rounded-sm"
+          className="flex items-center gap-6 py-10 px-10 border-t border-b border-[rgba(184,150,62,0.2)]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
           <img
             src={img6}
             alt="With students"
-            className="w-12 h-12 md:w-14 md:h-14 object-cover shrink-0"
-            style={{ borderRadius: "50%" }}
+            className="w-14 h-14 md:w-16 md:h-16 object-cover shrink-0 rounded-full"
           />
-          <p className="text-sm font-serif italic text-[#3d3d5c] leading-relaxed">
-            "Knowledge grows when shared. Every talk is an opportunity to plant seeds of curiosity in young minds."
+          <p className="font-serif italic font-light text-[1.05rem] md:text-[1.2rem] text-[#3d3d5c] leading-[1.5]">
+            &ldquo;Knowledge grows when shared. Every talk is an opportunity to plant seeds of curiosity
+            in young minds.&rdquo;
           </p>
-          <span className="text-xs text-[#7a7a9a] shrink-0 hidden sm:block">— N.L. Swathi</span>
+          <span className="smallcaps text-[0.62rem] text-[#7a7a9a] shrink-0 hidden sm:block">— N.L. Swathi</span>
         </motion.div>
       </div>
     </section>

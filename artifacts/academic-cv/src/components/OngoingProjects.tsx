@@ -1,18 +1,97 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Section } from "./Section";
 import { cvData } from "@/data";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import VanillaTilt from "vanilla-tilt";
 
 const MOBILE_INITIAL_COUNT = 4;
 
-const statusColors: Record<string, string> = {
-  "Under Production": "bg-[rgba(184,150,62,0.12)] text-[#b8963e] border-[rgba(184,150,62,0.3)]",
-  "Preprint": "bg-[rgba(184,150,62,0.12)] text-[#b8963e] border-[rgba(184,150,62,0.3)]",
-  "Accepted": "bg-[rgba(34,139,34,0.1)] text-[#228b22] border-[rgba(34,139,34,0.3)]",
-  "Under Review": "bg-[rgba(70,130,180,0.1)] text-[#4682b4] border-[rgba(70,130,180,0.3)]",
-  "Ongoing": "bg-[rgba(184,150,62,0.12)] text-[#b8963e] border-[rgba(184,150,62,0.3)]",
+const statusTone: Record<string, string> = {
+  "Under Production": "text-[#b8963e]",
+  "Preprint": "text-[#b8963e]",
+  "Accepted": "text-[#2f7d4f]",
+  "Under Review": "text-[#4a6c95]",
+  "Ongoing": "text-[#b8963e]",
 };
+
+function ProjectCard({ project, i, total, hidden }: {
+  project: typeof cvData.projects[0];
+  i: number;
+  total: number;
+  hidden: boolean;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const hasHover = window.matchMedia("(hover: hover)").matches;
+    if (!hasHover) return;
+
+    VanillaTilt.init(el, {
+      max: 3,
+      speed: 700,
+      glare: false,
+      scale: 1.005,
+      perspective: 1600,
+    } as any);
+
+    return () => {
+      (el as any).vanillaTilt?.destroy();
+    };
+  }, []);
+
+  const tone = statusTone[project.status] || "text-[#b8963e]";
+
+  return (
+    <motion.div
+      ref={ref}
+      className={`group relative overflow-hidden border border-[rgba(184,150,62,0.18)] bg-white/40 p-10 md:p-12 transition-colors duration-700 hover:border-[rgba(184,150,62,0.5)] hover:bg-white/70 ${
+        hidden ? "hidden md:block" : ""
+      }`}
+      style={{ transformStyle: "preserve-3d", minHeight: "280px" }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.9, delay: Math.min(i * 0.06, 0.3), ease: [0.22, 1, 0.36, 1] }}
+      data-cursor="link"
+    >
+      <div className="flex items-start justify-between mb-8">
+        <p className="smallcaps text-[0.62rem] text-[#b8963e]/80 tabular">
+          Project {String(i + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+        </p>
+        <span className={`smallcaps text-[0.58rem] tabular ${tone}`}>
+          · {project.status}
+        </span>
+      </div>
+
+      <h3 className="font-serif text-[1.35rem] md:text-[1.55rem] font-light text-[#0d1b2a] leading-[1.3] group-hover:text-[#0d1b2a] mb-6 tracking-[-0.005em] transition-transform duration-700 group-hover:-translate-y-[2px]">
+        {project.title}
+      </h3>
+
+      {project.link && (
+        <motion.a
+          href={project.link}
+          target="_blank"
+          rel="noreferrer"
+          className="link-draw smallcaps text-[0.68rem] text-[#b8963e] inline-block mt-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          data-cursor="link"
+        >
+          Preprint / DOI →
+        </motion.a>
+      )}
+
+      {/* Corner accent */}
+      <span
+        aria-hidden
+        className="absolute top-0 right-0 w-12 h-px bg-[#b8963e]/30 origin-right transition-transform duration-700 group-hover:scale-x-[1.6]"
+      />
+    </motion.div>
+  );
+}
 
 export function OngoingProjects() {
   const [showAll, setShowAll] = useState(false);
@@ -21,57 +100,27 @@ export function OngoingProjects() {
 
   return (
     <Section id="projects" subtitle="Current Work" title="Ongoing" titleAccent="Projects">
-      <div className="space-y-0">
+      <div className="grid md:grid-cols-2 gap-6 md:gap-8">
         {projects.map((project, i) => (
-          <motion.div
+          <ProjectCard
             key={i}
-            className={`flex items-start gap-4 py-4 px-5 bg-white border border-[rgba(184,150,62,0.25)] rounded-sm mb-3 ${
-              !showAll && i >= MOBILE_INITIAL_COUNT ? "hidden md:flex" : ""
-            }`}
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-20px" }}
-            transition={{ duration: 0.4, delay: i * 0.04, ease: "easeOut" }}
-          >
-            <span
-              className={`status-badge inline-block px-3 py-1 text-[0.65rem] font-medium uppercase tracking-[0.08em] border rounded-sm shrink-0 mt-0.5 cursor-default whitespace-nowrap ${
-                statusColors[project.status] || "bg-gray-100 text-gray-700 border-gray-200"
-              }`}
-            >
-              {project.status}
-            </span>
-            <div className="flex-1 min-w-0">
-              <span className="text-[0.85rem] text-[#3d3d5c] leading-relaxed">
-                {project.title}
-              </span>
-              {project.link && (
-                <>
-                  {" — "}
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="link-underline inline-flex items-center gap-1 text-sm text-[#b8963e] hover:underline transition-colors"
-                  >
-                    Link
-                  </a>
-                </>
-              )}
-            </div>
-          </motion.div>
+            project={project}
+            i={i}
+            total={projects.length}
+            hidden={!showAll && i >= MOBILE_INITIAL_COUNT}
+          />
         ))}
       </div>
 
       {hasMore && (
-        <div className="md:hidden flex justify-center mt-6">
+        <div className="md:hidden flex justify-center mt-10">
           <button
             onClick={() => setShowAll(!showAll)}
-            className="flex items-center gap-2 px-6 py-3 border border-[rgba(184,150,62,0.35)] text-sm font-medium text-[#b8963e] hover:bg-[rgba(184,150,62,0.08)] transition-all duration-300 rounded-sm"
+            className="inline-flex items-center gap-2 smallcaps text-[0.7rem] text-[#b8963e]"
+            data-cursor="link"
           >
-            {showAll ? "Show Less" : `View All ${projects.length} Projects`}
-            <ChevronDown
-              className={`w-4 h-4 transition-transform duration-300 ${showAll ? "rotate-180" : ""}`}
-            />
+            {showAll ? "Show less" : `View all ${projects.length}`}
+            <ChevronDown className={`w-3 h-3 transition-transform duration-500 ${showAll ? "rotate-180" : ""}`} />
           </button>
         </div>
       )}
